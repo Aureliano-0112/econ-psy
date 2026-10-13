@@ -108,21 +108,22 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   padding: clamp(1.6rem, 5vw, 3.2rem) clamp(1rem, 4vw, 2.5rem) 6rem;
 }
 .wrap:focus { outline: none; }
-/* 课程页：不设版心上限，内边距与顶栏对齐；三栏块本身居中，多余宽度对称留在两侧 */
+/* 课程页：横向不设内边距——左右栏贴屏幕两端，多余宽度全部落在栏与栏之间的空隙里。
+   （顶层栏保持自身内边距不变；目录/术语表/学习路径页仍用 --wrap 居中版心。） */
 .wrap-lesson {
   max-width: none;
-  padding-left: clamp(1.25rem, 5vw, 3.125rem);
-  padding-right: clamp(1.25rem, 5vw, 3.125rem);
+  padding-left: 0;
+  padding-right: 0;
 }
 
 /* ---- 课程页三栏：左＝本模块（当前阶段）讲次 ｜ 中＝正文（居中） ｜ 右＝本讲段落 ----
-   三条轨道均为流体宽度（clamp/vw），栏宽与栏距随视口连续变化；
-   justify-content: center 让整个三栏块居中，多余宽度对称分到两侧——
-   超宽屏不会出现「左右栏贴窗口、正文两侧留大片空洞」的情形。 */
+   三条轨道宽度均为流体（clamp/vw），栏宽与栏距随视口连续变化，任何屏宽下比例恒定；
+   justify-content: space-between 把首尾轨道分别顶到左右两端、把多余宽度平均分给两处栏间距，
+   于是「左右栏贴屏幕边、留空在三栏中间、正文因两栏等宽而保持居中」三者同时成立。 */
 .lesson-layout {
   display: grid;
   grid-template-columns: var(--rail-w) minmax(0, var(--read-w)) var(--rail-w);
-  justify-content: center;
+  justify-content: space-between;
   gap: 2.5rem var(--gap-x);
   align-items: start;
 }
@@ -313,10 +314,15 @@ fieldset.quiz-q:first-of-type { border-top: 0; }
 
 @media (max-width: 60rem) {
   /* 再窄：三栏放不下，改单栏（讲次前后链接仍在文末）。
-     单栏时横向不再有竞争，正文直接用阅读栏宽 --measure（≤640 时该 token 变 100%，自然填满）。 */
-  .lesson-layout { grid-template-columns: minmax(0, 1fr); }
+     单栏时横向不再有竞争，正文直接用阅读栏宽 --measure（≤640 时该 token 变 100%）。
+     同时把课程页的横向内边距加回来——此时没有侧栏贴边，正文需要与屏幕保持呼吸空间。 */
+  .lesson-layout { grid-template-columns: minmax(0, 1fr); justify-content: normal; }
   .rail-module, .rail-toc { display: none; }
   .lesson-main { max-width: var(--measure); }
+  .wrap-lesson {
+    padding-left: clamp(1.25rem, 5vw, 3.125rem);
+    padding-right: clamp(1.25rem, 5vw, 3.125rem);
+  }
 }
 
 @media (max-width: 640px) {
