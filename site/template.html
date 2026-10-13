@@ -9,23 +9,27 @@
 <link rel="stylesheet" href="{{ROOT}}styles.css">
 </head>
 <body>
-<div class="tick-progress" aria-hidden="true"><span id="tickBar"></span></div>
 <a class="skip-link" href="#main">跳到正文</a>
+<div class="readbar" aria-hidden="true"><span class="readbar-fill" id="tickBar"></span></div>
 <header class="topbar">
-  <a class="brand" href="{{ROOT}}index.html"><span class="brand-mark">E×P</span><span class="brand-name">经济学 × 心理学</span></a>
+  <a class="brand" href="{{ROOT}}index.html"><span class="brand-mark" aria-hidden="true">E×P</span><span class="brand-name">经济学 × 心理学</span></a>
   <nav class="nav" aria-label="站点导航">
-    <a href="{{ROOT}}index.html">目录</a>
-    <a href="{{ROOT}}glossary/index.html">术语表</a>
-    <a href="{{ROOT}}paths/index.html">学习路径</a>
+    <a href="{{ROOT}}index.html"{{NAV_HOME}}>目录</a>
+    <a href="{{ROOT}}glossary/index.html"{{NAV_GLOSSARY}}>术语表</a>
+    <a href="{{ROOT}}paths/index.html"{{NAV_PATHS}}>学习路径</a>
   </nav>
-  <p class="progress-mini" id="progressMini" aria-live="polite"></p>
+  <div class="readout" id="progressMini" aria-live="polite"></div>
 </header>
 <main id="main" class="{{MAIN_CLASS}}" tabindex="-1">
 {{CONTENT}}
 </main>
 <footer class="foot">
-  <p class="foot-line">纯静态站点 · 无后端、无账号</p>
-  <p class="foot-note">学习进度只存在本机浏览器（localStorage），不上传任何数据。</p>
+  <div class="foot-row">
+    <p class="foot-colophon">经济学 × 心理学 · 交叉学科自学课程</p>
+    <dl class="foot-stats">{{FOOT_STATS}}</dl>
+  </div>
+  <p class="foot-note">纯静态站点 · 无后端、无账号 · 学习进度只存在本机浏览器（localStorage），不上传任何数据。</p>
+  <p class="foot-log">{{FOOT_LOG}}</p>
 </footer>
 <script src="{{ROOT}}progress.js"></script>
 <script src="{{ROOT}}data.js"></script>

@@ -1,41 +1,70 @@
 /* styles.css — 站点样式（派生层：只负责呈现，不承载任何课程内容）
-   设计方向：瑞士国际主义（网格 / 大字阶层级 / 齐左 / 强留白 / 单强调色）
-             ＋ 编辑杂志（栏目眉标 / 导语 / 引文 / 页边编号）
-             ＋ 行为实验室（等宽数字 / 刻度尺 / 网格线 / 标本式标注）
-   质量底线：移动端可用、键盘焦点可见、尊重 prefers-reduced-motion、可打印。 */
+ *
+ * 设计方向（AGENTS.md §12.1，人类已拍板）：瑞士国际主义（网格 / 大字阶层级 / 齐左 / 强留白 / 单一强调色）
+ *   ＋ 编辑杂志（栏目眉标 / 衬线导语 / 页边编号 / 标本式信息卡）
+ *   ＋ 行为实验室（等宽数字 / 阅读进度条 / 网格线 / 数据化标注）
+ *
+ * 签名元素（全站唯一贯穿的东西）：**整页是一份「被测量并标注过的记录」**——
+ *   · 视口顶端常驻一条阅读进度条（.readbar），红条长度即本页已读量；
+ *   · 正文章节标题在细线上开一个缺口、挂上 § NN 编号（CSS 计数器生成，不写进 phases/**）；
+ *   · 讲次的编号以大号等宽数字盖在标题之上，作为标本签。
+ * 其余一切都保持安静：靠细线与留白成结构，不靠色块与阴影。
+ *
+ * 三个字体角色各司其职：
+ *   --serif 阅读（正文 / 标题 / 导语）　--sans 外壳（顶栏 / 页脚 / 侧栏 / 表格表头）　--mono 数据（编号 / 标签 / 读数）
+ * 一律系统字体，不依赖网络字体。
+ *
+ * 质量底线：移动端可用、键盘焦点可见、尊重 prefers-reduced-motion、可打印。 */
+
+/* ============================================================ 1. 设计 token */
 
 :root {
-  /* 色彩：冷调纸白 + 近黑墨 + 单一信号红，靠细线而非色块做结构 */
-  --paper:      #F3F3F0;
-  --surface:    #FFFFFF;
-  --ink:        #11151A;
+  /* —— 色彩（AGENTS.md §12.1 已拍板，不得更改）—— */
+  --paper:      #F3F3F0;   /* 纸张：冷调纸白 */
+  --ink:        #11151A;   /* 墨：近黑 */
+  --rule:       #D7D8D2;   /* 规线 */
+  --accent:     #CE2E17;   /* 唯一强调色：信号红——只用于当前项、键盘焦点与关键判定 */
+  --ok:         #1B6E45;
+  --warn:       #8A5A00;
+
+  /* —— 色彩（派生）—— */
+  --surface:    #FFFFFF;   /* 卡片纸 */
+  --paper-2:    #EAEAE5;   /* 内嵌区块纸色 */
   --ink-2:      #3A3F46;
-  --muted:      #6E7379;
-  --rule:       #D7D8D2;
+  --muted:      #5F646A;   /* 小号等宽字也够用：对 --paper 对比度 ≈ 5.3:1 */
   --rule-2:     #B4B6AF;
-  --accent:     #CE2E17;
   --accent-ink: #FFFFFF;
   --accent-soft:#F7E6E1;
-  --ok:         #1B6E45;
   --ok-soft:    #E2F0E7;
-  --warn:       #8A5A00;
   --warn-soft:  #F6ECD6;
+  --warn-line:  #E4D3A8;
+  --code-bg:    #E9E9E3;
 
-  /* 字体：不依赖网络字体；正文用宋体（衬线），界面外壳用系统无衬线，数据用等宽 */
-  --sans:  "Inter", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  /* —— 字体三栈：系统字体优先，不加载网络字体 —— */
   --serif: "Songti SC", "SimSun", "Noto Serif SC", "Source Han Serif SC", Georgia, "Times New Roman", serif;
-  --mono:  ui-monospace, "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+  --sans:  "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  --mono:  ui-monospace, "SFMono-Regular", "Cascadia Mono", Consolas, "Liberation Mono", monospace;
 
-  --wrap: 68rem;
-  /* 课程页三栏为流体：几何尺寸随视口连续缩放，夹在可读上下限内。
-     这样任何屏宽下三栏的比例恒定，不会出现某一档宽度「位置和大小不对」的死区；
-     超宽屏由整个三栏块居中收缩来吸收多余宽度，而不是把栏拉到窗口两端留出大片空洞。 */
-  --rail-w: clamp(10.5rem, 16.6vw, 15rem);   /* 左右栏：≤1440 时约 15rem（= 原 12rem 的 1.25 倍），超宽屏封顶 */
-  --read-w: clamp(30rem, 46vw, 50rem);       /* 中栏正文行宽：随视口缩放（1440 时 ≈ 662px，约 35 个汉字） */
-  --gap-x:  clamp(1.25rem, 2.2vw, 2rem);     /* 栏间距 */
-  --measure: 36rem;      /* 正文阅读栏宽 */
-  --bar-h: 4.7rem;       /* 顶栏最小高度 = 原单行高度（约 3.75rem）的 1.25 倍 */
-  --radius: 2px;         /* 瑞士风格：近乎直角 */
+  /* —— 版式（AGENTS.md §12.1 已拍板）—— */
+  --wrap:   68rem;                              /* 目录 / 术语 / 路径页的固定版心 */
+  --rail-w: clamp(10.5rem, 16.6vw, 15rem);      /* 课程页左右栏：流体 */
+  --read-w: clamp(30rem, 46vw, 50rem);          /* 课程页中栏正文行宽：流体 */
+  --gap-x:  clamp(1.25rem, 2.2vw, 2rem);        /* 课程页栏间距：流体 */
+  --measure: 36rem;                             /* 单栏模式下的阅读栏宽 */
+  --bar-h:   4.7rem;                            /* 顶栏最小高度 */
+  --radius:  2px;                               /* 瑞士风格：近乎直角 */
+
+  /* —— 版式（派生）—— */
+  --readbar-h: 3px;                             /* 顶部阅读进度条高度 */
+  --pad-x:   clamp(1.25rem, 5vw, 3.125rem);     /* 顶栏 / 页脚的横向内边距 */
+  --gutter:  clamp(1rem, 4vw, 2.5rem);          /* 目录/术语/路径页（.wrap）的横向内边距：配合 68rem 版心居中 */
+  --rail-pad: clamp(1rem, 2.6vw, 2.25rem);      /* 课程页（.wrap-lesson）通铺全屏时与窗口边缘的少量留白 */
+  --sec-gap: clamp(2.4rem, 5vw, 3.5rem);        /* 章节之间的节奏 */
+  --fs-h1:   clamp(2.1rem, 5.6vw, 3.45rem);
+  --fs-h2:   clamp(1.29rem, 1.16rem + .5vw, 1.42rem);
+  --fs-h3:   1.15rem;
+  --fs-lede: clamp(1.18rem, 1.06rem + .62vw, 1.44rem);
+  --fs-label: .74rem;                           /* 等宽标注字号 */
 }
 
 * { box-sizing: border-box; }
@@ -46,78 +75,203 @@ body {
   margin: 0;
   background: var(--paper);
   color: var(--ink);
-  font: 19px/1.76 var(--serif);   /* 正文字体：宋体优先（字号整体放大） */
-  font-variant-numeric: tabular-nums;
+  font: 19px/1.76 var(--serif);
+  font-variant-numeric: tabular-nums;   /* 全站等宽数字：行为实验室的读数感 */
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* 界面外壳（顶栏、页脚、控件、侧栏）仍用无衬线：宋体只承担阅读正文 */
-.topbar, .foot, .search, .rail, .quiz .notice { font-family: var(--sans); }
+::selection { background: var(--accent); color: var(--accent-ink); }
 
-a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--rule-2); }
-a:hover { text-decoration-color: var(--accent); color: var(--accent); }
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: .18em;
+  text-decoration-color: var(--rule-2);
+}
+a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+#main:focus { outline: none; }        /* 软导航后的程序化聚焦，不画整页焦点框 */
 
-/* 键盘跳转 */
-.skip-link { position: absolute; left: -999px; top: 0; background: var(--ink); color: #fff; padding: .5rem .9rem; z-index: 30; }
-.skip-link:focus { left: .5rem; top: .5rem; }
-
-/* 顶部阅读刻度尺（行为实验室的测量隐喻） */
-.tick-progress {
-  position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 20;
-  background:
-    repeating-linear-gradient(90deg, var(--rule-2) 0 1px, transparent 1px 16px) center bottom/100% 3px no-repeat,
-    var(--rule);
+.skip-link {
+  position: absolute; left: -999px; top: 0; z-index: 40;
+  background: var(--ink); color: var(--paper); text-decoration: none;
+  font-family: var(--mono); font-size: var(--fs-label); letter-spacing: .1em;
+  padding: .6rem .9rem;
 }
-.tick-progress::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, var(--rule) 0 1px, transparent 1px 4px); opacity: .5; }
-.tick-progress > span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .12s linear; }
+.skip-link:focus { left: .75rem; top: calc(var(--readbar-h) + .75rem); }
 
-/* ---- 顶栏 ---- */
+/* ============================================================ 2. 顶部阅读进度条 */
+
+/* 常驻视口顶端的一条细条：轨道取规线色、填充取强调色，长度 = 本页已读量。
+   顶栏 sticky 于 top:0，仅被这条 3px 压住上沿——顶栏自身上内边距远大于此值，内容不受遮。
+   刻意用长手写属性而非 `inset` 简写：空元素若 left/right 未生效会塌成 0 宽而整条不可见。 */
+.readbar {
+  position: fixed; top: 0; left: 0; right: 0; width: 100%; height: var(--readbar-h); z-index: 20;
+  background: var(--rule);
+}
+.readbar-fill {
+  display: block; position: absolute; left: 0; bottom: 0;
+  height: 100%; width: 0;
+  background: var(--accent);
+  transition: width .1s linear;
+}
+
+/* ============================================================ 3. 顶栏（外壳） */
+
 .topbar {
   position: sticky; top: 0; z-index: 10;
-  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.4rem;
-  min-height: var(--bar-h);                    /* 顶栏高度：原单行高度的 1.25 倍 */
-  padding: .875rem clamp(1.25rem, 5vw, 3.125rem);   /* 原 .7rem / clamp(1rem,4vw,2.5rem) 的 1.25 倍 */
-  background: var(--paper);
-  background: color-mix(in srgb, var(--paper) 92%, transparent);
-  backdrop-filter: blur(8px);
+  display: flex; flex-wrap: wrap; align-items: center; gap: .55rem 1.6rem;
+  min-height: var(--bar-h);
+  padding: .875rem var(--pad-x);
+  background: color-mix(in srgb, var(--paper) 94%, transparent);
+  backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--ink);
+  font-family: var(--sans);
 }
-.brand { display: inline-flex; align-items: baseline; gap: .55rem; text-decoration: none; color: var(--ink); }
-.brand:hover { text-decoration: none; color: var(--ink); }
-.brand-mark { font-family: var(--mono); font-weight: 700; font-size: 1.06rem; letter-spacing: .04em; background: var(--ink); color: var(--paper); padding: .1rem .4rem; }
-.brand-name { font-weight: 700; letter-spacing: .01em; }
-.nav { display: flex; flex-wrap: wrap; gap: .2rem 1.1rem; font-size: 1rem; }
-.nav a { text-decoration: none; color: var(--ink-2); padding: .15rem 0; border-bottom: 1.5px solid transparent; }
-.nav a:hover { color: var(--ink); border-bottom-color: var(--accent); }
-.progress-mini { margin: 0 0 0 auto; font-family: var(--mono); font-size: .88rem; color: var(--muted); letter-spacing: .01em; }
 
-.tools { display: flex; flex-wrap: wrap; gap: .4rem; }
+.brand { display: inline-flex; align-items: baseline; gap: .6rem; text-decoration: none; color: var(--ink); }
+.brand:hover { color: var(--ink); text-decoration: none; }
+.brand-mark {
+  font-family: var(--mono); font-weight: 700; font-size: .95rem; letter-spacing: .06em;
+  background: var(--ink); color: var(--paper); padding: .2rem .42rem; line-height: 1.55;
+}
+.brand-name { font-weight: 600; font-size: 1.02rem; letter-spacing: .01em; }
+
+.nav { display: flex; flex-wrap: wrap; gap: .2rem 1.4rem; font-size: .98rem; }
+.nav a { position: relative; text-decoration: none; color: var(--ink-2); padding: .15rem 0; }
+.nav a::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: -.18rem; height: 2px; background: transparent;
+}
+.nav a:hover { color: var(--ink); }
+.nav a:hover::after { background: var(--rule-2); }
+/* 当前栏目：只有一条强调色规线，不加图标、不加底色 */
+.nav a[aria-current="page"] { color: var(--ink); font-weight: 600; }
+.nav a[aria-current="page"]::after { background: var(--accent); }
+
+/* 进度读数：等宽数字，安静地待在右端 */
+.readout {
+  margin: 0 0 0 auto;
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .1rem .55rem;
+  font-family: var(--mono); font-size: .78rem; color: var(--muted); letter-spacing: .02em;
+}
+.readout b { font-weight: 600; color: var(--ink); }
+.readout:empty { display: none; }
+
+.tools { display: flex; flex-wrap: wrap; gap: .35rem; }
 .tools button {
-  font: inherit; font-size: .92rem; font-family: var(--mono);
-  padding: .3rem .7rem; border: 1px solid var(--rule-2); background: var(--surface);
+  font-family: var(--mono); font-size: var(--fs-label); letter-spacing: .04em;
+  padding: .34rem .62rem; border: 1px solid var(--rule-2); background: var(--surface);
   color: var(--ink-2); border-radius: var(--radius); cursor: pointer;
 }
 .tools button:hover { border-color: var(--ink); color: var(--ink); }
 
-/* ---- 主体网格 ---- */
+/* ============================================================ 4. 版心容器 */
+
 .wrap {
   max-width: var(--wrap);
   margin: 0 auto;
-  padding: clamp(1.6rem, 5vw, 3.2rem) clamp(1rem, 4vw, 2.5rem) 6rem;
+  padding: clamp(2rem, 5vw, 3.4rem) var(--gutter) 6rem;
 }
-.wrap:focus { outline: none; }
-/* 课程页：横向不设内边距——左右栏贴屏幕两端，多余宽度全部落在栏与栏之间的空隙里。
-   （顶层栏保持自身内边距不变；目录/术语表/学习路径页仍用 --wrap 居中版心。） */
-.wrap-lesson {
-  max-width: none;
-  padding-left: 0;
-  padding-right: 0;
+/* 两种横向策略，按页面类型切分——各自**只**用在指定页面上，不混用：
+   · 目录 / 术语 / 路径页 → .wrap：68rem 版心居中 ＋ --gutter 内边距；
+   · 课程页              → .wrap.wrap-lesson：不设版心上限（通铺全屏）＋ --rail-pad 留白，
+                            三栏由 .lesson-layout 的 space-between 撑开。
+   切换页面时策略随之切换：app.js 的 swapFrom() 会整份替换 #main 的 class（AGENTS.md §12.3 第 5 条）。 */
+.wrap-lesson { max-width: none; padding-left: var(--rail-pad); padding-right: var(--rail-pad); }
+
+/* ============================================================ 5. 刊头（编辑杂志的栏目头） */
+
+.masthead { margin: 0 0 clamp(2rem, 4vw, 2.8rem); }
+
+/* 眉标行：左＝栏目身份，右＝本期读数；下面那条细线就是刊头线 */
+.masthead-top {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .3rem 1.2rem;
+  padding-bottom: .5rem; border-bottom: 1px solid var(--ink);
+  font-family: var(--mono); font-size: var(--fs-label);
+  letter-spacing: .1em; text-transform: uppercase;
+}
+.kicker { color: var(--accent); }
+.masthead-code { margin-left: auto; color: var(--muted); }
+
+/* 标本签：讲次编号以大号等宽数字盖在标题之上（纯呈现，讲次信息另见数据条） */
+.catalog-no {
+  margin: clamp(.9rem, 2vw, 1.35rem) 0 .35rem;
+  font-family: var(--mono); font-weight: 600; font-size: clamp(1.45rem, 3.2vw, 2rem);
+  line-height: 1.1; letter-spacing: .04em; color: var(--accent);
 }
 
-/* ---- 课程页三栏：左＝本模块（当前阶段）讲次 ｜ 中＝正文（居中） ｜ 右＝本讲段落 ----
-   三条轨道宽度均为流体（clamp/vw），栏宽与栏距随视口连续变化，任何屏宽下比例恒定；
+h1 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: var(--fs-h1); line-height: 1.14; letter-spacing: -.012em;
+  margin: 0; text-wrap: balance;
+}
+
+.standfirst {
+  font-family: var(--serif); font-size: var(--fs-lede); line-height: 1.62;
+  color: var(--ink-2); margin: clamp(.85rem, 2vw, 1.15rem) 0 0;
+  text-wrap: pretty;
+}
+
+/* 数据条：标本式读数组——一套结构，两处使用（讲次元数据 / 目录统计） */
+.data-strip {
+  display: grid;
+  margin: clamp(1.4rem, 3vw, 2rem) 0 0;
+  border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink);
+  font-family: var(--sans);
+}
+.data-strip > div { padding: .6rem .75rem .65rem; border-right: 1px solid var(--rule); min-width: 0; }
+.data-strip > div:first-child { padding-left: 0; }
+.data-strip > div:last-child { border-right: 0; padding-right: 0; }
+.data-strip dt {
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .13em; text-transform: uppercase;
+  color: var(--muted); margin: 0 0 .3rem;
+}
+.data-strip dd {
+  margin: 0; font-family: var(--mono); font-size: .95rem; color: var(--ink);
+  overflow-wrap: anywhere;
+}
+.data-strip dd a { color: var(--ink); text-decoration-color: var(--rule-2); }
+.data-strip dd a:hover { color: var(--accent); }
+.specimen     { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.readout-strip{ grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+/* 检索行：一条线 + 一个等宽标签，安静得像实验记录纸上的填写栏 */
+.find {
+  display: flex; align-items: baseline; gap: .9rem;
+  margin: clamp(1.3rem, 3vw, 1.8rem) 0 0;
+  padding-bottom: .45rem; border-bottom: 1px solid var(--ink);
+  transition: box-shadow .12s ease;
+}
+.find:focus-within { box-shadow: inset 0 -3px 0 var(--accent); }   /* 键盘焦点：整条线加粗为强调色 */
+.find label {
+  font-family: var(--mono); font-size: var(--fs-label); letter-spacing: .13em;
+  text-transform: uppercase; color: var(--muted); white-space: nowrap;
+}
+.search {
+  flex: 1; min-width: 0; padding: .12rem 0;
+  border: 0; background: transparent; border-radius: 0;
+  font-family: var(--sans); font-size: 1rem; color: var(--ink);
+}
+.search::placeholder { color: var(--muted); }
+.search:focus, .search:focus-visible { outline: none; }
+
+.lesson-status {
+  display: flex; align-items: center; gap: .55rem;
+  margin: clamp(1rem, 2.5vw, 1.4rem) 0 0;
+  font-family: var(--mono); font-size: .78rem; letter-spacing: .04em; color: var(--muted);
+}
+.lesson-status:empty { display: none; }
+.status-mark { flex: none; width: .6rem; height: .6rem; background: var(--rule-2); border-radius: var(--radius); }
+.lesson-status[data-status="reading"] .status-mark,
+.lesson-status[data-status="quizzed"] .status-mark { background: var(--warn); }
+.lesson-status[data-status="done"]    .status-mark { background: var(--ok); }
+
+/* ============================================================ 6. 课程页三栏（AGENTS.md §12.2） */
+
+/* 三条轨道宽度均为流体（clamp/vw），栏宽与栏距随视口连续变化，任何屏宽下比例恒定；
    justify-content: space-between 把首尾轨道分别顶到左右两端、把多余宽度平均分给两处栏间距，
    于是「左右栏贴屏幕边、留空在三栏中间、正文因两栏等宽而保持居中」三者同时成立。 */
 .lesson-layout {
@@ -127,29 +281,29 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   gap: 2.5rem var(--gap-x);
   align-items: start;
 }
-/* 中栏宽度由中间轨道决定，这里不再另设上限，避免两处各写一份宽度 */
 .lesson-main { width: 100%; max-width: none; margin: 0 auto; }
 
 .rail {
   position: sticky; top: calc(var(--bar-h) + 1.4rem);
   max-height: calc(100vh - var(--bar-h) - 3rem);
-  overflow-y: auto; font-size: .92rem; line-height: 1.5;
+  overflow-y: auto;
+  font-family: var(--sans); font-size: .92rem; line-height: 1.5;
 }
 .rail-title {
   display: flex; flex-direction: column; gap: .1rem;
   margin: 0 0 .55rem; padding-bottom: .45rem; border-bottom: 1px solid var(--ink);
-  font-family: var(--mono); font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
 }
 .rail-title span:first-child { color: var(--accent); }
 .rail-list, .toc-list { list-style: none; margin: 0; padding: 0; }
 .rail-list li, .toc-list li { margin: 0; }
 .rail-list a, .toc-list a {
   display: grid; gap: .45rem; align-items: baseline;
-  text-decoration: none; color: var(--ink-2);
+  text-decoration: none; color: var(--ink-2); transition: background .12s ease;
 }
-/* 左栏：编号在前、内容齐左，贴屏幕左缘 */
+/* 左栏：编号在前、内容齐左，切齐三栏布局左缘（贴近窗口左缘，仅隔 --rail-pad） */
 .rail-list a { grid-template-columns: 2.2rem 1fr; padding: .34rem .4rem .34rem .55rem; border-left: 2px solid transparent; }
-/* 右栏镜像左栏：编号在后、内容齐右，贴屏幕右缘。
+/* 右栏镜像左栏：编号在后、内容齐右，切齐三栏布局右缘（贴近窗口右缘，仅隔 --rail-pad）。
    两栏内容各自切齐所在侧的真边缘，合起来才是页面左右对称的「边框」；
    若右栏仍沿左对齐，条目多半读不满一栏，右侧就会空出一条与左栏不对称的空白带。 */
 .toc-list a {
@@ -158,59 +312,42 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
 }
 .toc-list a .t-num { order: 1; }
 .rail-list a:hover, .toc-list a:hover { color: var(--accent); background: var(--surface); text-decoration: none; }
-.r-num, .t-num { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+.r-num, .t-num { font-family: var(--mono); font-size: .78rem; color: var(--muted); }
 .t-num { text-align: right; }
 .rail-list a.is-current { color: var(--ink); font-weight: 600; border-left-color: var(--accent); background: var(--surface); }
 .rail-list a.is-current .r-num { color: var(--accent); }
 .toc-list a.is-active { color: var(--accent); border-right-color: var(--accent); font-weight: 600; background: var(--surface); }
-/* 右栏眉标同样镜像，与左栏眉标左右对称 */
 .rail-toc .rail-title { align-items: flex-end; text-align: right; }
-.rail-foot { margin: .9rem 0 0; padding-top: .5rem; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: .78rem; }
+.rail-foot { margin: .9rem 0 0; padding-top: .5rem; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: .76rem; }
 .rail-foot a { color: var(--muted); text-decoration: none; }
 .rail-foot a:hover { color: var(--accent); }
 
-/* 板块眉标（编辑杂志的 kicker） */
-.kicker {
-  display: flex; align-items: center; gap: .7rem;
-  font-family: var(--mono); font-size: .85rem; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--accent); margin: 0 0 .9rem;
-}
-.kicker::after { content: ""; height: 1px; flex: 1; background: var(--rule-2); }
-.kicker .idx { color: var(--muted); }
+/* ============================================================ 7. 正文 */
 
-/* ---- 层级 ---- */
-h1 {
-  font-family: var(--serif); font-weight: 700;
-  font-size: clamp(2.1rem, 5.6vw, 3.45rem); line-height: 1.16;
-  letter-spacing: -.01em; margin: 0 0 .7rem;
-  text-wrap: balance;                     /* 长标题折行时两端长度接近，消除孤字 */
-}
-h2 { font-size: 1.36rem; line-height: 1.4; margin: 3rem 0 .8rem; position: relative; }
-h3 { font-size: 1.17rem; margin: 1.8rem 0 .5rem; }
-p { margin: .85rem 0; }
+h2 { font-size: var(--fs-h2); line-height: 1.4; font-weight: 700; margin: var(--sec-gap) 0 .8rem; }
+h3 { font-size: var(--fs-h3); line-height: 1.5; font-weight: 700; margin: 1.9rem 0 .5rem; }
+p  { margin: .85rem 0; }
+strong { font-weight: 700; }
+em { font-style: italic; }
 
-/* 课程页：正文章节编号（§ NN，与右侧段落导航同源；栏宽由 .lesson-main 约束） */
-.lesson-body { max-width: none; counter-reset: sec; }
+/* 章节标题：一条墨线，编号在线上开一个缺口——全站签名元素的第二部分。
+   编号由 CSS 计数器按 H2 出现顺序生成，**不得写进 phases/**（AGENTS.md §12.1）。 */
+.lesson-body { counter-reset: sec; }
 .lesson-body > h2 {
-  padding-top: .8rem; border-top: 1px solid var(--ink);
+  position: relative;
+  margin: var(--sec-gap) 0 .9rem;
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--ink);
   counter-increment: sec;
-  scroll-margin-top: calc(var(--bar-h) + 1.2rem);   /* 锚点跳转不被吸顶顶栏遮住 */
+  scroll-margin-top: calc(var(--bar-h) + 1.8rem);   /* 锚点跳转不被吸顶顶栏遮住 */
 }
 .lesson-body > h2::before {
   content: "§ " counter(sec, decimal-leading-zero);
-  display: block; font-family: var(--mono); font-size: .82rem; font-weight: 500;
-  letter-spacing: .16em; color: var(--accent); margin-bottom: .35rem;
+  position: absolute; top: 0; left: 0; transform: translateY(-50%);
+  padding-right: .85rem; background: var(--paper);
+  font-family: var(--mono); font-size: var(--fs-label); font-weight: 600;
+  letter-spacing: .14em; line-height: 1; color: var(--accent);
 }
-
-.lede, .standfirst { font-family: var(--serif); font-size: clamp(1.2rem, 2.6vw, 1.47rem); line-height: 1.62; color: var(--ink-2); margin: 0 0 1.4rem; }
-
-/* ---- 标本卡：讲次元数据（实验记录感） ---- */
-.specimen { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: 0; margin: 0 0 2.2rem; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
-.specimen div { padding: .55rem .2rem .6rem; border-right: 1px solid var(--rule); }
-.specimen div:last-child { border-right: 0; }
-.specimen dt { font-family: var(--mono); font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 .2rem; }
-.specimen dd { margin: 0; font-size: 1.02rem; font-family: var(--mono); color: var(--ink); }
-.lesson-status { font-family: var(--mono); font-size: .9rem; color: var(--muted); margin: .9rem 0 2rem; }
 
 blockquote {
   margin: 1.6rem 0; padding: .2rem 0 .2rem 1.4rem;
@@ -223,103 +360,269 @@ ul, ol { padding-left: 1.35rem; }
 li { margin: .35rem 0; }
 li::marker { color: var(--rule-2); }
 
-code { background: #ECECE7; padding: .08em .34em; border-radius: var(--radius); font-family: var(--mono); font-size: .88em; }
-pre { background: var(--ink); color: #EDEDE8; padding: 1rem 1.1rem; border-radius: var(--radius); overflow-x: auto; font-size: .96rem; line-height: 1.6; }
-pre code { background: none; color: inherit; padding: 0; }
+code {
+  background: var(--code-bg); padding: .08em .34em; border-radius: var(--radius);
+  font-family: var(--mono); font-size: .88em;
+}
+pre {
+  background: var(--ink); color: #EDEDE8; padding: 1rem 1.1rem;
+  border-radius: var(--radius); overflow-x: auto;
+  font-family: var(--mono); font-size: .96rem; line-height: 1.6;
+}
+pre code { background: none; color: inherit; padding: 0; font-size: 1em; }
+pre.mermaid { background: transparent; color: inherit; padding: 0; }
 
 table { width: 100%; border-collapse: collapse; margin: 1.4rem 0; font-size: 1.02rem; display: block; overflow-x: auto; }
 th, td { border-bottom: 1px solid var(--rule); padding: .5rem .65rem; text-align: left; vertical-align: top; }
-th { font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--ink); white-space: nowrap; }
+th {
+  font-family: var(--mono); font-size: .72rem; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); border-bottom: 1px solid var(--ink); white-space: nowrap;
+}
 
 hr { border: 0; border-top: 1px solid var(--rule); margin: 2rem 0; }
 
-/* ---- 目录页 ---- */
-.search {
-  width: 100%; max-width: 34rem; padding: .7rem .2rem; font: inherit;
-  border: 0; border-bottom: 2px solid var(--ink); background: transparent; border-radius: 0;
+/* ============================================================ 8. 测验（规则 5：作答前不得泄漏答案） */
+
+.quiz { margin: var(--sec-gap) 0 0; }
+.quiz > h2,
+.outputs > h2 {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1rem;
+  margin: 0 0 1rem; padding-top: .8rem;
+  border-top: 2px solid var(--ink);   /* 2px：这是另一种层级的东西（附录性质），与 §1px 章节线区分 */
 }
-.search::placeholder { color: var(--muted); }
-.search:focus { outline: none; border-bottom-color: var(--accent); }
-
-.module { margin: 2.6rem 0 0; }
-.module > h2 { display: flex; align-items: baseline; gap: .8rem; border-top: 2px solid var(--ink); padding-top: .7rem; margin: 0 0 .3rem; }
-.module > h2 .badge { margin-left: auto; }
-
-.lesson-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--rule); }
-.lesson-list li { margin: 0; }
-.lesson-card {
-  display: grid; grid-template-columns: 4.6rem 1fr; gap: .15rem 1rem; align-items: baseline;
-  padding: .8rem .3rem; border-bottom: 1px solid var(--rule);
-  text-decoration: none; color: var(--ink); transition: background .12s, padding-left .12s;
+.h2-meta {
+  margin-left: auto; font-family: var(--mono); font-size: var(--fs-label);
+  letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
 }
-.lesson-card:hover { background: var(--surface); padding-left: .8rem; text-decoration: none; }
-.lesson-card .c-id { font-family: var(--mono); font-size: .9rem; color: var(--muted); }
-.lesson-card .c-title { font-weight: 600; }
-.lesson-card .c-sum { grid-column: 2; color: var(--muted); font-size: .95rem; }
 
-.badge { display: inline-block; font-family: var(--mono); font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; padding: .1rem .45rem; border: 1px solid var(--rule-2); color: var(--ink-2); border-radius: 999px; }
-.badge.done { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
-.badge.reading { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
-.empty { color: var(--muted); font-style: italic; }
-
-/* ---- 课程导航 ---- */
-.lesson-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 3.5rem 0 0; padding-top: 1rem; border-top: 1px solid var(--ink); font-size: 1rem; }
-.lesson-nav a { text-decoration: none; display: block; }
-.lesson-nav a:hover { color: var(--accent); }
-.lesson-nav a:last-child { text-align: right; }
-
-/* ---- 测验 ---- */
-.quiz { margin: 3.5rem 0 0; max-width: none; }
-.quiz h2 { border-top: 1px solid var(--ink); padding-top: .8rem; }
 .quiz .notice {
-  font-size: .94rem; color: var(--warn); background: var(--warn-soft);
-  border: 1px solid #E4D3A8; padding: .55rem .8rem; border-radius: var(--radius); margin: 0 0 1.4rem;
+  font-family: var(--sans); font-size: .9rem; color: var(--warn); background: var(--warn-soft);
+  border: 1px solid var(--warn-line); padding: .55rem .8rem; border-radius: var(--radius);
+  margin: 0 0 1.4rem;
 }
+
 .quiz-form { counter-reset: qq; }
-fieldset.quiz-q { border: 0; border-top: 1px solid var(--rule); margin: 0; padding: 1rem 0 .4rem; }
-fieldset.quiz-q:first-of-type { border-top: 0; }
-.quiz-q legend { font-weight: 600; padding: 0 0 .5rem; font-size: 1.11rem; }
-.quiz-q legend::before { counter-increment: qq; content: counter(qq, decimal-leading-zero) "  "; font-family: var(--mono); color: var(--accent); }
-.quiz-q label { display: block; padding: .42rem .6rem .42rem .2rem; border-radius: var(--radius); cursor: pointer; }
+fieldset.quiz-q {
+  border: 0; border-top: 1px solid var(--rule); border-image: none;
+  margin: 0; padding: 1.1rem 0 .5rem;
+  counter-reset: opt;
+}
+fieldset.quiz-q:first-of-type { border-top: 0; padding-top: 0; }
+.quiz-q legend { padding: 0 0 .6rem; font-family: var(--serif); font-weight: 700; font-size: 1.07rem; line-height: 1.55; }
+.quiz-q legend::before {
+  counter-increment: qq; content: counter(qq, decimal-leading-zero);
+  display: inline-block; margin-right: .6rem;
+  font-family: var(--mono); font-size: .8rem; font-weight: 500; color: var(--accent);
+}
+/* 选项：字母与方框绝对定位，文本正常流——避免基线在三种字体间对不齐 */
+.quiz-q label {
+  position: relative; display: block;
+  padding: .42rem .6rem .42rem 2.95rem;
+  border-left: 2px solid transparent; border-radius: var(--radius);
+  cursor: pointer; transition: background .12s ease;
+}
+.quiz-q label::before {
+  counter-increment: opt; content: counter(opt, upper-alpha);
+  position: absolute; left: .45rem; top: .5rem;
+  font-family: var(--mono); font-size: var(--fs-label); color: var(--muted); line-height: 1.5;
+}
+.quiz-q label input {
+  position: absolute; left: 1.72rem; top: .62rem;
+  appearance: none; -webkit-appearance: none; margin: 0;
+  width: .9rem; height: .9rem; border: 1px solid var(--rule-2); background: var(--surface);
+  border-radius: var(--radius); cursor: pointer;
+}
+.quiz-q label input:checked { background: var(--accent); border-color: var(--accent); box-shadow: inset 0 0 0 2px var(--surface); }
+.quiz-q label input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .quiz-q label:hover { background: var(--surface); }
-.quiz-q label input { margin-right: .55rem; accent-color: var(--accent); }
+.quiz-q label:has(input:checked) { background: var(--surface); border-left-color: var(--accent); }
+
 .quiz button[type="submit"] {
-  font: inherit; font-family: var(--mono); font-size: .95rem; letter-spacing: .04em;
-  margin-top: 1.2rem; padding: .6rem 1.3rem; border: 1px solid var(--ink);
-  background: var(--ink); color: var(--paper); border-radius: var(--radius); cursor: pointer;
+  margin-top: 1.4rem; padding: .62rem 1.35rem;
+  font-family: var(--mono); font-size: .8rem; letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid var(--ink); background: var(--ink); color: var(--paper);
+  border-radius: var(--radius); cursor: pointer;
 }
 .quiz button[type="submit"]:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
-.quiz-result { margin-top: 1.6rem; }
-.quiz-result .score { font-family: var(--mono); font-size: 1.67rem; font-weight: 700; border-bottom: 1px solid var(--ink); padding-bottom: .5rem; }
-.quiz-result ol { padding-left: 1.3rem; }
-.quiz-result > ol > li { margin: .9rem 0; }
-.quiz-result ol ul { list-style: none; padding-left: .2rem; }
-.reveal { margin-top: .45rem; font-size: 1rem; color: var(--ink-2); background: var(--surface); border-left: 3px solid var(--accent); padding: .5rem .7rem; }
-.opt-correct { color: var(--ok); font-weight: 600; }
-.opt-wrong { color: var(--accent); font-weight: 600; }
 
-/* ---- 产物 / 术语 / 路径 ---- */
-.outputs { margin: 3.5rem 0 0; max-width: none; }
-.outputs h2 { border-top: 1px solid var(--ink); padding-top: .8rem; }
-.output { background: var(--surface); border: 1px solid var(--rule); padding: .3rem 1.2rem 1.2rem; margin: 1rem 0; }
-.output h3 { display: flex; align-items: baseline; gap: .6rem; }
+.quiz-result { margin-top: clamp(1.6rem, 3vw, 2.2rem); padding-top: 1rem; border-top: 2px solid var(--ink); }
+.quiz-result .score {
+  margin: 0; font-family: var(--mono); font-weight: 600;
+  font-size: clamp(1.5rem, 4vw, 2rem); line-height: 1.2; color: var(--ink);
+}
+.quiz-result .verdict { margin: .35rem 0 0; font-family: var(--mono); font-size: .78rem; letter-spacing: .06em; color: var(--muted); }
+.quiz-result ol { list-style: none; padding: 0; margin: 0; }
+.quiz-result > ol > li {
+  margin: 1.1rem 0 0; padding-top: .85rem; border-top: 1px solid var(--rule);
+  font-family: var(--serif); font-size: 1rem;
+}
+.quiz-result > ol > li .mk { font-family: var(--mono); font-size: .74rem; letter-spacing: .08em; margin-right: .5rem; }
+.mk-hit  { color: var(--ok); }
+.mk-miss { color: var(--accent); }
+.opt-hit  { color: var(--ok); font-weight: 600; }
+.opt-miss { color: var(--accent); font-weight: 600; }
+.quiz-result ol ul { list-style: none; padding: 0; margin: .45rem 0 0; font-size: .95rem; color: var(--muted); }
+.quiz-result ol ul li { margin: .12rem 0; }
+.reveal {
+  margin-top: .7rem; padding: .6rem .85rem;
+  background: var(--surface); border-left: 3px solid var(--accent);
+  font-family: var(--serif); font-size: .98rem; line-height: 1.7; color: var(--ink-2);
+}
 
-.term-table td:first-child { font-weight: 600; white-space: nowrap; }
+/* ============================================================ 9. 产物（可带走的卡片） */
+
+.outputs { margin: var(--sec-gap) 0 0; }
+.output {
+  margin: 1.1rem 0 0; padding: .95rem 1.25rem 1.25rem;
+  background: var(--surface); border: 1px solid var(--rule); border-top: 2px solid var(--ink);
+}
+.output h3 { display: flex; flex-wrap: wrap; align-items: baseline; gap: .6rem; margin: 0 0 .4rem; font-size: 1.05rem; }
+
+/* ============================================================ 10. 翻页（讲次前后） */
+
+.lesson-nav {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: var(--sec-gap) 0 0;
+  border-top: 2px solid var(--ink); border-bottom: 1px solid var(--ink);
+  font-family: var(--sans);
+}
+.lesson-nav > * { padding: .95rem 0; min-width: 0; }
+.lesson-nav > *:nth-child(2) { border-left: 1px solid var(--rule); text-align: right; padding-left: 1.4rem; }
+.lesson-nav > *:first-child { padding-right: 1.4rem; }
+.lesson-nav a { display: block; text-decoration: none; color: var(--ink); }
+.lesson-nav a:hover { color: var(--accent); }
+.lesson-nav .nav-dir {
+  display: block; margin-bottom: .25rem;
+  font-family: var(--mono); font-size: var(--fs-label); letter-spacing: .13em;
+  text-transform: uppercase; color: var(--muted);
+}
+.lesson-nav .nav-ttl { font-family: var(--serif); font-weight: 700; font-size: 1rem; line-height: 1.5; }
+
+/* ============================================================ 11. 目录页：登记册 */
+
+.module { margin: clamp(2.6rem, 5vw, 3.6rem) 0 0; }
+.module-head {
+  display: grid; grid-template-columns: 3.2rem minmax(0, 1fr) auto;
+  align-items: baseline; gap: .2rem .9rem;
+  padding-top: .55rem; border-top: 2px solid var(--ink);
+}
+.module-num { font-family: var(--mono); font-size: .95rem; font-weight: 600; letter-spacing: .04em; color: var(--accent); }
+.module-head h2 { margin: 0; font-size: var(--fs-h2); }
+.module-count { font-family: var(--mono); font-size: .78rem; letter-spacing: .04em; color: var(--muted); white-space: nowrap; }
+
+/* 登记册：编号｜标题｜类型｜时长 在首行，主旨占第二行——四列，靠一条条细线分行，像样品登记页。
+   五格全部显式定位，避免依赖自动排布的读写顺序。 */
+.register { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--rule); }
+.register li { margin: 0; }
+.register li[hidden] { display: none; }
+.lesson-card {
+  display: grid; grid-template-columns: 4.4rem minmax(0, 1fr) 4.6rem 6.2rem;
+  gap: .15rem 1rem; align-items: baseline;
+  padding: .72rem 0; border-bottom: 1px solid var(--rule);
+  text-decoration: none; color: var(--ink);
+  transition: background .12s ease, box-shadow .12s ease;
+}
+.lesson-card > .c-id    { grid-area: 1 / 1; }
+.lesson-card > .c-title { grid-area: 1 / 2; }
+.lesson-card > .c-type  { grid-area: 1 / 3; }
+.lesson-card > .c-min   { grid-area: 1 / 4; }
+.lesson-card > .c-sum   { grid-area: 2 / 2 / 3 / 3; }
+.lesson-card:hover {
+  background: var(--surface); box-shadow: inset 3px 0 0 var(--accent);
+  text-decoration: none; color: var(--ink);
+}
+.lesson-card .c-id { font-family: var(--mono); font-size: .86rem; color: var(--muted); }
+.lesson-card .c-title { font-family: var(--serif); font-weight: 700; font-size: 1.02rem; line-height: 1.5; }
+.lesson-card .c-sum { grid-column: 2; font-family: var(--serif); font-size: .94rem; line-height: 1.65; color: var(--muted); }
+.lesson-card .c-type {
+  justify-self: start; padding: .08rem .38rem;
+  font-family: var(--mono); font-size: .7rem; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--ink-2); border: 1px solid var(--rule-2); border-radius: var(--radius);
+}
+.lesson-card .c-min { justify-self: end; font-family: var(--mono); font-size: .78rem; color: var(--muted); white-space: nowrap; }
+
+/* 状态标签：方形，不是胶囊 */
+.badge {
+  display: inline-block; padding: .1rem .4rem; border: 1px solid var(--rule-2);
+  color: var(--ink-2); border-radius: var(--radius);
+  font-family: var(--mono); font-size: .68rem; letter-spacing: .06em; text-transform: uppercase;
+  /* 挂在正文（衬线）里时不要继承衬线 */
+  vertical-align: .08em;
+}
+.badge.done { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
+.badge.reading { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
+
+.empty {
+  margin: 0; padding: .85rem 0; border-bottom: 1px solid var(--rule);
+  font-family: var(--serif); font-size: .96rem; color: var(--muted);
+}
+
+/* ============================================================ 12. 术语表 */
+
+.term-table { font-size: .98rem; }
+.term-table th { padding: 0 .8rem .5rem 0; }
+.term-table td { padding: .55rem .8rem .55rem 0; vertical-align: baseline; }
+.term-table tbody tr:hover { background: var(--surface); }
+.term-table td:first-child { font-weight: 700; }
 /* 「学科」与「首见」是定长短字段，禁止折行——否则「经济学」被拆成两行、
    「00-01」被拆成「00-」「01」，而宽度本该让给「一句话定义」列 */
-.term-table td:nth-child(2), .term-table td:nth-child(4) { font-family: var(--mono); font-size: .92rem; color: var(--ink-2); white-space: nowrap; }
+.term-table td:nth-child(2), .term-table td:nth-child(4) {
+  font-family: var(--mono); font-size: .86rem; color: var(--ink-2); white-space: nowrap;
+}
+.term-table tr[hidden] { display: none; }
 
-.route { border-top: 2px solid var(--ink); padding-top: .8rem; margin: 2rem 0; }
+/* ============================================================ 13. 学习路径 */
+
+.route { margin: clamp(2.2rem, 4.5vw, 3rem) 0 0; padding-top: .8rem; border-top: 2px solid var(--ink); }
+.route .route-id {
+  display: block; margin-bottom: .2rem;
+  font-family: var(--mono); font-size: var(--fs-label); letter-spacing: .13em;
+  text-transform: uppercase; color: var(--muted);
+}
+.route > h2 { margin: 0; font-size: clamp(1.3rem, 3vw, 1.62rem); }
+.route .route-stats { margin: .6rem 0 0; font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+
 /* 学习路径是「有先后」的清单：用两列网格逐行铺开（1、2 同一行），
    而不是 CSS 多栏（先把第一列填满再开第二列）——后者会把读序拆断。 */
-.route ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.5rem; row-gap: .5rem; }
-.route ol li { margin: 0; }
-.route .gates { font-family: var(--mono); font-size: .92rem; color: var(--muted); }
+.route ol {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: clamp(1.5rem, 4vw, 2.5rem); row-gap: .5rem;
+  margin: 1.3rem 0 0; padding: 0; list-style: none;
+  counter-reset: step;
+}
+/* 行距只由上面的 row-gap 提供，li 不得再自设 margin（两处都设会翻倍） */
+.route ol li { position: relative; margin: 0; padding-left: 2.4rem; font-family: var(--serif); font-size: .99rem; }
+.route ol li::before {
+  counter-increment: step; content: counter(step, decimal-leading-zero);
+  position: absolute; left: 0; top: .32em;
+  font-family: var(--mono); font-size: .76rem; color: var(--accent);
+}
+.route .route-optional { margin: 1.1rem 0 0; font-size: .98rem; color: var(--ink-2); }
+.route .route-optional .opt-tag {
+  margin-right: .5rem; font-family: var(--mono); font-size: var(--fs-label);
+  letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+}
+.route .gates { margin: 1rem 0 0; padding-top: .7rem; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: .8rem; color: var(--muted); }
 
-/* ---- 页脚 ---- */
-.foot { border-top: 1px solid var(--rule); color: var(--muted); font-size: .92rem; padding: 1.6rem clamp(1rem, 4vw, 2.5rem) 3rem; }
-.foot-line { font-family: var(--mono); letter-spacing: .04em; margin: 0 0 .3rem; color: var(--ink-2); }
-.foot-note { margin: 0; }
+/* ============================================================ 14. 页脚（校勘栏） */
+
+.foot {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  padding: 1.4rem var(--pad-x) 3rem;
+  border-top: 2px solid var(--ink);
+  font-family: var(--sans); font-size: .9rem; color: var(--muted);
+}
+.foot-row { display: flex; flex-wrap: wrap; align-items: baseline; gap: .5rem 1.6rem; }
+.foot-colophon { margin: 0; font-family: var(--serif); font-size: .98rem; color: var(--ink-2); }
+.foot-stats { display: flex; flex-wrap: wrap; gap: .2rem 1.4rem; margin: 0 0 0 auto; }
+.foot-stats > div { display: flex; align-items: baseline; gap: .4rem; }
+.foot-stats dt, .foot-stats dd { margin: 0; font-family: var(--mono); font-size: .78rem; }
+.foot-stats dt { color: var(--muted); }
+.foot-stats dd { color: var(--ink); }
+.foot-note { margin: .9rem 0 0; padding-top: .7rem; border-top: 1px solid var(--rule); }
+.foot-log { margin: .35rem 0 0; font-family: var(--mono); font-size: .74rem; letter-spacing: .03em; color: var(--muted); }
+
+/* ============================================================ 15. 断点（只做结构性切换，不用来调栏宽） */
 
 @media (max-width: 78rem) {
   /* 中等屏：段落导航让位，但第三轨道仍被保留（轨道由 grid-template-columns 显式声明，
@@ -332,35 +635,51 @@ fieldset.quiz-q:first-of-type { border-top: 0; }
 @media (max-width: 60rem) {
   /* 再窄：三栏放不下，改单栏（讲次前后链接仍在文末）。
      单栏时横向不再有竞争，正文直接用阅读栏宽 --measure（≤640 时该 token 变 100%）。
-     同时把课程页的横向内边距加回来——此时没有侧栏贴边，正文需要与屏幕保持呼吸空间。 */
+     横向留白沿用基类的 --rail-pad，不再另设一份内边距。 */
   .lesson-layout { grid-template-columns: minmax(0, 1fr); justify-content: normal; }
   .rail-module, .rail-toc { display: none; }
   .lesson-main { max-width: var(--measure); }
-  .wrap-lesson {
-    padding-left: clamp(1.25rem, 5vw, 3.125rem);
-    padding-right: clamp(1.25rem, 5vw, 3.125rem);
-  }
+  /* 登记册收窄：编号 + 标题 + 类型；时长在窄屏舍弃（讲次页的数据条里仍有「预计」） */
+  .lesson-card { grid-template-columns: 3.6rem minmax(0, 1fr) auto; }
+  .lesson-card .c-min { display: none; }
+  .lesson-card .c-sum { grid-column: 2 / -1; font-size: .9rem; }
 }
 
 @media (max-width: 640px) {
   :root { --measure: 100%; }
   .route ol { grid-template-columns: 1fr; }
-  .progress-mini { width: 100%; margin: .2rem 0 0; }
-  .lesson-card { grid-template-columns: 3.6rem 1fr; }
+  .readout { width: 100%; margin: .2rem 0 0; }
+  /* 数据条转两列 */
+  .specimen, .readout-strip { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .data-strip > div { padding: .5rem .7rem .55rem; border-right: 1px solid var(--rule); }
+  .data-strip > div:nth-child(odd)  { padding-left: 0; }
+  .data-strip > div:nth-child(even) { padding-right: 0; border-right: 0; }
+  .data-strip > div:nth-child(n+3)  { border-top: 1px solid var(--rule); }
+  .data-strip > div:first-child     { padding-left: 0; }
+  .data-strip > div:last-child      { padding-right: 0; }
+  .lesson-nav > * { padding: .85rem 0; }
+  .lesson-nav .nav-ttl { font-size: .95rem; }
+  .module-head { grid-template-columns: 2.6rem minmax(0, 1fr); }
+  .module-count { grid-column: 2; justify-self: start; }
 }
+
+/* ============================================================ 16. 动效与降级 */
 
 @media (prefers-reduced-motion: reduce) {
   html:focus-within { scroll-behavior: auto; }
   * { transition: none !important; animation: none !important; }
 }
 
+/* ============================================================ 17. 打印 */
+
 @media print {
-  .topbar, .skip-link, .lesson-nav, .foot, .quiz button, .tick-progress, .tools, .rail { display: none; }
+  .readbar, .topbar, .skip-link, .foot, .tools, .readout,
+  .lesson-nav, .quiz button, .rail, .find { display: none; }
   body { background: #fff; font-size: 12pt; }
   .wrap { max-width: none; padding: 0; }
   .lesson-layout { display: block; }
   .lesson-main { max-width: none; }
-  .lesson-body, .quiz, .outputs { max-width: none; }
+  .lesson-body > h2::before { background: transparent; }
   a { text-decoration: none; color: inherit; }
   .quiz-result { display: block !important; }
 }

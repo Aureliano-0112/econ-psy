@@ -202,49 +202,79 @@ function parseLesson(info, module) {
 
 // ---------------------------------------------------------------- 页面渲染
 
-function renderShell(rel, title, description, content, mainClass) {
+// opts: { mainClass, nav, footStats, footLog }
+//   nav 取值 home|glossary|paths，对应栏目加 aria-current="page"（顶栏只标当前栏目，不加图标）
+function renderShell(rel, title, description, content, opts) {
+  opts = opts || {};
   const tpl = readText(path.join(SITE, "template.html"));
   const parts = rel.split("/");
   const root = parts.length > 1 ? "../".repeat(parts.length - 1) : "";
+  const cur = (key) => (opts.nav === key ? ' aria-current="page"' : "");
   return tpl
     .replace(/\{\{TITLE\}\}/g, esc(title))
     .replace(/\{\{DESCRIPTION\}\}/g, esc(description))
     .replace(/\{\{ROOT\}\}/g, root)
-    .replace(/\{\{MAIN_CLASS\}\}/g, mainClass || "wrap")
+    .replace(/\{\{MAIN_CLASS\}\}/g, opts.mainClass || "wrap")
+    .replace(/\{\{NAV_HOME\}\}/g, cur("home"))
+    .replace(/\{\{NAV_GLOSSARY\}\}/g, cur("glossary"))
+    .replace(/\{\{NAV_PATHS\}\}/g, cur("paths"))
+    .replace(/\{\{FOOT_STATS\}\}/g, opts.footStats || "")
+    .replace(/\{\{FOOT_LOG\}\}/g, esc(opts.footLog || ""))
     .replace(/\{\{CONTENT\}\}/g, content);
 }
 
-function catalogHtml(lessons, modules, root) {
-  let h = `<p class="kicker"><span>课程目录</span><span class="idx">已上线 ${lessons.length} / 72 讲</span></p>
+// 目录页：刊头（栏目眉标 + 本期读数 + 数据条 + 检索行），下面是按模块铺开的登记册。
+// 登记册每行是一份样品记录：编号｜标题与主旨｜类型｜时长。
+function catalogHtml(lessons, modules, root, counts) {
+  const pad2 = (n) => String(n).padStart(2, "0");
+  let h = `<article class="sheet sheet-catalog">
+<header class="masthead">
+<div class="masthead-top"><span class="kicker">课程目录</span><span class="masthead-code">已建 ${lessons.length} / 计划 ${counts.total} 讲</span></div>
 <h1>经济学 × 心理学</h1>
 <p class="standfirst">心理学给偏好的形状，经济学给聚合的机器。内容真相在 <code>phases/**</code>，本页由构建脚本预渲染。</p>
-<input class="search" id="lessonSearch" type="search" placeholder="按 / 聚焦，输入关键词筛选讲次" aria-label="搜索讲次">`;
+<dl class="data-strip readout-strip">
+<div><dt>模块</dt><dd>${pad2(modules.length)}</dd></div>
+<div><dt>计划讲次</dt><dd>${counts.total}</dd></div>
+<div><dt>已建讲次</dt><dd>${lessons.length}</dd></div>
+<div><dt>术语</dt><dd>${counts.terms}</dd></div>
+<div><dt>学习路线</dt><dd>${pad2(counts.paths)}</dd></div>
+</dl>
+<div class="find"><label for="lessonSearch">筛选</label><input class="search" id="lessonSearch" type="search" placeholder="按 / 聚焦，输入关键词筛选讲次" aria-label="搜索讲次"></div>
+</header>`;
   for (const m of modules) {
     const list = lessons.filter((l) => l.moduleDir === m.dir);
-    h += `<section class="module"><h2>${esc(m.name)}<span class="badge">${list.length}/${m.planned} 讲</span></h2>`;
+    h += `<section class="module" data-module="${esc(m.dir.slice(0, 2))}">
+<header class="module-head"><span class="module-num">${esc(m.dir.slice(0, 2))}</span><h2>${esc(m.name)}</h2><span class="module-count">${pad2(list.length)} / ${pad2(m.planned)} 讲</span></header>`;
     if (!list.length) {
       h += `<p class="empty">本模块尚未开始。</p>`;
     } else {
-      h += `<ul class="lesson-list">`;
+      h += `<ul class="register">`;
       for (const l of list) {
-        h += `<li data-search="${esc((l.id + " " + l.title + " " + l.summary).toLowerCase())}">` +
+        h += `<li data-search="${esc((l.id + " " + l.title + " " + l.summary + " " + l.type).toLowerCase())}">` +
           `<a class="lesson-card" href="${root}lessons/${m.dir}/${l.slug}/">` +
           `<span class="c-id" data-lesson="${esc(l.id)}">${esc(l.id)}</span>` +
           `<span class="c-title">${esc(l.title)}</span>` +
+          `<span class="c-type">${esc(l.type || "—")}</span>` +
+          `<span class="c-min">${esc(l.minutes || "—")}</span>` +
           `<span class="c-sum">${esc(l.summary)}</span></a></li>`;
       }
       h += `</ul>`;
     }
     h += `</section>`;
   }
-  return h;
+  return h + `</article>`;
 }
 
+// 测验区（规则 5：作答前的 DOM 里不得出现 correct / explanation 的任何内容）。
+// 注意：门禁 5 只扫描从 `<section class="quiz"` 到其后第一个 `</section>` 之间的片段，
+//      因此本区域内不得再嵌套 <section>，也不得出现 correct 字样。
 function quizHtml(l) {
   const q = l.quiz;
   if (!q || !Array.isArray(q.questions)) return "";
+  const cnt = (stage) => q.questions.filter((x) => x.stage === stage).length;
+  const meta = `${q.questions.length} 题 · 前测 ${cnt("pre")} / 检核 ${cnt("check")} / 后测 ${cnt("post")}`;
   let h = `<section class="quiz" data-lesson="${esc(l.id)}" aria-labelledby="quiz-h">
-<h2 id="quiz-h">自测</h2>
+<h2 id="quiz-h">自测<span class="h2-meta">${esc(meta)}</span></h2>
 <p class="notice">答案可见于页面数据，本站不做防作弊，请当作自测。</p>
 <form class="quiz-form" novalidate>`;
   q.questions.forEach((item, i) => {
@@ -260,7 +290,7 @@ function quizHtml(l) {
 
 function outputsHtml(l) {
   if (!l.outputs.length) return "";
-  let h = `<section class="outputs"><h2>带走的东西</h2>`;
+  let h = `<section class="outputs"><h2>带走的东西<span class="h2-meta">${l.outputs.length} 件</span></h2>`;
   for (const o of l.outputs) {
     h += `<div class="output"><h3>${esc(o.title)}${o.type ? ` <span class="badge">${esc(o.type)}</span>` : ""}</h3>${o.html}</div>`;
   }
@@ -318,29 +348,38 @@ function tocHtml(toc) {
 </nav>`;
 }
 
-function lessonHtml(l, all, root) {
+// 讲次页：刊头＝眉标行 + 标本签（大号等宽讲次编号）+ 标题 + 导语 + 数据条。
+// 数据条里的字段都是真实派生值；标本签是纯呈现（aria-hidden），讲次信息在数据条里另有一份。
+function lessonHtml(l, all, root, planned) {
   const i = all.indexOf(l);
   const prev = i > 0 ? all[i - 1] : null;
   const next = i < all.length - 1 ? all[i + 1] : null;
   const body = withSectionIds(l.html);
 
   let main = `<div class="lesson-main">
-<p class="kicker"><span>${esc(l.moduleName)} · 模块 ${esc(l.module)}</span><span class="idx">第 ${esc(l.num)} 讲 · ${esc(l.type)}</span></p>
+<header class="masthead">
+<div class="masthead-top"><span class="kicker">模块 ${esc(l.module)} · ${esc(l.moduleName)}</span><span class="masthead-code">第 ${esc(l.num)} 讲${planned ? ` / 共 ${planned} 讲` : ""}</span></div>
+<p class="catalog-no" aria-hidden="true">${esc(l.module)}–${esc(l.num)}</p>
 <h1>${esc(l.title)}</h1>
 <p class="standfirst">${esc(l.summary)}</p>
-<dl class="specimen">
+<dl class="data-strip specimen">
 <div><dt>讲次</dt><dd>${esc(l.id)}</dd></div>
-<div><dt>类型</dt><dd>${esc(l.type)}</dd></div>
 <div><dt>前置</dt><dd>${prereqHtml(l.prereq, all, root)}</dd></div>
 <div><dt>预计</dt><dd>${esc(l.minutes || "—")}</dd></div>
+<div><dt>类型</dt><dd>${esc(l.type || "—")}</dd></div>
 </dl>
 <p class="lesson-status" id="lessonStatus" aria-live="polite"></p>
+</header>
 <section class="lesson-body">${body.html}</section>`;
   main += quizHtml(l);
   main += outputsHtml(l);
   main += `<nav class="lesson-nav" aria-label="讲次导航">`;
-  main += prev ? `<a href="${root}lessons/${prev.moduleDir}/${prev.slug}/">← ${esc(prev.id)} ${esc(prev.title)}</a>` : `<span></span>`;
-  main += next ? `<a href="${root}lessons/${next.moduleDir}/${next.slug}/">${esc(next.id)} ${esc(next.title)} →</a>` : `<span></span>`;
+  main += prev
+    ? `<a class="nav-prev" href="${root}lessons/${prev.moduleDir}/${prev.slug}/"><span class="nav-dir">上一讲</span><span class="nav-ttl">${esc(prev.id)} ${esc(prev.title)}</span></a>`
+    : `<span class="nav-none"></span>`;
+  main += next
+    ? `<a class="nav-next" href="${root}lessons/${next.moduleDir}/${next.slug}/"><span class="nav-dir">下一讲</span><span class="nav-ttl">${esc(next.id)} ${esc(next.title)}</span></a>`
+    : `<span class="nav-none"></span>`;
   main += `</nav></div>`;
 
   return `<article class="lesson" data-lesson="${esc(l.id)}">
@@ -354,35 +393,43 @@ ${tocHtml(body.toc)}
 
 function glossaryHtml(terms, byId, root) {
   if (!terms.length) return `<h1>术语表</h1><p class="empty">术语表为空。</p>`;
-  let h = `<p class="kicker"><span>术语表</span><span class="idx">${terms.length} 条 · 首见讲次可直达</span></p>
+  let h = `<header class="masthead">
+<div class="masthead-top"><span class="kicker">术语表</span><span class="masthead-code" id="glossaryCount">${terms.length} 条</span></div>
 <h1>术语表</h1>
-<p class="standfirst">术语的唯一来源是仓库里的 <code>glossary/terms.md</code>；本页由构建脚本派生。</p>
+<p class="standfirst">术语的唯一来源是仓库里的 <code>glossary/terms.md</code>；本页由构建脚本派生。每条给出的一句话定义与首见讲次都可核查。</p>
+<div class="find"><label for="glossarySearch">筛选</label><input class="search" id="glossarySearch" type="search" placeholder="输入术语、学科或讲次编号" aria-label="筛选术语"></div>
+</header>
 <table class="term-table"><thead><tr><th>术语</th><th>学科</th><th>一句话定义</th><th>首见</th></tr></thead><tbody>`;
   for (const t of terms) {
     const l = byId.get(t.firstLesson);
     const link = l ? `<a href="${root}lessons/${l.moduleDir}/${l.slug}/">${esc(t.firstLesson)}</a>` : esc(t.firstLesson);
-    h += `<tr><td>${esc(t.term)}</td><td>${esc(t.discipline)}</td><td>${esc(t.definition)}</td><td>${link}</td></tr>`;
+    const hay = esc((t.term + " " + t.discipline + " " + t.definition + " " + t.firstLesson).toLowerCase());
+    h += `<tr data-search="${hay}"><td>${esc(t.term)}</td><td>${esc(t.discipline)}</td><td>${esc(t.definition)}</td><td>${link}</td></tr>`;
   }
   return h + `</tbody></table>`;
 }
 
 function pathsHtml(paths, byId, root) {
-  let h = `<p class="kicker"><span>学习路径</span><span class="idx">${paths.length} 条路线</span></p>
+  let h = `<header class="masthead">
+<div class="masthead-top"><span class="kicker">学习路径</span><span class="masthead-code">${paths.length} 条路线</span></div>
 <h1>学习路径</h1>
-<p class="standfirst">路线顺序的唯一来源是 <code>learning-paths/*.json</code>；站点只渲染，不手写顺序。</p>`;
+<p class="standfirst">路线顺序的唯一来源是 <code>learning-paths/*.json</code>；站点只渲染，不手写顺序。</p>
+</header>`;
   if (!paths.length) return h + `<p class="empty">尚未建立学习路径。</p>`;
   for (const p of paths) {
     const req = (p.required || []);
     const opt = (p.optional || []);
     const weeks = p.weeks ? `${p.weeks} 周` : "—";
     const per = p.lessonsPerWeek ? `每周 ${p.lessonsPerWeek} 讲` : "";
-    h += `<section class="route"><h2>${esc(p.name || p.id)}</h2>
-<p>${weeks}${per ? " · " + esc(per) : ""} · 必修 ${req.length} 讲 · 选修 ${opt.length} 讲</p>`;
-    h += `<ol>`;
+    h += `<section class="route">
+<span class="route-id">${esc(p.id)}</span>
+<h2>${esc(p.name || p.id)}</h2>
+<p class="route-stats">${esc(weeks)}${per ? " · " + esc(per) : ""} · 必修 ${req.length} 讲 · 选修 ${opt.length} 讲</p>
+<ol>`;
     for (const id of req) h += `<li>${linkTo(id, byId, root)}</li>`;
     h += `</ol>`;
     if (opt.length) {
-      h += `<p>可选：${opt.map((id) => linkTo(id, byId, root)).join("、")}</p>`;
+      h += `<p class="route-optional"><span class="opt-tag">可选</span>${opt.map((id) => linkTo(id, byId, root)).join("、")}</p>`;
     }
     if (Array.isArray(p.gates) && p.gates.length) {
       h += `<p class="gates">门禁：${p.gates.map((g) => `学习完 ${esc(g.after)} 后做 ${esc(g.check)}`).join("；")}</p>`;
@@ -619,13 +666,29 @@ function main() {
 });
 `);
 
-  // 2. 页面
-  write("index.html", renderShell("index.html", "经济学 × 心理学 · 学习目录", "交叉学科自学站的学习目录，按模块列出全部讲次。", catalogHtml(lessons, modules, "")));
-  write("glossary/index.html", renderShell("glossary/index.html", "术语表 · 经济学 × 心理学", "全课术语表，每条含一句话定义与首见讲次。", glossaryHtml(terms, byId, "../")));
-  write("paths/index.html", renderShell("paths/index.html", "学习路径 · 经济学 × 心理学", "三条学习路线的讲次顺序。", pathsHtml(paths, byId, "../")));
+  // 2. 页面（页脚校勘栏的读数与构建日志由同一份上下文派生，不在模板里写死）
+  const plannedByDir = new Map(modules.map((m) => [m.dir, m.planned]));
+  const footStats = [
+    ["模块", modules.length],
+    ["计划讲次", total],
+    ["已建讲次", lessons.length],
+    ["术语", terms.length],
+    ["学习路线", paths.length],
+  ].map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join("");
+  const footLog = `派生自 phases/** · 由 site/build.js 生成 · 构建于 ${date}`;
+  const shell = (nav) => ({ nav, footStats, footLog });
+
+  write("index.html", renderShell("index.html", "经济学 × 心理学 · 学习目录", "交叉学科自学站的学习目录，按模块列出全部讲次。",
+    catalogHtml(lessons, modules, "", { total, terms: terms.length, paths: paths.length }), shell("home")));
+  write("glossary/index.html", renderShell("glossary/index.html", "术语表 · 经济学 × 心理学", "全课术语表，每条含一句话定义与首见讲次。",
+    glossaryHtml(terms, byId, "../"), shell("glossary")));
+  write("paths/index.html", renderShell("paths/index.html", "学习路径 · 经济学 × 心理学", "三条学习路线的讲次顺序。",
+    pathsHtml(paths, byId, "../"), shell("paths")));
   for (const l of lessons) {
     const rel = `lessons/${l.moduleDir}/${l.slug}/index.html`;
-    write(rel, renderShell(rel, `${l.title} · 经济学 × 心理学`, l.summary, lessonHtml(l, lessons, "../../../"), "wrap wrap-lesson"));
+    write(rel, renderShell(rel, `${l.title} · 经济学 × 心理学`, l.summary,
+      lessonHtml(l, lessons, "../../../", plannedByDir.get(l.moduleDir)),
+      Object.assign({ mainClass: "wrap wrap-lesson" }, shell(null))));
   }
 
   // 3. sitemap / llms

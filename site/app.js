@@ -4,7 +4,7 @@
  * 本文件在此之上做「增强」：
  *   1. 站内导航改为客户端读取并渲染对应页面（不再整页刷新，阅读不中断）；
  *   2. 目录筛选与进度徽标、课程页测验判定与解析揭示、进度导入导出；
- *   3. 顶部阅读刻度尺、Mermaid 图表按需渲染。
+ *   3. 顶部阅读进度条、Mermaid 图表按需渲染。
  *
  * 答案（correct / explanation）只存在于 data.js，作答前绝不写进 DOM（规则 5）。
  */
@@ -32,6 +32,25 @@
   function restoreChromeLinks() {
     CHROME_LINKS.forEach(function (o) { o.el.setAttribute("href", o.abs); });
   }
+
+  // ---- 顶栏「当前栏目」高亮的同步 ----
+  // 顶栏同样在 #main 之外、不参与替换，其 aria-current 是 build.js 预渲染时按落地页写死的
+  // （目录页标「目录」、术语表标「术语表」、学习路径标「学习路径」、讲次页三个都不标）。
+  // 不重算，软导航后高亮就会一直停在落地页的栏目上。
+  // 唯一来源：直接抄目标页顶栏的标记——不在这里复刻一遍「哪个页面属于哪个栏目」的判定。
+  function syncNavCurrent(doc) {
+    var live = $$(".topbar .nav a");
+    if (!live.length || !doc) return;
+    var tgt = $$(".topbar .nav a", doc);
+    var activeIdx = -1;
+    for (var i = 0; i < tgt.length; i++) {
+      if (tgt[i].hasAttribute("aria-current")) { activeIdx = i; break; }
+    }
+    live.forEach(function (a, i) {
+      if (i === activeIdx) a.setAttribute("aria-current", "page");
+      else a.removeAttribute("aria-current");
+    });
+  }
   function statusOf(id) { return (state.lessons[id] && state.lessons[id].status) || "not-started"; }
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -39,15 +58,19 @@
     });
   }
 
-  // ---- 顶栏：进度摘要 + 进度工具（顶栏不随导航替换，只注入一次）----
+  // ---- 顶栏：进度读数 + 进度工具（顶栏不随导航替换，只注入一次）----
   function renderMini() {
     var el = $("#progressMini");
     if (!el) return;
     var s = P.summary(state);
     var total = DATA && DATA.counts ? DATA.counts.built : 0;
-    el.textContent = total
-      ? "进度 " + s.done + " 完成 / " + s.quizzed + " 已测 / " + s.reading + " 在读 · 共 " + total + " 讲"
-      : "";
+    if (!total) { el.innerHTML = ""; return; }
+    el.innerHTML =
+      "<span>进度</span>" +
+      "<span><b>" + s.done + "</b> 完成</span>" +
+      "<span><b>" + s.quizzed + "</b> 已测</span>" +
+      "<span><b>" + s.reading + "</b> 在读</span>" +
+      "<span>共 <b>" + total + "</b> 讲</span>";
   }
 
   function injectTools() {
@@ -95,26 +118,52 @@
     });
   }
 
-  // ---- 目录页：筛选 + 进度徽标 ----
-  function applyCatalog() {
+  // ---- 目录页：登记册筛选 + 进度徽标；术语表页：表格筛选 ----
+  function filterRegister() {
     var input = $("#lessonSearch");
     if (!input) return;
     var q = input.value.trim().toLowerCase();
-    $$(".lesson-list li").forEach(function (li) {
+    $$(".register li").forEach(function (li) {
       var hay = li.getAttribute("data-search") || "";
       li.hidden = q !== "" && hay.indexOf(q) < 0;
     });
-    $$(".lesson-list").forEach(function (ul) {
-      var any = $$("li", ul).some(function (li) { return !li.hidden; });
-      var sec = ul.closest(".module");
-      if (sec) sec.hidden = !any;
+    $$(".module").forEach(function (sec) {
+      if (q === "") { sec.hidden = false; return; }
+      var any = $$(".register li", sec).some(function (li) { return !li.hidden; });
+      sec.hidden = !any;
     });
   }
 
+  function filterGlossary() {
+    var input = $("#glossarySearch");
+    if (!input) return;
+    var q = input.value.trim().toLowerCase();
+    var rows = $$(".term-table tbody tr");
+    var shown = 0;
+    rows.forEach(function (tr) {
+      var hit = q === "" || (tr.getAttribute("data-search") || "").indexOf(q) >= 0;
+      tr.hidden = !hit;
+      if (hit) shown++;
+    });
+    var out = $("#glossaryCount");
+    if (out) out.textContent = q === "" ? rows.length + " 条" : shown + " / " + rows.length + " 条";
+  }
+
+  function bindFilter(el, fn) {
+    if (!el || el.dataset.filterBound) return;   // 幂等：重复调用不会叠加监听器
+    el.dataset.filterBound = "1";
+    el.addEventListener("input", fn);
+  }
+
+  function initFilters() {
+    bindFilter($("#lessonSearch"), filterRegister);
+    bindFilter($("#glossarySearch"), filterGlossary);
+  }
+
   function initCatalog() {
+    initFilters();
     var input = $("#lessonSearch");
     if (!input) return;
-    input.addEventListener("input", applyCatalog);
     $$("a.lesson-card").forEach(function (a) {
       var idEl = a.querySelector(".c-id[data-lesson]");
       var id = idEl ? idEl.getAttribute("data-lesson") : "";
@@ -129,7 +178,7 @@
     });
   }
 
-  // ---- 课程页：状态 + 测验 ----
+  // ---- 课程页：状态读数 + 测验 ----
   function refreshLessonStatus() {
     var el = $("#lessonStatus");
     if (!el) return;
@@ -139,7 +188,9 @@
     var st = statusOf(id);
     var score = state.lessons[id] && state.lessons[id].quizScore;
     var label = { "not-started": "未开始", reading: "在读", quizzed: "已测验（未达 70%）", done: "已完成" }[st] || st;
-    el.textContent = "本讲状态 " + label + (score != null ? " · 最近得分 " + Math.round(score * 100) + "%" : "");
+    el.setAttribute("data-status", st);
+    el.innerHTML = '<span class="status-mark" aria-hidden="true"></span>' +
+      "<span>本讲状态 " + label + (score != null ? " · 最近得分 " + Math.round(score * 100) + "%" : "") + "</span>";
   }
 
   function initLesson() {
@@ -167,19 +218,22 @@
         var ok = pickedIdx === q.correct;
         if (ok) right++;
         var opts = q.options.map(function (text, oi) {
-          var cls = oi === q.correct ? "opt-correct" : oi === pickedIdx ? "opt-wrong" : "";
-          var mark = oi === q.correct ? "（正确）" : oi === pickedIdx ? "（你的选择）" : "";
+          var cls = oi === q.correct ? "opt-hit" : oi === pickedIdx ? "opt-miss" : "";
+          var mark = oi === q.correct ? "（正确答案）" : oi === pickedIdx ? "（你的选择）" : "";
           return cls ? '<span class="' + cls + '">' + esc(text) + mark + "</span>" : esc(text);
         });
         lines.push(
-          "<li>" + (ok ? "✔" : "✘") + " " + esc(q.question) + "<ul>" +
+          '<li><span class="mk ' + (ok ? "mk-hit" : "mk-miss") + '">' + (ok ? "答对" : "答错") + "</span>" +
+          esc(q.question) + "<ul>" +
           opts.map(function (o) { return "<li>" + o + "</li>"; }).join("") +
           '</ul><div class="reveal">' + esc(q.explanation) + "</div></li>"
         );
       });
       var score = right / quiz.questions.length;
+      var pct = Math.round(score * 100);
       result.innerHTML =
-        '<p class="score">得分 ' + right + " / " + quiz.questions.length + "（" + Math.round(score * 100) + "%）</p>" +
+        '<p class="score">' + right + " / " + quiz.questions.length + "　" + pct + "%</p>" +
+        '<p class="verdict">' + (pct >= 70 ? "达到 70%，本讲记为已完成" : "低于 70%，本讲已进入复习队列") + "</p>" +
         "<ol>" + lines.join("") + "</ol>";
       result.hidden = false;
       state = P.recordQuiz(state, id, score);
@@ -190,7 +244,7 @@
     });
   }
 
-  // ---- 顶部阅读刻度尺 ----
+  // ---- 顶部阅读进度条 ----
   function updateTick() {
     var bar = document.getElementById("tickBar");
     if (!bar) return;
@@ -223,6 +277,26 @@
     });
   }
 
+  // ---- 右栏段落导航的点击：由脚本做确定性滚动 ----
+  // 实测：点击 `<a href="#sec-NN">` 后地址栏 hash 会变，但页面**完全不滚动**（scrollY 恒为 0），
+  // 而同一目标的 `scrollIntoView` 却能正常滚到位——即原生 fragment 跳转在本环境下被整段跳过。
+  // 因此这里显式接管：先滚动到位，再用 replaceState 记账（replaceState 不新增历史条目，
+  // 免得「返回」时触发 popstate 重新 fetch 换页）。
+  // 无 JS 时 href="#sec-NN" 仍是可用的原生锚点（规则 10；本条只是增强层）。
+  function goToSection(id) {
+    var el = document.getElementById(id);
+    if (!el) return false;
+    var root = document.documentElement;
+    var prev = root.style.scrollBehavior;
+    root.style.scrollBehavior = "auto";   // 就地压过 html 上的 scroll-behavior:smooth，确保一定滚到位
+    el.scrollIntoView(true);
+    root.style.scrollBehavior = prev;
+    if (location.hash !== "#" + id) {
+      try { history.replaceState(history.state, "", "#" + id); } catch (e) { location.hash = id; }
+    }
+    return true;
+  }
+
   // ---- Mermaid：仅当本页含图表时按需加载并渲染 ----
   var mermaidPromise = null;
   function enhanceMermaid() {
@@ -253,7 +327,13 @@
     var newMain = doc.getElementById("main");
     if (!newMain) return false;
     var title = doc.querySelector("title");
+    // 版式策略随目标页切换，必须整份复制 #main 的 class：
+    //   课程页 = "wrap wrap-lesson"（通铺全屏）／ 目录·术语·路径页 = "wrap"（68rem 版心居中）。
+    // 只换 innerHTML 而不换 class，会让上一页的策略残留——课程页版式出现在目录页上，反之亦然。
+    // 见 AGENTS.md §12.3 第 5 条。
+    MAIN.className = newMain.className;
     MAIN.innerHTML = newMain.innerHTML;
+    syncNavCurrent(doc);     // 顶栏当前栏目随目标页重算（外壳不参与替换，须手动同步）
     if (title) document.title = title.textContent;
     if (url) history.pushState({ soft: true }, "", url.href);
     afterSwap();
@@ -283,7 +363,12 @@
     var a = e.target && e.target.closest ? e.target.closest("a") : null;
     if (!a || (a.target && a.target !== "_self") || a.hasAttribute("download")) return;
     var href = a.getAttribute("href");
-    if (!href || href.charAt(0) === "#") return;
+    if (!href) return;
+    if (href.charAt(0) === "#") {
+      // 同页锚点（右栏段落导航）：由脚本接管滚动（原因见 goToSection 上方注释）
+      if (href.length > 1 && goToSection(href.slice(1))) e.preventDefault();
+      return;
+    }
     var url;
     try { url = new URL(a.href, location.href); } catch (err) { return; }
     if (url.origin !== location.origin) return;
@@ -306,10 +391,15 @@
   window.addEventListener("resize", onScroll);
 
   document.addEventListener("keydown", function (e) {
-    var input = $("#lessonSearch");
+    var input = $("#lessonSearch") || $("#glossarySearch");
     if (!input) return;
-    if (e.key === "/" && document.activeElement !== input) { e.preventDefault(); input.focus(); }
-    if (e.key === "Escape" && document.activeElement === input) { input.value = ""; applyCatalog(); input.blur(); }
+    var typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target && e.target.tagName) || "");
+    if (e.key === "/" && !typing) { e.preventDefault(); input.focus(); }
+    if (e.key === "Escape" && e.target === input) {
+      input.value = "";
+      input.dispatchEvent(new Event("input"));
+      input.blur();
+    }
   });
 
   injectTools();

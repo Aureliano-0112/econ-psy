@@ -9,16 +9,16 @@
 <link rel="stylesheet" href="../../../styles.css">
 </head>
 <body>
-<div class="tick-progress" aria-hidden="true"><span id="tickBar"></span></div>
 <a class="skip-link" href="#main">跳到正文</a>
+<div class="readbar" aria-hidden="true"><span class="readbar-fill" id="tickBar"></span></div>
 <header class="topbar">
-  <a class="brand" href="../../../index.html"><span class="brand-mark">E×P</span><span class="brand-name">经济学 × 心理学</span></a>
+  <a class="brand" href="../../../index.html"><span class="brand-mark" aria-hidden="true">E×P</span><span class="brand-name">经济学 × 心理学</span></a>
   <nav class="nav" aria-label="站点导航">
     <a href="../../../index.html">目录</a>
     <a href="../../../glossary/index.html">术语表</a>
     <a href="../../../paths/index.html">学习路径</a>
   </nav>
-  <p class="progress-mini" id="progressMini" aria-live="polite"></p>
+  <div class="readout" id="progressMini" aria-live="polite"></div>
 </header>
 <main id="main" class="wrap wrap-lesson" tabindex="-1">
 <article class="lesson" data-lesson="01-10">
@@ -29,16 +29,19 @@
 <p class="rail-foot"><a href="../../../index.html">全部讲次目录</a></p>
 </nav>
 <div class="lesson-main">
-<p class="kicker"><span>经济学基础 · 模块 01</span><span class="idx">第 10 讲 · Learn</span></p>
+<header class="masthead">
+<div class="masthead-top"><span class="kicker">模块 01 · 经济学基础</span><span class="masthead-code">第 10 讲 / 共 10 讲</span></div>
+<p class="catalog-no" aria-hidden="true">01–10</p>
 <h1>福利与外部性：市场失灵</h1>
 <p class="standfirst">当行为的成本落到无关第三方身上，市场价格就不再是全部真相，外部性与公共品是市场失灵的主场。</p>
-<dl class="specimen">
+<dl class="data-strip specimen">
 <div><dt>讲次</dt><dd>01-10</dd></div>
-<div><dt>类型</dt><dd>Learn</dd></div>
 <div><dt>前置</dt><dd><a href="../../../lessons/01-economics-basics/04-equilibrium/">01-04</a></dd></div>
 <div><dt>预计</dt><dd>45–60 分钟</dd></div>
+<div><dt>类型</dt><dd>Learn</dd></div>
 </dl>
 <p class="lesson-status" id="lessonStatus" aria-live="polite"></p>
+</header>
 <section class="lesson-body"><h2 id="sec-01">学习目标</h2>
 <ol><li>能识别一项行为是否产生外部性，并判断它是正外部性还是负外部性</li><li>能用「非排他性」与「非竞争性」两个特征说明公共品为何会被供给不足</li><li>能复述科斯定理及其成立条件，并说明「交易成本」为何是它的关键</li><li>能区分「庇古税」与「产权交易（总量控制与交易）」两种治理外部性的思路</li></ol>
 <h2 id="sec-02">问题背景</h2>
@@ -102,9 +105,9 @@
 <ol><li>凭直觉判断：一家工厂排污损害了下游渔民，但排污成本没进入工厂的账本。市场自发运行的结果最可能是什么？</li><li>下列哪一组特征最能定义「公共品」？</li><li>科斯定理（Coase, 1960）的核心主张是什么？</li><li>庇古税的作用机理是什么？</li><li>欧盟碳排放交易体系（EU ETS）属于哪一类处理外部性的方式？</li><li>渔业过度捕捞（公地悲剧）与个体可转让配额（ITQ）之间的关系是什么？</li></ol>
 <h2 id="sec-11">延伸关键词</h2>
 <p>外部性、公共品、市场失灵、科斯定理、交易成本、庇古税、公地悲剧</p></section><section class="quiz" data-lesson="01-10" aria-labelledby="quiz-h">
-<h2 id="quiz-h">自测</h2>
+<h2 id="quiz-h">自测<span class="h2-meta">6 题 · 前测 1 / 检核 3 / 后测 2</span></h2>
 <p class="notice">答案可见于页面数据，本站不做防作弊，请当作自测。</p>
-<form class="quiz-form" novalidate><fieldset class="quiz-q" data-index="0"><legend>1. 凭直觉判断：一家工厂排污损害了下游渔民，但排污成本没进入工厂的账本。市场自发运行的结果最可能是什么？</legend><label><input type="radio" name="q0" value="0"> 产量恰好是效率最优的水平</label><label><input type="radio" name="q0" value="1"> 产量偏高，因为工厂没承担排污的全部成本</label><label><input type="radio" name="q0" value="2"> 产量偏低，因为工厂出于谨慎少生产</label><label><input type="radio" name="q0" value="3"> 与成本无关，只取决于技术水平</label></fieldset><fieldset class="quiz-q" data-index="1"><legend>2. 下列哪一组特征最能定义「公共品」？</legend><label><input type="radio" name="q1" value="0"> 非排他性与非竞争性</label><label><input type="radio" name="q1" value="1"> 价格高且供给充足</label><label><input type="radio" name="q1" value="2"> 由私人企业独家提供</label><label><input type="radio" name="q1" value="3"> 使用者必须付费才能消费</label></fieldset><fieldset class="quiz-q" data-index="2"><legend>3. 科斯定理（Coase, 1960）的核心主张是什么？</legend><label><input type="radio" name="q2" value="0"> 政府必须对排污一律征收庇古税</label><label><input type="radio" name="q2" value="1"> 只要产权私有，市场就一定有效率</label><label><input type="radio" name="q2" value="2"> 在交易成本为零且产权明确时，当事人谈判可达成有效结果，与产权初始归属无关</label><label><input type="radio" name="q2" value="3"> 外部性在现实世界永远无法解决</label></fieldset><fieldset class="quiz-q" data-index="3"><legend>4. 庇古税的作用机理是什么？</legend><label><input type="radio" name="q3" value="0"> 直接禁止一切产生外部性的行为</label><label><input type="radio" name="q3" value="1"> 给受到外部性影响的第三方发补偿金</label><label><input type="radio" name="q3" value="2"> 把产权直接判给受损害的一方</label><label><input type="radio" name="q3" value="3"> 对负外部性行为按边际外部成本征税，使外部成本内部化</label></fieldset><fieldset class="quiz-q" data-index="4"><legend>5. 欧盟碳排放交易体系（EU ETS）属于哪一类处理外部性的方式？</legend><label><input type="radio" name="q4" value="0"> 政府直接规定每家企业的产量上限</label><label><input type="radio" name="q4" value="1"> 为排放权设定总量并允许交易，用价格机制给外部性定价</label><label><input type="radio" name="q4" value="2"> 完全依靠自愿减排，不设任何约束</label><label><input type="radio" name="q4" value="3"> 把排污产权无偿判给受污染的居民</label></fieldset><fieldset class="quiz-q" data-index="5"><legend>6. 渔业过度捕捞（公地悲剧）与个体可转让配额（ITQ）之间的关系是什么？</legend><label><input type="radio" name="q5" value="0"> ITQ 会加剧过度捕捞，因为配额可以交易</label><label><input type="radio" name="q5" value="1"> 过度捕捞的根源是鱼价太低，与产权无关</label><label><input type="radio" name="q5" value="2"> ITQ 取消了所有捕捞限制，让渔民自由捕捞</label><label><input type="radio" name="q5" value="3"> ITQ 把捕捞总量分割成可交易的产权份额，给使用者约束过度使用的激励</label></fieldset><button type="submit">提交并查看解析</button></form><div class="quiz-result" hidden></div></section><section class="outputs"><h2>带走的东西</h2><div class="output"><h3>外部性与公共品：市场失灵的两副面孔 <span class="badge">学习卡</span></h3><h1>学习卡 · 福利与外部性</h1>
+<form class="quiz-form" novalidate><fieldset class="quiz-q" data-index="0"><legend>1. 凭直觉判断：一家工厂排污损害了下游渔民，但排污成本没进入工厂的账本。市场自发运行的结果最可能是什么？</legend><label><input type="radio" name="q0" value="0"> 产量恰好是效率最优的水平</label><label><input type="radio" name="q0" value="1"> 产量偏高，因为工厂没承担排污的全部成本</label><label><input type="radio" name="q0" value="2"> 产量偏低，因为工厂出于谨慎少生产</label><label><input type="radio" name="q0" value="3"> 与成本无关，只取决于技术水平</label></fieldset><fieldset class="quiz-q" data-index="1"><legend>2. 下列哪一组特征最能定义「公共品」？</legend><label><input type="radio" name="q1" value="0"> 非排他性与非竞争性</label><label><input type="radio" name="q1" value="1"> 价格高且供给充足</label><label><input type="radio" name="q1" value="2"> 由私人企业独家提供</label><label><input type="radio" name="q1" value="3"> 使用者必须付费才能消费</label></fieldset><fieldset class="quiz-q" data-index="2"><legend>3. 科斯定理（Coase, 1960）的核心主张是什么？</legend><label><input type="radio" name="q2" value="0"> 政府必须对排污一律征收庇古税</label><label><input type="radio" name="q2" value="1"> 只要产权私有，市场就一定有效率</label><label><input type="radio" name="q2" value="2"> 在交易成本为零且产权明确时，当事人谈判可达成有效结果，与产权初始归属无关</label><label><input type="radio" name="q2" value="3"> 外部性在现实世界永远无法解决</label></fieldset><fieldset class="quiz-q" data-index="3"><legend>4. 庇古税的作用机理是什么？</legend><label><input type="radio" name="q3" value="0"> 直接禁止一切产生外部性的行为</label><label><input type="radio" name="q3" value="1"> 给受到外部性影响的第三方发补偿金</label><label><input type="radio" name="q3" value="2"> 把产权直接判给受损害的一方</label><label><input type="radio" name="q3" value="3"> 对负外部性行为按边际外部成本征税，使外部成本内部化</label></fieldset><fieldset class="quiz-q" data-index="4"><legend>5. 欧盟碳排放交易体系（EU ETS）属于哪一类处理外部性的方式？</legend><label><input type="radio" name="q4" value="0"> 政府直接规定每家企业的产量上限</label><label><input type="radio" name="q4" value="1"> 为排放权设定总量并允许交易，用价格机制给外部性定价</label><label><input type="radio" name="q4" value="2"> 完全依靠自愿减排，不设任何约束</label><label><input type="radio" name="q4" value="3"> 把排污产权无偿判给受污染的居民</label></fieldset><fieldset class="quiz-q" data-index="5"><legend>6. 渔业过度捕捞（公地悲剧）与个体可转让配额（ITQ）之间的关系是什么？</legend><label><input type="radio" name="q5" value="0"> ITQ 会加剧过度捕捞，因为配额可以交易</label><label><input type="radio" name="q5" value="1"> 过度捕捞的根源是鱼价太低，与产权无关</label><label><input type="radio" name="q5" value="2"> ITQ 取消了所有捕捞限制，让渔民自由捕捞</label><label><input type="radio" name="q5" value="3"> ITQ 把捕捞总量分割成可交易的产权份额，给使用者约束过度使用的激励</label></fieldset><button type="submit">提交并查看解析</button></form><div class="quiz-result" hidden></div></section><section class="outputs"><h2>带走的东西<span class="h2-meta">1 件</span></h2><div class="output"><h3>外部性与公共品：市场失灵的两副面孔 <span class="badge">学习卡</span></h3><h1>学习卡 · 福利与外部性</h1>
 <h2>一句话</h2>
 <p>当成本或收益落到<strong>无关第三方</strong>身上，价格就只反映故事的一半；填这个缺口，要么<strong>定价</strong>，要么<strong>界定产权</strong>。</p>
 <h2>一张诊断表</h2>
@@ -115,7 +118,7 @@
 <h2>一条张力（交叉洞察）</h2>
 <blockquote><p>制度能把外部性内部化，但工具会被人心<strong>改写效果</strong>：</p><p>- 定价可能把道德约束变成&quot;付费购买的权利&quot;（罚款即价格）。</p><p>- 分配出去的配额会变成&quot;我的东西&quot;，回收遭遇禀赋效应。</p><p>- 公共品供给依赖&quot;<strong>别人也在付出</strong>&quot;的信念，信息公开本身即治理工具。</p></blockquote>
 <h2>出处</h2>
-<ul><li>Coase, R. H. (1960), <em>The Journal of Law and Economics</em> 3 —— 科斯定理：零交易成本且产权明确时谈判可达有效结果、与初始归属无关；&quot;零交易成本&quot;的现实性、对分配的影响与过度推广均有争议。</li></ul></div></section><nav class="lesson-nav" aria-label="讲次导航"><a href="../../../lessons/01-economics-basics/09-information-asymmetry/">← 01-09 信息不对称：逆向选择与道德风险</a><a href="../../../lessons/02-psychology-basics/01-perception-attention/">02-01 知觉与注意：信息如何进入心智 →</a></nav></div>
+<ul><li>Coase, R. H. (1960), <em>The Journal of Law and Economics</em> 3 —— 科斯定理：零交易成本且产权明确时谈判可达有效结果、与初始归属无关；&quot;零交易成本&quot;的现实性、对分配的影响与过度推广均有争议。</li></ul></div></section><nav class="lesson-nav" aria-label="讲次导航"><a class="nav-prev" href="../../../lessons/01-economics-basics/09-information-asymmetry/"><span class="nav-dir">上一讲</span><span class="nav-ttl">01-09 信息不对称：逆向选择与道德风险</span></a><a class="nav-next" href="../../../lessons/02-psychology-basics/01-perception-attention/"><span class="nav-dir">下一讲</span><span class="nav-ttl">02-01 知觉与注意：信息如何进入心智</span></a></nav></div>
 <nav class="rail rail-toc" aria-label="本讲段落">
 <p class="rail-title"><span>本讲段落</span><span>11 节</span></p>
 <ol class="toc-list"><li><a href="#sec-01"><span class="t-num">§ 01</span><span class="t-text">学习目标</span></a></li><li><a href="#sec-02"><span class="t-num">§ 02</span><span class="t-text">问题背景</span></a></li><li><a href="#sec-03"><span class="t-num">§ 03</span><span class="t-text">核心概念</span></a></li><li><a href="#sec-04"><span class="t-num">§ 04</span><span class="t-text">经济学视角</span></a></li><li><a href="#sec-05"><span class="t-num">§ 05</span><span class="t-text">心理学视角</span></a></li><li><a href="#sec-06"><span class="t-num">§ 06</span><span class="t-text">交叉洞察</span></a></li><li><a href="#sec-07"><span class="t-num">§ 07</span><span class="t-text">现实案例</span></a></li><li><a href="#sec-08"><span class="t-num">§ 08</span><span class="t-text">常见误区</span></a></li><li><a href="#sec-09"><span class="t-num">§ 09</span><span class="t-text">经典研究 5 分钟摘要</span></a></li><li><a href="#sec-10"><span class="t-num">§ 10</span><span class="t-text">自测题</span></a></li><li><a href="#sec-11"><span class="t-num">§ 11</span><span class="t-text">延伸关键词</span></a></li></ol>
@@ -124,8 +127,12 @@
 </article>
 </main>
 <footer class="foot">
-  <p class="foot-line">纯静态站点 · 无后端、无账号</p>
-  <p class="foot-note">学习进度只存在本机浏览器（localStorage），不上传任何数据。</p>
+  <div class="foot-row">
+    <p class="foot-colophon">经济学 × 心理学 · 交叉学科自学课程</p>
+    <dl class="foot-stats"><div><dt>模块</dt><dd>7</dd></div><div><dt>计划讲次</dt><dd>72</dd></div><div><dt>已建讲次</dt><dd>22</dd></div><div><dt>术语</dt><dd>153</dd></div><div><dt>学习路线</dt><dd>3</dd></div></dl>
+  </div>
+  <p class="foot-note">纯静态站点 · 无后端、无账号 · 学习进度只存在本机浏览器（localStorage），不上传任何数据。</p>
+  <p class="foot-log">派生自 phases/** · 由 site/build.js 生成 · 构建于 2026-10-13</p>
 </footer>
 <script src="../../../progress.js"></script>
 <script src="../../../data.js"></script>
