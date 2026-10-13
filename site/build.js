@@ -19,9 +19,9 @@ const md = require("./md-render.js");
 const ROOT = path.resolve(__dirname, "..");
 const SITE = __dirname;
 const CHECK = process.argv.includes("--check");
-const PLACEHOLDER_NOTE = "部署前把 SITE_URL 换成真实站点地址（GitHub Pages）。";
+const PLACEHOLDER_NOTE = "SITE_URL 已指向真实 GitHub Pages 站点；换域名时改这里（或用环境变量 SITE_URL 覆盖）。";
 // 站点根地址：sitemap / llms.txt 用绝对链接。可用环境变量 SITE_URL 覆盖。
-const SITE_URL = (process.env.SITE_URL || "https://example.github.io/econ-psych-course").replace(/\/+$/, "");
+const SITE_URL = (process.env.SITE_URL || "https://aureliano-0112.github.io/econ-psy").replace(/\/+$/, "");
 
 const esc = md.escapeHtml;
 

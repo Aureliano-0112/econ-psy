@@ -4,8 +4,8 @@
   else root.ECONPSY = factory();
 })(typeof self !== "undefined" ? self : this, function () {
   return {
-  "generatedAt": "2026-10-13T08:52:33.739Z",
-  "siteUrl": "https://example.github.io/econ-psych-course",
+  "generatedAt": "2026-10-13T10:08:06.320Z",
+  "siteUrl": "https://aureliano-0112.github.io/econ-psy",
   "counts": {
     "planned": 72,
     "registered": 22,

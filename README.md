@@ -46,4 +46,4 @@ node site/test_seo_routes.js
 
 约定：CI 用 `python3`，本地 Windows 用 `python`；路径一律用 `/`。
 
-> 部署前把 SITE_URL 换成真实站点地址（GitHub Pages）。
+> SITE_URL 已指向真实 GitHub Pages 站点；换域名时改这里（或用环境变量 SITE_URL 覆盖）。

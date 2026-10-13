@@ -18,6 +18,20 @@
 
   function $(sel, el) { return (el || document).querySelector(sel); }
   function $$(sel, el) { return Array.prototype.slice.call((el || document).querySelectorAll(sel)); }
+
+  // ---- 外壳链接的绝对化 ----
+  // 顶栏与页脚不随软导航替换，但它们内部的相对链接是按「文档初次加载时所在的层级」生成的
+  // （目录页是 `glossary/index.html`，讲次页是 `../../../glossary/index.html`）。
+  // 软导航 pushState 会改变文档基准 URL，若不处理，从目录页跳到讲次页后点顶栏「术语表」就会
+  // 解析成 `.../lessons/<模块>/<讲>/glossary/index.html` → 404（反之亦然）。
+  // 因此在加载时把外壳链接的绝对地址固化下来，每次换页后回填。
+  var CHROME_LINKS = [];
+  function pinChromeLinks() {
+    CHROME_LINKS = $$(".topbar a, .foot a").map(function (a) { return { el: a, abs: a.href }; });
+  }
+  function restoreChromeLinks() {
+    CHROME_LINKS.forEach(function (o) { o.el.setAttribute("href", o.abs); });
+  }
   function statusOf(id) { return (state.lessons[id] && state.lessons[id].status) || "not-started"; }
   function esc(s) {
     return String(s).replace(/[&<>"']/g, function (c) {
@@ -254,6 +268,7 @@
   }
 
   function afterSwap() {
+    restoreChromeLinks();
     initCatalog();
     initLesson();
     enhanceMermaid();
@@ -298,6 +313,7 @@
   });
 
   injectTools();
+  pinChromeLinks();
   renderMini();
   initCatalog();
   initLesson();

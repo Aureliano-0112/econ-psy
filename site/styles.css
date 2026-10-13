@@ -27,8 +27,12 @@
   --mono:  ui-monospace, "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
 
   --wrap: 68rem;
-  --read-w: 43.7rem;     /* 课程页正文栏宽 = 原 38rem 的 1.15 倍 */
-  --rail-w: 15rem;       /* 左右侧栏宽度 = 原 12rem 的 1.25 倍（两栏各吸到页面一端） */
+  /* 课程页三栏为流体：几何尺寸随视口连续缩放，夹在可读上下限内。
+     这样任何屏宽下三栏的比例恒定，不会出现某一档宽度「位置和大小不对」的死区；
+     超宽屏由整个三栏块居中收缩来吸收多余宽度，而不是把栏拉到窗口两端留出大片空洞。 */
+  --rail-w: clamp(10.5rem, 16.6vw, 15rem);   /* 左右栏：≤1440 时约 15rem（= 原 12rem 的 1.25 倍），超宽屏封顶 */
+  --read-w: clamp(30rem, 46vw, 50rem);       /* 中栏正文行宽：随视口缩放（1440 时 ≈ 662px，约 35 个汉字） */
+  --gap-x:  clamp(1.25rem, 2.2vw, 2rem);     /* 栏间距 */
   --measure: 36rem;      /* 正文阅读栏宽 */
   --bar-h: 4.7rem;       /* 顶栏最小高度 = 原单行高度（约 3.75rem）的 1.25 倍 */
   --radius: 2px;         /* 瑞士风格：近乎直角 */
@@ -104,21 +108,26 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
   padding: clamp(1.6rem, 5vw, 3.2rem) clamp(1rem, 4vw, 2.5rem) 6rem;
 }
 .wrap:focus { outline: none; }
-/* 课程页：不设版心上限，三栏铺满全宽，左右栏各吸到页面一端（内边距与顶栏对齐） */
+/* 课程页：不设版心上限，内边距与顶栏对齐；三栏块本身居中，多余宽度对称留在两侧 */
 .wrap-lesson {
   max-width: none;
   padding-left: clamp(1.25rem, 5vw, 3.125rem);
   padding-right: clamp(1.25rem, 5vw, 3.125rem);
 }
 
-/* ---- 课程页三栏：左＝本模块（当前阶段）讲次 ｜ 中＝正文（居中） ｜ 右＝本讲段落 ---- */
+/* ---- 课程页三栏：左＝本模块（当前阶段）讲次 ｜ 中＝正文（居中） ｜ 右＝本讲段落 ----
+   三条轨道均为流体宽度（clamp/vw），栏宽与栏距随视口连续变化；
+   justify-content: center 让整个三栏块居中，多余宽度对称分到两侧——
+   超宽屏不会出现「左右栏贴窗口、正文两侧留大片空洞」的情形。 */
 .lesson-layout {
   display: grid;
-  grid-template-columns: var(--rail-w) minmax(0, 1fr) var(--rail-w);
-  gap: 2.5rem 2rem;
+  grid-template-columns: var(--rail-w) minmax(0, var(--read-w)) var(--rail-w);
+  justify-content: center;
+  gap: 2.5rem var(--gap-x);
   align-items: start;
 }
-.lesson-main { width: 100%; max-width: var(--read-w); margin: 0 auto; }
+/* 中栏宽度由中间轨道决定，这里不再另设上限，避免两处各写一份宽度 */
+.lesson-main { width: 100%; max-width: none; margin: 0 auto; }
 
 .rail {
   position: sticky; top: calc(var(--bar-h) + 1.4rem);
@@ -161,6 +170,7 @@ h1 {
   font-family: var(--serif); font-weight: 700;
   font-size: clamp(2.1rem, 5.6vw, 3.45rem); line-height: 1.16;
   letter-spacing: -.01em; margin: 0 0 .7rem;
+  text-wrap: balance;                     /* 长标题折行时两端长度接近，消除孤字 */
 }
 h2 { font-size: 1.36rem; line-height: 1.4; margin: 3rem 0 .8rem; position: relative; }
 h3 { font-size: 1.17rem; margin: 1.8rem 0 .5rem; }
@@ -293,19 +303,20 @@ fieldset.quiz-q:first-of-type { border-top: 0; }
 .foot-line { font-family: var(--mono); letter-spacing: .04em; margin: 0 0 .3rem; color: var(--ink-2); }
 .foot-note { margin: 0; }
 
-@media (max-width: 77.99rem) {
-  /* 中等屏：只留左侧模块导航，正文右移居中 */
-  .lesson-layout { grid-template-columns: var(--rail-w) minmax(0, 1fr); }
+@media (max-width: 78rem) {
+  /* 中等屏：段落导航让位，但第三轨道仍被保留（轨道由 grid-template-columns 显式声明，
+     元素 display:none 不会让轨道塌缩），因此正文依然居中，不会右偏。 */
   .rail-toc { display: none; }
   /* 此宽度区间顶栏可能换行（高于 --bar-h），给侧栏多留一点吸顶余量 */
   .rail { top: calc(var(--bar-h) + 2.6rem); }
 }
 
-@media (max-width: 51.99rem) {
-  /* 窄屏：单栏，导航让位给正文（讲次前后链接仍在文末） */
+@media (max-width: 60rem) {
+  /* 再窄：三栏放不下，改单栏（讲次前后链接仍在文末）。
+     单栏时横向不再有竞争，正文直接用阅读栏宽 --measure（≤640 时该 token 变 100%，自然填满）。 */
   .lesson-layout { grid-template-columns: minmax(0, 1fr); }
   .rail-module, .rail-toc { display: none; }
-  .lesson-main { max-width: none; }
+  .lesson-main { max-width: var(--measure); }
 }
 
 @media (max-width: 640px) {
