@@ -1,0 +1,332 @@
+/* styles.css — 站点样式（派生层：只负责呈现，不承载任何课程内容）
+   设计方向：瑞士国际主义（网格 / 大字阶层级 / 齐左 / 强留白 / 单强调色）
+             ＋ 编辑杂志（栏目眉标 / 导语 / 引文 / 页边编号）
+             ＋ 行为实验室（等宽数字 / 刻度尺 / 网格线 / 标本式标注）
+   质量底线：移动端可用、键盘焦点可见、尊重 prefers-reduced-motion、可打印。 */
+
+:root {
+  /* 色彩：冷调纸白 + 近黑墨 + 单一信号红，靠细线而非色块做结构 */
+  --paper:      #F3F3F0;
+  --surface:    #FFFFFF;
+  --ink:        #11151A;
+  --ink-2:      #3A3F46;
+  --muted:      #6E7379;
+  --rule:       #D7D8D2;
+  --rule-2:     #B4B6AF;
+  --accent:     #CE2E17;
+  --accent-ink: #FFFFFF;
+  --accent-soft:#F7E6E1;
+  --ok:         #1B6E45;
+  --ok-soft:    #E2F0E7;
+  --warn:       #8A5A00;
+  --warn-soft:  #F6ECD6;
+
+  /* 字体：不依赖网络字体；正文用宋体（衬线），界面外壳用系统无衬线，数据用等宽 */
+  --sans:  "Inter", "Helvetica Neue", Helvetica, Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans SC", system-ui, sans-serif;
+  --serif: "Songti SC", "SimSun", "Noto Serif SC", "Source Han Serif SC", Georgia, "Times New Roman", serif;
+  --mono:  ui-monospace, "JetBrains Mono", "Cascadia Code", "SFMono-Regular", Consolas, monospace;
+
+  --wrap: 68rem;
+  --read-w: 43.7rem;     /* 课程页正文栏宽 = 原 38rem 的 1.15 倍 */
+  --rail-w: 15rem;       /* 左右侧栏宽度 = 原 12rem 的 1.25 倍（两栏各吸到页面一端） */
+  --measure: 36rem;      /* 正文阅读栏宽 */
+  --bar-h: 4.7rem;       /* 顶栏最小高度 = 原单行高度（约 3.75rem）的 1.25 倍 */
+  --radius: 2px;         /* 瑞士风格：近乎直角 */
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+html:focus-within { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 19px/1.76 var(--serif);   /* 正文字体：宋体优先（字号整体放大） */
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 界面外壳（顶栏、页脚、控件、侧栏）仍用无衬线：宋体只承担阅读正文 */
+.topbar, .foot, .search, .rail, .quiz .notice { font-family: var(--sans); }
+
+a { color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: var(--rule-2); }
+a:hover { text-decoration-color: var(--accent); color: var(--accent); }
+
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* 键盘跳转 */
+.skip-link { position: absolute; left: -999px; top: 0; background: var(--ink); color: #fff; padding: .5rem .9rem; z-index: 30; }
+.skip-link:focus { left: .5rem; top: .5rem; }
+
+/* 顶部阅读刻度尺（行为实验室的测量隐喻） */
+.tick-progress {
+  position: fixed; inset: 0 0 auto 0; height: 3px; z-index: 20;
+  background:
+    repeating-linear-gradient(90deg, var(--rule-2) 0 1px, transparent 1px 16px) center bottom/100% 3px no-repeat,
+    var(--rule);
+}
+.tick-progress::after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(90deg, var(--rule) 0 1px, transparent 1px 4px); opacity: .5; }
+.tick-progress > span { display: block; height: 100%; width: 0; background: var(--accent); transition: width .12s linear; }
+
+/* ---- 顶栏 ---- */
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1.4rem;
+  min-height: var(--bar-h);                    /* 顶栏高度：原单行高度的 1.25 倍 */
+  padding: .875rem clamp(1.25rem, 5vw, 3.125rem);   /* 原 .7rem / clamp(1rem,4vw,2.5rem) 的 1.25 倍 */
+  background: var(--paper);
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--ink);
+}
+.brand { display: inline-flex; align-items: baseline; gap: .55rem; text-decoration: none; color: var(--ink); }
+.brand:hover { text-decoration: none; color: var(--ink); }
+.brand-mark { font-family: var(--mono); font-weight: 700; font-size: 1.06rem; letter-spacing: .04em; background: var(--ink); color: var(--paper); padding: .1rem .4rem; }
+.brand-name { font-weight: 700; letter-spacing: .01em; }
+.nav { display: flex; flex-wrap: wrap; gap: .2rem 1.1rem; font-size: 1rem; }
+.nav a { text-decoration: none; color: var(--ink-2); padding: .15rem 0; border-bottom: 1.5px solid transparent; }
+.nav a:hover { color: var(--ink); border-bottom-color: var(--accent); }
+.progress-mini { margin: 0 0 0 auto; font-family: var(--mono); font-size: .88rem; color: var(--muted); letter-spacing: .01em; }
+
+.tools { display: flex; flex-wrap: wrap; gap: .4rem; }
+.tools button {
+  font: inherit; font-size: .92rem; font-family: var(--mono);
+  padding: .3rem .7rem; border: 1px solid var(--rule-2); background: var(--surface);
+  color: var(--ink-2); border-radius: var(--radius); cursor: pointer;
+}
+.tools button:hover { border-color: var(--ink); color: var(--ink); }
+
+/* ---- 主体网格 ---- */
+.wrap {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: clamp(1.6rem, 5vw, 3.2rem) clamp(1rem, 4vw, 2.5rem) 6rem;
+}
+.wrap:focus { outline: none; }
+/* 课程页：不设版心上限，三栏铺满全宽，左右栏各吸到页面一端（内边距与顶栏对齐） */
+.wrap-lesson {
+  max-width: none;
+  padding-left: clamp(1.25rem, 5vw, 3.125rem);
+  padding-right: clamp(1.25rem, 5vw, 3.125rem);
+}
+
+/* ---- 课程页三栏：左＝本模块（当前阶段）讲次 ｜ 中＝正文（居中） ｜ 右＝本讲段落 ---- */
+.lesson-layout {
+  display: grid;
+  grid-template-columns: var(--rail-w) minmax(0, 1fr) var(--rail-w);
+  gap: 2.5rem 2rem;
+  align-items: start;
+}
+.lesson-main { width: 100%; max-width: var(--read-w); margin: 0 auto; }
+
+.rail {
+  position: sticky; top: calc(var(--bar-h) + 1.4rem);
+  max-height: calc(100vh - var(--bar-h) - 3rem);
+  overflow-y: auto; font-size: .92rem; line-height: 1.5;
+}
+.rail-title {
+  display: flex; flex-direction: column; gap: .1rem;
+  margin: 0 0 .55rem; padding-bottom: .45rem; border-bottom: 1px solid var(--ink);
+  font-family: var(--mono); font-size: .76rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+}
+.rail-title span:first-child { color: var(--accent); }
+.rail-list, .toc-list { list-style: none; margin: 0; padding: 0; }
+.rail-list li, .toc-list li { margin: 0; }
+.rail-list a, .toc-list a {
+  display: grid; grid-template-columns: 2.2rem 1fr; gap: .45rem; align-items: baseline;
+  padding: .34rem .4rem .34rem .55rem; border-left: 2px solid transparent;
+  text-decoration: none; color: var(--ink-2);
+}
+.rail-list a:hover, .toc-list a:hover { color: var(--accent); background: var(--surface); text-decoration: none; }
+.r-num, .t-num { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+.rail-list a.is-current { color: var(--ink); font-weight: 600; border-left-color: var(--accent); background: var(--surface); }
+.rail-list a.is-current .r-num { color: var(--accent); }
+.toc-list a.is-active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+.rail-foot { margin: .9rem 0 0; padding-top: .5rem; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: .78rem; }
+.rail-foot a { color: var(--muted); text-decoration: none; }
+.rail-foot a:hover { color: var(--accent); }
+
+/* 板块眉标（编辑杂志的 kicker） */
+.kicker {
+  display: flex; align-items: center; gap: .7rem;
+  font-family: var(--mono); font-size: .85rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); margin: 0 0 .9rem;
+}
+.kicker::after { content: ""; height: 1px; flex: 1; background: var(--rule-2); }
+.kicker .idx { color: var(--muted); }
+
+/* ---- 层级 ---- */
+h1 {
+  font-family: var(--serif); font-weight: 700;
+  font-size: clamp(2.1rem, 5.6vw, 3.45rem); line-height: 1.16;
+  letter-spacing: -.01em; margin: 0 0 .7rem;
+}
+h2 { font-size: 1.36rem; line-height: 1.4; margin: 3rem 0 .8rem; position: relative; }
+h3 { font-size: 1.17rem; margin: 1.8rem 0 .5rem; }
+p { margin: .85rem 0; }
+
+/* 课程页：正文章节编号（§ NN，与右侧段落导航同源；栏宽由 .lesson-main 约束） */
+.lesson-body { max-width: none; counter-reset: sec; }
+.lesson-body > h2 {
+  padding-top: .8rem; border-top: 1px solid var(--ink);
+  counter-increment: sec;
+  scroll-margin-top: calc(var(--bar-h) + 1.2rem);   /* 锚点跳转不被吸顶顶栏遮住 */
+}
+.lesson-body > h2::before {
+  content: "§ " counter(sec, decimal-leading-zero);
+  display: block; font-family: var(--mono); font-size: .82rem; font-weight: 500;
+  letter-spacing: .16em; color: var(--accent); margin-bottom: .35rem;
+}
+
+.lede, .standfirst { font-family: var(--serif); font-size: clamp(1.2rem, 2.6vw, 1.47rem); line-height: 1.62; color: var(--ink-2); margin: 0 0 1.4rem; }
+
+/* ---- 标本卡：讲次元数据（实验记录感） ---- */
+.specimen { display: grid; grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr)); gap: 0; margin: 0 0 2.2rem; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); }
+.specimen div { padding: .55rem .2rem .6rem; border-right: 1px solid var(--rule); }
+.specimen div:last-child { border-right: 0; }
+.specimen dt { font-family: var(--mono); font-size: .76rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 .2rem; }
+.specimen dd { margin: 0; font-size: 1.02rem; font-family: var(--mono); color: var(--ink); }
+.lesson-status { font-family: var(--mono); font-size: .9rem; color: var(--muted); margin: .9rem 0 2rem; }
+
+blockquote {
+  margin: 1.6rem 0; padding: .2rem 0 .2rem 1.4rem;
+  border-left: 3px solid var(--accent);
+  font-family: var(--serif); font-size: 1.18rem; color: var(--ink-2);
+}
+blockquote p { margin: .4rem 0; }
+
+ul, ol { padding-left: 1.35rem; }
+li { margin: .35rem 0; }
+li::marker { color: var(--rule-2); }
+
+code { background: #ECECE7; padding: .08em .34em; border-radius: var(--radius); font-family: var(--mono); font-size: .88em; }
+pre { background: var(--ink); color: #EDEDE8; padding: 1rem 1.1rem; border-radius: var(--radius); overflow-x: auto; font-size: .96rem; line-height: 1.6; }
+pre code { background: none; color: inherit; padding: 0; }
+
+table { width: 100%; border-collapse: collapse; margin: 1.4rem 0; font-size: 1.02rem; display: block; overflow-x: auto; }
+th, td { border-bottom: 1px solid var(--rule); padding: .5rem .65rem; text-align: left; vertical-align: top; }
+th { font-family: var(--mono); font-size: .8rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--ink); white-space: nowrap; }
+
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2rem 0; }
+
+/* ---- 目录页 ---- */
+.search {
+  width: 100%; max-width: 34rem; padding: .7rem .2rem; font: inherit;
+  border: 0; border-bottom: 2px solid var(--ink); background: transparent; border-radius: 0;
+}
+.search::placeholder { color: var(--muted); }
+.search:focus { outline: none; border-bottom-color: var(--accent); }
+
+.module { margin: 2.6rem 0 0; }
+.module > h2 { display: flex; align-items: baseline; gap: .8rem; border-top: 2px solid var(--ink); padding-top: .7rem; margin: 0 0 .3rem; }
+.module > h2 .badge { margin-left: auto; }
+
+.lesson-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--rule); }
+.lesson-list li { margin: 0; }
+.lesson-card {
+  display: grid; grid-template-columns: 4.6rem 1fr; gap: .15rem 1rem; align-items: baseline;
+  padding: .8rem .3rem; border-bottom: 1px solid var(--rule);
+  text-decoration: none; color: var(--ink); transition: background .12s, padding-left .12s;
+}
+.lesson-card:hover { background: var(--surface); padding-left: .8rem; text-decoration: none; }
+.lesson-card .c-id { font-family: var(--mono); font-size: .9rem; color: var(--muted); }
+.lesson-card .c-title { font-weight: 600; }
+.lesson-card .c-sum { grid-column: 2; color: var(--muted); font-size: .95rem; }
+
+.badge { display: inline-block; font-family: var(--mono); font-size: .76rem; letter-spacing: .06em; text-transform: uppercase; padding: .1rem .45rem; border: 1px solid var(--rule-2); color: var(--ink-2); border-radius: 999px; }
+.badge.done { border-color: var(--ok); color: var(--ok); background: var(--ok-soft); }
+.badge.reading { border-color: var(--warn); color: var(--warn); background: var(--warn-soft); }
+.empty { color: var(--muted); font-style: italic; }
+
+/* ---- 课程导航 ---- */
+.lesson-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 3.5rem 0 0; padding-top: 1rem; border-top: 1px solid var(--ink); font-size: 1rem; }
+.lesson-nav a { text-decoration: none; display: block; }
+.lesson-nav a:hover { color: var(--accent); }
+.lesson-nav a:last-child { text-align: right; }
+
+/* ---- 测验 ---- */
+.quiz { margin: 3.5rem 0 0; max-width: none; }
+.quiz h2 { border-top: 1px solid var(--ink); padding-top: .8rem; }
+.quiz .notice {
+  font-size: .94rem; color: var(--warn); background: var(--warn-soft);
+  border: 1px solid #E4D3A8; padding: .55rem .8rem; border-radius: var(--radius); margin: 0 0 1.4rem;
+}
+.quiz-form { counter-reset: qq; }
+fieldset.quiz-q { border: 0; border-top: 1px solid var(--rule); margin: 0; padding: 1rem 0 .4rem; }
+fieldset.quiz-q:first-of-type { border-top: 0; }
+.quiz-q legend { font-weight: 600; padding: 0 0 .5rem; font-size: 1.11rem; }
+.quiz-q legend::before { counter-increment: qq; content: counter(qq, decimal-leading-zero) "  "; font-family: var(--mono); color: var(--accent); }
+.quiz-q label { display: block; padding: .42rem .6rem .42rem .2rem; border-radius: var(--radius); cursor: pointer; }
+.quiz-q label:hover { background: var(--surface); }
+.quiz-q label input { margin-right: .55rem; accent-color: var(--accent); }
+.quiz button[type="submit"] {
+  font: inherit; font-family: var(--mono); font-size: .95rem; letter-spacing: .04em;
+  margin-top: 1.2rem; padding: .6rem 1.3rem; border: 1px solid var(--ink);
+  background: var(--ink); color: var(--paper); border-radius: var(--radius); cursor: pointer;
+}
+.quiz button[type="submit"]:hover { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.quiz-result { margin-top: 1.6rem; }
+.quiz-result .score { font-family: var(--mono); font-size: 1.67rem; font-weight: 700; border-bottom: 1px solid var(--ink); padding-bottom: .5rem; }
+.quiz-result ol { padding-left: 1.3rem; }
+.quiz-result > ol > li { margin: .9rem 0; }
+.quiz-result ol ul { list-style: none; padding-left: .2rem; }
+.reveal { margin-top: .45rem; font-size: 1rem; color: var(--ink-2); background: var(--surface); border-left: 3px solid var(--accent); padding: .5rem .7rem; }
+.opt-correct { color: var(--ok); font-weight: 600; }
+.opt-wrong { color: var(--accent); font-weight: 600; }
+
+/* ---- 产物 / 术语 / 路径 ---- */
+.outputs { margin: 3.5rem 0 0; max-width: none; }
+.outputs h2 { border-top: 1px solid var(--ink); padding-top: .8rem; }
+.output { background: var(--surface); border: 1px solid var(--rule); padding: .3rem 1.2rem 1.2rem; margin: 1rem 0; }
+.output h3 { display: flex; align-items: baseline; gap: .6rem; }
+
+.term-table td:first-child { font-weight: 600; white-space: nowrap; }
+.term-table td:nth-child(2), .term-table td:nth-child(4) { font-family: var(--mono); font-size: .92rem; color: var(--ink-2); }
+
+.route { border-top: 2px solid var(--ink); padding-top: .8rem; margin: 2rem 0; }
+.route ol { columns: 2; column-gap: 2.5rem; }
+.route .gates { font-family: var(--mono); font-size: .92rem; color: var(--muted); }
+
+/* ---- 页脚 ---- */
+.foot { border-top: 1px solid var(--rule); color: var(--muted); font-size: .92rem; padding: 1.6rem clamp(1rem, 4vw, 2.5rem) 3rem; }
+.foot-line { font-family: var(--mono); letter-spacing: .04em; margin: 0 0 .3rem; color: var(--ink-2); }
+.foot-note { margin: 0; }
+
+@media (max-width: 77.99rem) {
+  /* 中等屏：只留左侧模块导航，正文右移居中 */
+  .lesson-layout { grid-template-columns: var(--rail-w) minmax(0, 1fr); }
+  .rail-toc { display: none; }
+  /* 此宽度区间顶栏可能换行（高于 --bar-h），给侧栏多留一点吸顶余量 */
+  .rail { top: calc(var(--bar-h) + 2.6rem); }
+}
+
+@media (max-width: 51.99rem) {
+  /* 窄屏：单栏，导航让位给正文（讲次前后链接仍在文末） */
+  .lesson-layout { grid-template-columns: minmax(0, 1fr); }
+  .rail-module, .rail-toc { display: none; }
+  .lesson-main { max-width: none; }
+}
+
+@media (max-width: 640px) {
+  :root { --measure: 100%; }
+  .route ol { columns: 1; }
+  .progress-mini { width: 100%; margin: .2rem 0 0; }
+  .lesson-card { grid-template-columns: 3.6rem 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}
+
+@media print {
+  .topbar, .skip-link, .lesson-nav, .foot, .quiz button, .tick-progress, .tools, .rail { display: none; }
+  body { background: #fff; font-size: 12pt; }
+  .wrap { max-width: none; padding: 0; }
+  .lesson-layout { display: block; }
+  .lesson-main { max-width: none; }
+  .lesson-body, .quiz, .outputs { max-width: none; }
+  a { text-decoration: none; color: inherit; }
+  .quiz-result { display: block !important; }
+}

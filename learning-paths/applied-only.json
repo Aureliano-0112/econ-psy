@@ -1,0 +1,9 @@
+{
+  "id": "applied-only",
+  "name": "应用线（跳过 01/02 基础模块）",
+  "weeks": 15,
+  "lessonsPerWeek": 3,
+  "required": ["00-01", "00-02"],
+  "optional": [],
+  "gates": []
+}

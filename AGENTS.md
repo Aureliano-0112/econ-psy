@@ -1,0 +1,397 @@
+# AGENTS.md · 经济学 + 心理学学习网站 · 硬规则
+
+> 本文件是**执行期唯一权威**：AI 与人类贡献者都读，且都必须遵守。
+> `plan.md` 是设计蓝图（意图来源，不要求逐字同步）；本文件是规则与门禁。
+> 两者冲突时：**以本文件为准**，并把差异回写进 `plan.md` 或在第 11 节登记一条未决项——**不得静默偏离**。
+>
+> 修改本文件属于改契约，需要人类明确批准。
+
+---
+
+## 1. 项目是什么
+
+| 维度     | 决策                                                          |
+| -------- | ------------------------------------------------------------- |
+| 产品形态 | 纯静态网站。无后端、无账号、无数据库、无 API                   |
+| 内容真相 | 磁盘目录 `phases/NN-module/NN-lesson/` 是唯一来源              |
+| 内容生成 | AI 按每讲的 `gen-prompt.md` 生成，人工审校                     |
+| 使用方式 | 浏览器阅读；进度存浏览器 `localStorage`                        |
+| 规模基线 | 72 讲 = 00 导论 2 + 01–06 共 70（分配表见 `plan.md` §1.1）；每讲 1 份讲义 + 1 份 quiz |
+| 技术栈   | Node 构建脚本 + 单一 Markdown 渲染器 + 纯前端 localStorage     |
+| 部署     | GitHub Pages 静态托管                                          |
+| 语言     | 中文单语。不做多语言                                           |
+| 界面方向 | 瑞士国际主义 ＋ 编辑杂志 ＋ 行为实验室（已拍板保持；token 与分层见第 12 节） |
+
+**不做**：多语言层、认证层、API 层、技能分发安装器、上游同步。
+
+**核心心法**：先把契约与门禁立起来，再用 AI 批量生成内容。绝不先写 72 讲再补校验——那时的返工成本最高。
+
+---
+
+## 2. 十条硬规则
+
+1. **文件系统即真相。** 课程内容只存在于 `phases/**`。`README.md`、`ROADMAP.md`、`site/data.js`、`site/lessons/**`、`site/index.html`、`site/glossary/**`、`site/paths/**`、`sitemap.xml`、`llms.txt`、`coverage.md` 全部是**派生视图**，只能由 `site/build.js` 生成或回写，**禁止手工编辑**。手改产物会被下一次构建覆盖，且视为绕过门禁。
+
+2. **契约先行。** 改变一讲的形状时，必须按此顺序落地：`LESSON_TEMPLATE.md` / `QUIZ_CONTRACT.md` → `scripts/scaffold_lesson.py` → `scripts/audit_lessons.py` → 内容。**契约、脚手架、审计器三者形状必须一致**：脚手架产出的形状 = 审计器接受的形状。禁止"写完才发现不合规"。
+
+3. **一讲四件套齐全才算存在。** 缺任一件即视为该讲未完成：
+
+   | 组件   | 路径            | 要求                                                 |
+   | ------ | --------------- | ---------------------------------------------------- |
+   | 正文   | `docs/zh.md`    | UTF-8，≥800B，H1 + 一句话主旨 + 全部头部字段 + 骨架  |
+   | 测验   | `quiz.json`     | 第 4 节契约                                          |
+   | 生成源 | `gen-prompt.md` | 引用本讲编号，可独立复现本讲                         |
+   | 产物   | `outputs/`      | 非空；≥1 件带完整 frontmatter（学习卡/决策清单/实验设计/术语卡） |
+
+   `examples/` 为**可选**第五件（数据表、计算脚本、问卷设计；允许"伪代码 + 手工推导"）。审计器只强制 `outputs/`。
+
+4. **`quiz.json` 字段冻结。** 键名只能是 `lesson` 与 `questions`；每题键名只能是 `stage` / `question` / `options` / `correct` / `explanation`。拒绝旧键名与新增键。`options` 恰好 4 个；`correct` 为 0 基索引且在 `0–3`；6 题分布固定为 **1 pre + 3 check + 2 post**；四个答案槽位分布必须均衡（各约 25%）。字段名或分布被改动，等同于破坏契约。
+
+5. **答案隔离是 UI 延迟揭示，不是安全边界。** 纯静态站无法对浏览器隐藏答案——**不要假装可以**，也不要为此引入后端。要求是：
+   - 学习者作答前，渲染出的 DOM 与作答控件中**不得出现** `correct` 与 `explanation` 的任何内容；
+   - 判定与解析在提交动作之后才揭示；
+   - 站点需在 quiz 区域明示"答案可见于页面数据，本站不做防作弊"。
+
+6. **`gen-prompt.md` 是内容的一等公民。** 每讲目录下必备一份生成该讲的完整提示词，且必须包含：本讲在课程中的位置与前置知识、必须覆盖的概念清单、必须遵守的正文骨架（引用 `LESSON_TEMPLATE.md`）、quiz 分布与答案位置约束、禁止事项。缺此文件 = 本讲**不可复现**，不得合并。
+
+7. **门禁全绿才算完成。** 第 6 节的命令必须全部通过（`--strict` 任一失败即 `exit 1`）。**禁止** `continue-on-error`、禁止注释掉步骤、禁止跳过审计、禁止手改产物让检查通过。**每新增一个脚本，必须同时新增一个测试或一条 CI 步骤**——禁止孤儿脚本。
+
+8. **计数只有一个来源。** 讲次总数与每模块讲数以 `ROADMAP.md` 的总表为唯一来源；`node site/build.js --check` 负责对账 `README.md` / `ROADMAP.md` 的计数文案与文件系统。改内容必须同步改总表；`--check` 失败即构建失败。
+
+9. **事实纪律。** 不编造论文、作者、年份、期刊或数据。经典研究摘必须写全 **作者 / 年份 / 结论 / 争议**；有争议的结论必须显式标注争议；引用必须可被读者核查。术语必须登记到 `glossary/terms.md`（术语表是唯一来源），常见误区登记到 `glossary/myths.md`。
+
+10. **交付面契约。** 图表只用 **Mermaid 或 SVG**，禁止 ASCII art 充当图形。课程页必须预渲染为可直达的静态路由（刷新/直链可用，不依赖 JS 才能读到正文）。移动端布局可用，键盘可导航（焦点可见、可 Tab 到答题控件）；朗读（Web Speech）为可选增强，不得成为阅读正文的前提。
+    **客户端增强层**（软导航、进度回填、quiz 判定、按需加载 Mermaid）只能叠加在预渲染之上，且必须满足：`fetch` 失败或页面结构不符时退回整页跳转；**关闭 JS 后正文与站内链接仍然可用**。分层与降级要求见第 12 节。
+
+---
+
+## 3. 目录骨架（权威形状）
+
+```text
+econ-psych-course/
+  AGENTS.md                  # 本文件：硬规则
+  LESSON_TEMPLATE.md         # 每讲固定骨架（正文形状的唯一来源）
+  QUIZ_CONTRACT.md           # 测验字段与分布契约
+  ROADMAP.md                 # 模块/讲次总表（计数唯一来源，视图）
+  README.md                  # 入口（视图）
+  plan.md                    # 设计蓝图（意图来源，非门禁）
+
+  phases/                    # ← 内容真相
+    00-orientation/
+      README.md
+      01-why-intersect/
+        docs/zh.md
+        quiz.json
+        gen-prompt.md
+        outputs/
+        examples/            # 可选
+    01-economics-basics/
+    02-psychology-basics/
+    03-behavioral-core/
+    04-applications/
+    05-methods/
+    06-capstone/
+
+  learning-paths/            # 路线顺序的唯一来源（站点只渲染）
+    full-24w.json
+    full-36w.json
+    applied-only.json
+
+  glossary/
+    terms.md                 # 术语表（唯一来源）
+    myths.md                 # 常见误区
+
+  site/                      # ← 派生，禁止手改
+    build.js                 # 解析 → data.js + 预渲染 + sitemap + llms.txt + --check 计数对账
+    md-render.js             # 单一渲染器（Node 与浏览器共用同一份）
+    template.html
+    app.js                   # 目录/课程/术语/路径/进度 + 客户端软导航（第 12 节）
+    progress.js              # localStorage + schemaVersion 迁移
+    styles.css               # 设计 token 与全部界面（第 12 节）
+    test_quiz_debias.js      # 门禁 5：quiz 去偏与作答前防泄漏
+    test_progress.js         # 门禁 6：进度 schemaVersion 迁移
+    test_seo_routes.js       # 门禁 7：预渲染页面可直达
+
+  coverage.md                # ← 派生：门禁 4 的覆盖率报表（禁止手改）
+
+  scripts/                   # ← 门禁
+    audit_lessons.py         # L001–L010；--strict 失败即 exit 1，--report 出覆盖率报表
+    scaffold_lesson.py       # 生成新讲骨架
+
+  .github/workflows/
+    build.yml                # 7 条门禁 + GitHub Pages 部署，任一失败即阻塞
+```
+
+命名规则：模块目录 `NN-slug`，讲目录 `NN-slug`，**讲次 ID = `模块号-讲号`**（例：`03-01`）。编号必须连续，不允许跳号。`quiz.json` 的 `lesson` 字段必须等于该讲 ID。
+
+---
+
+## 4. 内容契约摘要
+
+完整定义以 `LESSON_TEMPLATE.md` 与 `QUIZ_CONTRACT.md` 为准；下面是机器可判定的要点。
+
+### 4.1 `docs/zh.md` 头部
+
+```markdown
+# 标题
+> 一句话主旨（站点抓为摘要）
+
+**模块：** NN  **讲次：** NN  **类型：** Learn|Build|Apply
+**前置：** 课程链接或"无"  **预计时间：** 45–60 分钟
+**AI 生成提示词：** gen-prompt.md
+```
+
+键值字段（**6 个**）：模块、讲次、类型、前置、预计时间、AI 生成提示词。H1 标题与一句话主旨由 L002 检查，**不计入**这 6 项。`前置` 若不是"无"，其指向必须能解析到真实讲次。
+
+### 4.2 正文骨架（H2）
+
+学习目标（3–4 条，动词开头）· 问题背景（2–5 段，每段一个功能）· 核心概念（先直觉后术语，配例子）· 经济学视角 · 心理学视角 · 交叉洞察 · 现实案例（2 个）· 常见误区（3 条）· 经典研究 5 分钟摘要（作者/年份/结论/争议）· 自测题（6 道，与 `quiz.json` 一一对应）· 延伸关键词。
+
+> **已对齐**：本节列出 **11** 个 H2，为规范骨架（`plan.md` 原写"13 个"系笔误，已修正，见其 §12）。以 `LESSON_TEMPLATE.md` 第 2 节为唯一来源，审计器 L009 **从模板派生**标题清单与顺序；自测题条数改从 `QUIZ_CONTRACT.md` 派生。两处都禁止写死常量——将来增删章节只改模板。
+
+### 4.3 `quiz.json`
+
+```json
+{
+  "lesson": "03-01",
+  "questions": [
+    {
+      "stage": "pre",
+      "question": "...",
+      "options": ["A", "B", "C", "D"],
+      "correct": 2,
+      "explanation": "..."
+    }
+  ]
+}
+```
+
+### 4.4 `outputs/` 产物 frontmatter
+
+至少一件产物带完整 frontmatter：`title` / `type`（学习卡|决策清单|实验设计|术语卡）/ `lesson` / `source`（本讲正文锚点或研究引用）。产物正文不得复述整篇讲义——它是可带走的东西。
+
+### 4.5 学习路径 JSON
+
+```json
+{
+  "id": "full-24w",
+  "name": "24 周主线",
+  "weeks": 24,
+  "lessonsPerWeek": 3,
+  "required": ["00-01", "00-02", "01-01"],
+  "optional": ["04-07", "04-08"],
+  "gates": [{ "after": "03-24", "check": "check-understanding 03" }]
+}
+```
+
+三条路线：`full-24w`（每周 3 讲）、`full-36w`（每周 2 讲）、`applied-only`（跳过模块 01/02，适合有基础者）。**顺序以 JSON 为源，站点只渲染，不手写顺序。** JSON 中每个 ID 必须存在于 `phases/**`。
+
+---
+
+## 5. 审计规则码（`scripts/audit_lessons.py`）
+
+| 码   | 检查                                                       |
+| ---- | ---------------------------------------------------------- |
+| L001 | 目录命名 `NN-slug`，模块与讲次编号连续                     |
+| L002 | `docs/zh.md` 存在、UTF-8、≥800B、有 H1 与一句话主旨（口径见 `LESSON_TEMPLATE.md` §6） |
+| L003 | 头部 6 个键值字段齐全，`前置` 链接可解析                        |
+| L004 | `quiz.json` 存在，键集合/题数/stage 分布从 `QUIZ_CONTRACT.md` 派生 |
+| L005 | `correct` 为 0 基且在 0–3，答案位置分布不偏斜              |
+| L006 | `outputs/` 非空，≥1 件带完整 frontmatter 且非脚手架占位（`status: template` 视为未完成） |
+| L007 | `gen-prompt.md` 存在且引用本讲编号                         |
+| L008 | 站内相对链接可解析                                         |
+| L009 | 正文骨架 H2 齐全（清单从 `LESSON_TEMPLATE.md` 派生）；自测题条数 = `QUIZ_CONTRACT.md` 的题数 |
+| L010 | 正文引用的术语在 `glossary/terms.md` 中存在                |
+
+**派生原则（脚本里不得内置这些常量）**：
+
+| 派生什么                                                     | 唯一来源                    | 谁用                              |
+| ------------------------------------------------------------ | --------------------------- | --------------------------------- |
+| 正文 11 个 H2 的清单与顺序、6 个头部字段与顺序                | `LESSON_TEMPLATE.md` 第 2 节 | L003、L009、`scaffold_lesson.py`   |
+| quiz 键集合、题数、stage 分布、选项数、`correct` 取值范围      | `QUIZ_CONTRACT.md` 第 2 节   | L004、L005、`scaffold_lesson.py`   |
+| 讲次总数与每模块讲数                                          | `ROADMAP.md` 总表            | `build.js --check`                 |
+
+**占位约定**：`TODO`（正文 / `quiz.json` / `outputs` 正文）与 `status: template`（`outputs` frontmatter）一律视为**未完成**，分别由 L002 / L004 / L006 报错。脚手架产物必然带占位，因此**结构检查通过 ≠ 内容写完**。
+
+**能力边界**：审计器只做它能可靠判定的事。条目类的数量要求（如"2 个案例""3 条误区"）若无法从契约文件派生，就**不写成机器检查**——说得出就查得出，说不出就别假装查了。
+
+`--report` 输出覆盖率报表（不阻塞）；`--strict` 任一失败 `exit 1`。
+
+---
+
+## 6. 门禁与命令（必须全绿）
+
+```bash
+node site/build.js                          # 1. 构建：data.js + 预渲染 + sitemap + llms.txt
+node site/build.js --check                  # 2. 计数对账 README/ROADMAP（不写盘）
+python3 scripts/audit_lessons.py --strict   # 3. 结构审计，失败 exit 1
+python3 scripts/audit_lessons.py --report > coverage.md   # 4. 覆盖率报表（不阻塞）
+node site/test_quiz_debias.js               # 5. 答案位置分布 + 作答前 DOM 不含答案
+node site/test_progress.js                  # 6. 进度 schemaVersion 迁移
+node site/test_seo_routes.js                # 7. 预渲染页面可直达
+```
+
+约定：CI 用 `python3`，本地 Windows 用 `python`；脚本不得依赖 shell 特有行为；路径一律用 `/`。
+
+**提交前自检**：以上 7 条按顺序跑一遍，全部退出码 0。没有"这次先跳过"。
+
+---
+
+## 7. 标准作业流程（SOP）
+
+**新增一讲**
+
+1. 在 `ROADMAP.md` 总表登记该讲（先改计数来源）。
+2. `python scripts/scaffold_lesson.py <模块号> <讲号> [--force]` 生成骨架。标题、类型、目录名从 `ROADMAP.md` §2 登记行取——**没登记就生成不了**。目标讲目录已存在时**拒绝覆盖**，除非显式传 `--force`。
+   （产出 `docs/zh.md` + 空壳 `quiz.json`（题数与形状按 `QUIZ_CONTRACT.md`）+ `gen-prompt.md` + `outputs/` 占位产物（`status: template`，L006 视为未完成）。）
+3. 按 `gen-prompt.md` 生成内容，人工审校事实与语气。
+4. 补齐 `outputs/`，登记新术语到 `glossary/terms.md`。
+5. 跑第 6 节 7 条门禁，全绿后提交。
+
+**修改契约**（改骨架、改 quiz 字段、加审计规则）
+顺序固定：改契约文档 → 改脚手架 → 改审计器 → 修补已受影响的所有讲 → 跑门禁。**不允许只改审计器不改既有内容**，也不允许放宽规则来让红色变绿。
+
+**修改站点代码**
+`site/**` 是派生层：改渲染/构建可以，但**不得把内容写进 `site/**`**。任何内容修正都必须回到 `phases/**`。
+
+---
+
+## 8. 禁区（做了就得回滚）
+
+- 手工编辑 `site/data.js`、`site/lessons/**`、`sitemap.xml`、`llms.txt`、`README.md`、`ROADMAP.md` 的计数文案。
+- 在 `site/**` 里写课程内容。
+- 编造论文、作者、年份、数据，或把有争议的结论写成定论。
+- 用 ASCII art 充当图表。
+- 让正文依赖 JS 才可读（必须预渲染）。
+- 新增脚本而不挂测试/CI 步骤。
+- 用 `continue-on-error`、跳过审计、放宽 `--strict` 来通过 CI。
+- 为"隐藏 quiz 答案"引入后端或账号系统。
+
+**不确定时**：停下来问人，或按本文件最保守的读法执行，并在提交说明里点出分歧。不要自作主张改契约。
+
+---
+
+## 9. 进度存储契约（`site/progress.js`）
+
+- 纯 `localStorage`，键 `econpsych.progress.v1`。
+- 结构：`{ schemaVersion, lessons: { "<id>": { status, quizScore, updatedAt } }, reviewQueue: [] }`。
+- 状态机：`not-started → reading → quizzed → done`；quiz 得分低于 70% 进 `reviewQueue`。
+- 必须支持导出/导入 JSON；`schemaVersion` 迁移函数必须预留并有测试覆盖（门禁第 6 条）。
+- 不采集、不上传任何用户数据。
+
+---
+
+## 10. 起步顺序（MVP 九步）与当前状态
+
+```text
+第 1 步  写 AGENTS.md：定位、目录、10 条硬规则、契约摘要   ✅ 已完成
+第 2 步  写 LESSON_TEMPLATE.md 与 QUIZ_CONTRACT.md   ✅ 已完成
+第 3 步  写 scaffold_lesson.py，生成第 1 讲骨架   ✅ 已完成
+第 4 步  手工完成第 1 讲（正文 + quiz + gen-prompt + outputs），作为深度基准   ✅ 已完成
+第 5 步  写 md-render.js（单一渲染器）   ✅ 已完成
+第 6 步  写 build.js（解析 + data.js + 预渲染 + --check）   ✅ 已完成
+第 7 步  写 audit_lessons.py（L001–L010）   ✅ 已完成
+第 8 步  写 progress.js + 站点四个页面（目录/课程/术语/路径）   ✅ 已完成
+第 9 步  接 CI；按 gen-prompt 批量生成内容，人工审校   🔄 进行中（已建 22 / 72 讲）
+```
+
+**当前状态**：第 1–8 步**已完成**，第 9 步**进行中**（内容持续扩量）。仓库现有：
+
+- 契约与视图：`AGENTS.md`、`LESSON_TEMPLATE.md`、`QUIZ_CONTRACT.md`、`ROADMAP.md`、`README.md`、`plan.md`
+- 内容真相：`phases/**` 已建 **22 讲**——`00-01`、`00-02`、`01-01` – `01-10`、`02-01` – `02-10`，每讲四件套齐全（`ROADMAP.md` §2 状态均为"完成"）
+- 派生站点：`site/**` 全套（`md-render.js`、`build.js`、`template.html`、`styles.css`、`app.js`、`progress.js` + 3 个门禁测试）
+- 门禁脚本：`scripts/audit_lessons.py`（L001–L010，`--strict` / `--report`）、`scripts/scaffold_lesson.py`
+- 其它唯一来源：`glossary/terms.md`（153 条术语）、`glossary/myths.md`（42 条误区）、`learning-paths/*.json`（3 条路线）
+- CI：`.github/workflows/build.yml`，7 条门禁全绿才部署
+
+7 条门禁当前**全绿**：`build`（22/72 讲 · 术语 153 · 路径 3）、`--check`（模块 7 · 计划 72 · 登记 22 · 已建 22）、`audit --strict`（0 问题）、`--report`、`test_quiz_debias.js`、`test_progress.js`、`test_seo_routes.js`。
+
+**已存在的讲：22 / 72。** 模块 `03-behavioral-core` 起（共 50 讲）尚未开始。
+
+**下一步**：按 §7 SOP 逐模块继续批量生成内容（先 `ROADMAP.md` §2 登记 → `scaffold_lesson.py` → 填四件套 → 登记术语 → 跑 7 条门禁）。注意 `site/**` 是派生层：渲染器与构建只把 `phases/**` 的正文变成 HTML，**不得写入任何课程内容**。部署前把 `build.js` 的 `SITE_URL` 换成真实 GitHub Pages 地址。
+
+**环境（已处理）**：`pwsh` 曾在本 workspace 报 `SetNamedSecurityInfoW failed (Win32 5)` 而无法列目录或执行——根因是 workspace 根目录缺少当前用户的有效"写所有者"权限，已用诊断脚本补上完全控制并通过验证。诊断报告与回滚脚本在 `E:\桌面\dsh-acl-recovery\`。本地 `python` = 3.12、`node` 可用。
+
+**质量门禁对照（12 条母框架 → 本项目落地）**
+
+| #   | 落地方式                                              |
+| --- | ----------------------------------------------------- |
+| 1   | `build.js` 产出 `data.js` + 预渲染页                  |
+| 2   | `build.js --check` 对账 README/ROADMAP                |
+| 3   | `audit_lessons.py` L001–L003、L009                    |
+| 4   | L004–L005 + `test_quiz_debias.js`                     |
+| 5   | L008 站内链接完整性                                   |
+| 6   | `examples/` 若含脚本则冒烟跑（可选，不阻塞）          |
+| 7   | 只用 Mermaid/SVG，禁 ASCII                            |
+| 8   | 预渲染路由 + 移动端 CSS 检查                          |
+| 9   | 不做（中文单语）                                      |
+| 10  | 键盘导航必做；朗读可选（Web Speech）                  |
+| 11  | 不做（个人站）                                        |
+| 12  | 术语表与经典研究处标注来源与争议                      |
+
+---
+
+## 11. 决议台账（已全部关闭）
+
+写第 1 步时暴露出 8 处 `plan.md` 内部不一致或未定义，**已全部决议并回写 `plan.md`**（正文各处已修正，决议汇总见 `plan.md` §12）。下表是最终口径：**实现时按此执行，不要再按原始问题追问。**
+
+| 编号 | 原问题                                     | **决议（最终口径）**                                                  |
+| ---- | ------------------------------------------ | --------------------------------------------------------------------- |
+| O1   | 未给每模块讲次分配（只说总 72 讲）          | `plan.md` §1.1 分配表：00=2、01=10、02=10、03=24、04=12、05=8、06=6 = 72 |
+| O2   | L009 写"13 个二级标题"，第 4.2 节只列 11 个 | 规范骨架 = **11 个 H2**；L009 **从 `LESSON_TEMPLATE.md` 派生**，不写死数字 |
+| O3   | L003 写"7 个必填字段"，第 4.1 节只有 6 个   | 头部 = **6 个键值字段**；H1 与一句话主旨由 L002 负责，不重复计数        |
+| O4   | 第 1 节"6 模块"与第 3 节 7 个目录不一致     | 统一为"**7 个 phases 目录 = 00 导论 + 01–06 六个内容模块**"             |
+| O5   | 提到 `examples/`，但 L006 只认 `outputs/`   | `examples/` = **可选第五件**，不参与 L006 强制检查                     |
+| O6   | `test_quiz_debias.js` 与 L005 职责重叠      | L005 = **静态槽位分布**；`test_quiz_debias.js` = **数据载荷与作答前 DOM 防泄漏** |
+| O7   | quiz 答案在静态站无法真正隐藏               | **UI 延迟揭示 + 明示不防作弊**（规则 5）；可选加固：答案另存 `quiz-answers.json`，答后取 |
+| O8   | `scaffold_lesson.py` 的 CLI 形态未定义      | `<模块号> <讲号> [--force]`；标题/类型/目录名从 `ROADMAP.md` §2 登记行取，**未登记则拒绝生成**；已存在则拒绝覆盖；占位产物 `status: template`，L006 视为未完成 |
+
+**后续决议**（第 9 步内容建设期新增，同样已回写 `plan.md` §12）
+
+| 编号 | 原问题                                     | **决议（最终口径）**                                                  |
+| ---- | ------------------------------------------ | --------------------------------------------------------------------- |
+| O9   | 课程页"每讲一个 HTML 太拥挤"，是否改为单页 `lesson.html?id=…`（代价：失去"无 JS 可读"与每讲独立 SEO 路由） | **保持预渲染**：每讲仍是 `site/lessons/<模块>/<讲>/index.html` 独立静态路由，规则 10 不变；**另加客户端软导航**作为增强层，让讲次间切换不必整页刷新。分层、降级要求与红线见第 12 节 |
+
+**贯穿以上决议的同一个原则**：凡是"一个数字要在多处保持一致"的地方（骨架标题数、头字段数、讲次总数），一律**指定唯一来源 + 派生**，禁止两处各写一份常量。以后改课程规模只改一处。
+
+**新出现的分歧怎么办**：按本文件开头的规则——写进 `plan.md`（并在此登记），不要静默偏离。
+
+---
+
+## 12. 界面契约（设计方向与导航分层）
+
+界面属于**派生层**：改它能改观感，但不得借界面之名把内容搬进 `site/**`（规则 3、§8）。
+
+### 12.1 设计方向（人类已拍板保持）
+
+瑞士国际主义（网格、大字阶层级、齐左、强留白、单一强调色）＋ 编辑杂志（栏目眉标、衬线导语、页边编号、标本式信息卡）＋ 行为实验室（等宽数字、刻度尺、网格线、数据化标注）。
+
+| 项       | 值                                                            |
+| -------- | ------------------------------------------------------------- |
+| 纸张/墨/规线 | `--paper #F3F3F0` / `--ink #11151A` / `--rule #D7D8D2`        |
+| 唯一强调色 | `--accent #CE2E17`（信号红）——只用于当前项、键盘焦点与关键判定 |
+| 语义色   | `--ok #1B6E45` / `--warn #8A5A00`（仅用于判定与提示）           |
+| 字体三栈 | `--serif`（**正文**：宋体优先 `Songti SC` / `SimSun`，基准 19px）/ `--sans`（界面外壳：顶栏、页脚、控件、侧栏）/ `--mono`（数据）；**一律系统字体，不依赖网络字体** |
+| 版心     | `--wrap 68rem`（目录/术语/路径页）、`--read-w 43.7rem`（课程页正文栏）、`--rail-w 15rem`（课程页左右栏）、`--bar-h 4.7rem`（顶栏高度）、`--radius 2px`（瑞士风格近乎直角） |
+| 签名元素 | 顶部刻度尺式阅读进度条 `.tick-progress`；正文 H2 的章节编号 `§ NN`（CSS 计数器生成，**不得写进 `docs/zh.md`**），右侧段落导航沿用同一编号 |
+
+质量底线（同规则 10）：移动端可用、键盘焦点可见、`prefers-reduced-motion` 被尊重、可打印。
+
+### 12.2 课程页版式（三栏）
+
+左＝**本模块（当前阶段）讲次清单**（当前讲标 `aria-current="page"`，宽 `--rail-w`）｜中＝**正文**（`.lesson-main`，`max-width: --read-w`，居中）｜右＝**本讲段落导航**（正文 11 个 H2，锚点 `#sec-NN`，滚动高亮为 JS 增强）。
+
+- 课程页**不设版心上限**（`.wrap-lesson { max-width: none }`），三栏铺满全宽，左右两栏各吸到页面一端（横向内边距与顶栏一致）。
+- 两栏导航由 `build.js` **预渲染**，关闭 JS 仍可读、可点（规则 10）；锚点 id 由构建期写入 H2，**不得写进 `phases/**`**。
+- 视口 ≤ 78rem 隐藏右栏，≤ 52rem 隐藏两栏（窄屏靠文末的前后讲链接导航）。
+- 顶栏高度以 `--bar-h` 为唯一来源，侧栏吸顶偏移由它派生。
+
+### 12.3 导航分层（与规则 10 不冲突）
+
+1. **权威层 = 预渲染。** 每讲仍是独立静态路由，直链与刷新都能读到正文，不依赖 JS。
+2. **增强层 = 客户端软导航。** `app.js` 拦截同源页面链接 → `fetch` 目标页 → 只替换 `#main` → `history.pushState`；`popstate` 负责回退。目的是**减少整页刷新**，不是取代预渲染。
+3. **降级要求**：`fetch` 失败或目标页缺少 `#main` 时**必须退回整页跳转**；关闭 JS 后正文与站内链接仍然可用。
+
+### 12.4 改界面后的门禁
+
+改动 `styles.css` / `template.html` / `app.js` 之后，除全量跑 §6 外，至少必须确认门禁 5 与 7 仍绿——quiz 作答前不得泄漏答案、预渲染路由与 sitemap 仍可直达。

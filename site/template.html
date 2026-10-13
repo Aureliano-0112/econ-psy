@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="{{ROOT}}styles.css">
+</head>
+<body>
+<div class="tick-progress" aria-hidden="true"><span id="tickBar"></span></div>
+<a class="skip-link" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="{{ROOT}}index.html"><span class="brand-mark">E×P</span><span class="brand-name">经济学 × 心理学</span></a>
+  <nav class="nav" aria-label="站点导航">
+    <a href="{{ROOT}}index.html">目录</a>
+    <a href="{{ROOT}}glossary/index.html">术语表</a>
+    <a href="{{ROOT}}paths/index.html">学习路径</a>
+  </nav>
+  <p class="progress-mini" id="progressMini" aria-live="polite"></p>
+</header>
+<main id="main" class="{{MAIN_CLASS}}" tabindex="-1">
+{{CONTENT}}
+</main>
+<footer class="foot">
+  <p class="foot-line">纯静态站点 · 无后端、无账号</p>
+  <p class="foot-note">学习进度只存在本机浏览器（localStorage），不上传任何数据。</p>
+</footer>
+<script src="{{ROOT}}progress.js"></script>
+<script src="{{ROOT}}data.js"></script>
+<script src="{{ROOT}}app.js"></script>
+</body>
+</html>

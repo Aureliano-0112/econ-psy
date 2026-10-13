@@ -1,0 +1,37 @@
+# 经济学 × 心理学 · 学习网站
+
+> 交叉学科自学站：每讲四件套（讲义 / 测验 / 生成提示词 / 产物）。
+> 计划 72 讲，已登记 22 讲，已建 22 讲。
+
+## 讲次
+- 00-01 经济学与心理学为何交叉：经济学回答约束一变结果会怎样，心理学回答人为何偏离；交叉的价值是把心理规律放回市场与激励中检验。（https://example.github.io/econ-psych-course/lessons/00-orientation/01-why-intersect/）
+- 00-02 从理性人到行为经济学：三条脉络：行为经济学不是一次灵感，而是判断与决策、市场异象、制度与选择架构三条脉络从不同方向汇成的河流。（https://example.github.io/econ-psych-course/lessons/00-orientation/02-three-strands/）
+- 01-01 稀缺与选择：机会成本：稀缺让每个选择都附带放弃，机会成本是这笔放弃的完整价格，而人常常看不见它。（https://example.github.io/econ-psych-course/lessons/01-economics-basics/01-scarcity-choice/）
+- 01-02 边际思维：多一个单位的取舍：决策看的是再多一个单位的边际量，而不是总量；已经花掉、收不回的沉没成本不该进决策。（https://example.github.io/econ-psych-course/lessons/01-economics-basics/02-marginal-thinking/）
+- 01-03 需求与供给：价格如何传递信息：价格不是一串冷冰冰的数字，而是把分散信息压成可读信号的载体；需求与供给在它上面相遇，协调了谁也不掌握全局的无数决定。（https://example.github.io/econ-psych-course/lessons/01-economics-basics/03-demand-supply/）
+- 01-04 均衡与市场出清：均衡是没人愿意单方面改变的状态；效率可能来自市场制度本身，而不必假设每个人都在做最优计算。（https://example.github.io/econ-psych-course/lessons/01-economics-basics/04-equilibrium/）
+- 01-05 弹性：数量对价格有多敏感：弹性衡量数量对价格有多敏感，它决定了税收、涨价与限价的后果最终落在消费者、生产者还是政府身上。（https://example.github.io/econ-psych-course/lessons/01-economics-basics/05-elasticity/）
+- 01-06 激励与制度：价格之外的手段：激励不只有价格：制度的规则与框架决定自利行为究竟是助力还是阻力。（https://example.github.io/econ-psych-course/lessons/01-economics-basics/06-incentives-institutions/）
+- 01-07 策略互动：从囚徒困境到纳什均衡：当结果取决于他人的选择，个体理性可能把所有人推向次优；重复互动与惩罚能扭转它。（https://example.github.io/econ-psych-course/lessons/01-economics-basics/07-strategic-interaction/）
+- 01-08 风险与期望效用：期望效用是风险决策的基准，而人对概率与得失的处理系统性地偏离它。（https://example.github.io/econ-psych-course/lessons/01-economics-basics/08-risk-expected-utility/）
+- 01-09 信息不对称：逆向选择与道德风险：当一方知道得更多，市场可能被「劣币驱逐良币」；信号与筛选是对抗它的制度发明。（https://example.github.io/econ-psych-course/lessons/01-economics-basics/09-information-asymmetry/）
+- 01-10 福利与外部性：市场失灵：当行为的成本落到无关第三方身上，市场价格就不再是全部真相，外部性与公共品是市场失灵的主场。（https://example.github.io/econ-psych-course/lessons/01-economics-basics/10-welfare-externalities/）
+- 02-01 知觉与注意：信息如何进入心智：人并非被动接收世界的全部信息，知觉与注意先做了筛选，所以「看到什么」本身就是一个有待解释的问题。（https://example.github.io/econ-psych-course/lessons/02-psychology-basics/01-perception-attention/）
+- 02-02 记忆：不是回放，而是重建：记忆不是对过去的忠实录像，而是每次提取时依据线索与知识重新拼合，因此可被事后信息悄然改写。（https://example.github.io/econ-psych-course/lessons/02-psychology-basics/02-memory-reconstruction/）
+- 02-03 学习与强化：行为如何被塑造：行为不是由意志一次性决定的，而是被后果持续塑造；理解强化的规则，就能理解习惯、拖延与沉迷。（https://example.github.io/econ-psych-course/lessons/02-psychology-basics/03-learning-reinforcement/）
+- 02-04 双系统加工：快思维与慢思维：心智有两套加工方式——快的自动系统与慢的控制系统——多数判断由前者完成，它只在特定条件下才被后者接管。（https://example.github.io/econ-psych-course/lessons/02-psychology-basics/04-dual-process/）
+- 02-05 情绪与评价：感受如何参与判断：情绪不是理性的对立面，而是评价系统的输出；它以好恶快速标价，并持续参与判断。（https://example.github.io/econ-psych-course/lessons/02-psychology-basics/05-emotion-appraisal/）
+- 02-06 动机：为什么做，以及为什么不做：人做事的动力来自内外两套来源，而外部奖励有时会破坏本已存在的内在动机。（https://example.github.io/econ-psych-course/lessons/02-psychology-basics/06-motivation/）
+- 02-07 社会认知：我们如何理解他人：理解他人时我们总在推断原因，而这些推断系统性地偏向把行为归于性格、忽略情境。（https://example.github.io/econ-psych-course/lessons/02-psychology-basics/07-social-cognition/）
+- 02-08 态度与说服：观点如何形成与改变：态度会随情境与行为改变，而最有效的说服取决于人是否有动机与能力去认真思考。（https://example.github.io/econ-psych-course/lessons/02-psychology-basics/08-attitudes-persuasion/）
+- 02-09 人格与个体差异：稳定的行为倾向：人在行为上确实存在稳定的个体差异，但情境的力量常被低估，二者共同决定一个人的行为。（https://example.github.io/econ-psych-course/lessons/02-psychology-basics/09-personality-differences/）
+- 02-10 测量与信效度：心理学如何做到可靠：心理属性无法直接观测，只能靠测量间接推断；因此「测得准不准」决定了心理学结论能不能当证据用。（https://example.github.io/econ-psych-course/lessons/02-psychology-basics/10-measurement-reliability/）
+
+## 模块
+- 00 导论：计划 2 讲
+- 01 经济学基础：计划 10 讲
+- 02 心理学基础：计划 10 讲
+- 03 行为经济学核心：计划 24 讲
+- 04 应用：计划 12 讲
+- 05 方法：计划 8 讲
+- 06 综合项目：计划 6 讲

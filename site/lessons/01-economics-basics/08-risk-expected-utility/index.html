@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>风险与期望效用 · 经济学 × 心理学</title>
+<meta name="description" content="期望效用是风险决策的基准，而人对概率与得失的处理系统性地偏离它。">
+<meta name="color-scheme" content="light">
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+<div class="tick-progress" aria-hidden="true"><span id="tickBar"></span></div>
+<a class="skip-link" href="#main">跳到正文</a>
+<header class="topbar">
+  <a class="brand" href="../../../index.html"><span class="brand-mark">E×P</span><span class="brand-name">经济学 × 心理学</span></a>
+  <nav class="nav" aria-label="站点导航">
+    <a href="../../../index.html">目录</a>
+    <a href="../../../glossary/index.html">术语表</a>
+    <a href="../../../paths/index.html">学习路径</a>
+  </nav>
+  <p class="progress-mini" id="progressMini" aria-live="polite"></p>
+</header>
+<main id="main" class="wrap wrap-lesson" tabindex="-1">
+<article class="lesson" data-lesson="01-08">
+<div class="lesson-layout">
+<nav class="rail rail-module" aria-label="本模块讲次">
+<p class="rail-title"><span>模块 01</span><span>经济学基础</span></p>
+<ol class="rail-list"><li><a href="../../../lessons/01-economics-basics/01-scarcity-choice/"><span class="r-num">01</span><span class="r-text">稀缺与选择：机会成本</span></a></li><li><a href="../../../lessons/01-economics-basics/02-marginal-thinking/"><span class="r-num">02</span><span class="r-text">边际思维：多一个单位的取舍</span></a></li><li><a href="../../../lessons/01-economics-basics/03-demand-supply/"><span class="r-num">03</span><span class="r-text">需求与供给：价格如何传递信息</span></a></li><li><a href="../../../lessons/01-economics-basics/04-equilibrium/"><span class="r-num">04</span><span class="r-text">均衡与市场出清</span></a></li><li><a href="../../../lessons/01-economics-basics/05-elasticity/"><span class="r-num">05</span><span class="r-text">弹性：数量对价格有多敏感</span></a></li><li><a href="../../../lessons/01-economics-basics/06-incentives-institutions/"><span class="r-num">06</span><span class="r-text">激励与制度：价格之外的手段</span></a></li><li><a href="../../../lessons/01-economics-basics/07-strategic-interaction/"><span class="r-num">07</span><span class="r-text">策略互动：从囚徒困境到纳什均衡</span></a></li><li><a href="../../../lessons/01-economics-basics/08-risk-expected-utility/" class="is-current" aria-current="page"><span class="r-num">08</span><span class="r-text">风险与期望效用</span></a></li><li><a href="../../../lessons/01-economics-basics/09-information-asymmetry/"><span class="r-num">09</span><span class="r-text">信息不对称：逆向选择与道德风险</span></a></li><li><a href="../../../lessons/01-economics-basics/10-welfare-externalities/"><span class="r-num">10</span><span class="r-text">福利与外部性：市场失灵</span></a></li></ol>
+<p class="rail-foot"><a href="../../../index.html">全部讲次目录</a></p>
+</nav>
+<div class="lesson-main">
+<p class="kicker"><span>经济学基础 · 模块 01</span><span class="idx">第 08 讲 · Learn</span></p>
+<h1>风险与期望效用</h1>
+<p class="standfirst">期望效用是风险决策的基准，而人对概率与得失的处理系统性地偏离它。</p>
+<dl class="specimen">
+<div><dt>讲次</dt><dd>01-08</dd></div>
+<div><dt>类型</dt><dd>Learn</dd></div>
+<div><dt>前置</dt><dd><a href="../../../lessons/01-economics-basics/02-marginal-thinking/">01-02</a></dd></div>
+<div><dt>预计</dt><dd>45–60 分钟</dd></div>
+</dl>
+<p class="lesson-status" id="lessonStatus" aria-live="polite"></p>
+<section class="lesson-body"><h2 id="sec-01">学习目标</h2>
+<ol><li>能区分「期望值」与「期望效用」，并说明风险决策为什么要用后者而不是前者</li><li>能用风险厌恶、风险中性、风险偏好描述一个人对风险的态度，并解释它们如何影响保险需求与博彩需求</li><li>能复述阿莱悖论的选择结构，并指出它违反了期望效用理论的哪条公理</li><li>能用确定性效应与概率加权解释「既买保险又买彩票」这类看似矛盾的行为</li></ol>
+<h2 id="sec-02">问题背景</h2>
+<p>设想有人给你两个选择。<strong>A：直接拿 5 万元。B：掷一枚公平硬币，正面得 12 万，反面得 0。</strong> 先别急着选，算一下它们各自的&quot;平均结果&quot;：A 是 5 万；B 是 12 万的 50% 加上 0 的 50%，等于 6 万。如果一个人只关心期望值，B 明显更好，人人都该选 B。但把这道题拿去问一圈，你会发现相当一部分人反而选 A——他们宁愿要一笔少一点但确定到手的钱，也不愿为了多出来的 1 万期望值去承担一半归零的风险。这不是算术没学好，而是在做另一种计算。</p>
+<p>上一讲我们把「边际」当成了取舍的基本单位：多一个单位带来的额外收益与额外成本。但边际思维处理的是<strong>确定</strong>的结果——你确切知道自己多消费一个单位会多得到什么。一旦结果本身变得不确定，这套工具就要升级：我们不能只比较金额，还要比较&quot;这件事有多可能发生&quot;以及&quot;这个金额对我来说到底值多少&quot;。</p>
+<p>经济学很早就在想这件事。<strong>期望值</strong>把 1 万元永远当成 1 万元，可同样多出来的 1 万元，对不同处境的人意义并不相同：钱越多，多出的那一万元带来的满足越少（这正是 01-02 讲的边际效用递减）。把&quot;金额&quot;换成&quot;满足感&quot;再加权，就得到了<strong>期望效用</strong>——风险决策的基准模型。它的逻辑很干净：不确定性下的理性选择，应当最大化各结果效用的概率加权和。</p>
+<p>问题出在这个基准的裂缝上。阿莱（Allais）在 1953 年设计的实验，就是要在期望效用理论自己的游戏规则里把它将一军：多数人在两组彩票之间的典型选择组合，无论怎样给不同金额赋效用值，都无法同时满足期望效用理论的要求。这里的失分不是&quot;算错了&quot;，而是<strong>选择模式本身不自洽</strong>——同一个人对两组结构上平行的彩票给出了互相矛盾的态度。</p>
+<p>这就构成本讲要处理的张力：<strong>期望效用是理解风险决策绕不开的基准，但一旦走进实验室和真实市场，人对概率与得失的处理就会系统性地偏离它——而且偏离不是随机噪声，它有方向、可预测。</strong> 本讲的任务，是先把基准讲清楚，再讲清楚偏离的形状，最后看这两种描述在市场里如何相遇。</p>
+<h2 id="sec-03">核心概念</h2>
+<p>先抛开公式，用日常语言说。面对一个不确定的结果，人实际上要做两件事：掂量每个结果对我有多重要，再估摸每个结果有多可能。期望值和期望效用，就是把这个直觉形式化的两种方式。</p>
+<p><strong>风险</strong>：结果不确定，但各种结果发生的概率<strong>已知或可以估计</strong>。掷硬币、买彩票、投保都属于这一类。它区别于&quot;连有哪些结果、各有多大可能都不知道&quot;的完全未知——那种情形本讲不处理，那是另一个决策领域。</p>
+<p><strong>期望值</strong>：把每个可能结果的金额乘上它的概率，再全部相加，得到的&quot;平均金额&quot;。掷硬币正面 12 万反面 0，期望值就是 6 万；一张两元彩票有百万分之一的机会中 100 万，期望值就是 1 元（低于票价）。期望值只认金额，不带任何主观色彩。</p>
+<p><strong>期望效用理论</strong>：同样是概率加权求和，但把金额换成<strong>效用</strong>——把&quot;这个结果对我有多重要&quot;折算成的数值。一个人不按金额大小、而按效用大小做选择。这是风险决策的基准模型：<strong>理性选择 = 最大化期望效用</strong>。</p>
+<p><strong>风险厌恶 / 风险中性 / 风险偏好</strong>：这是对&quot;赌不赌&quot;的态度谱系，由效用函数的形状定义。风险厌恶的人<strong>宁要一笔确定的钱，也不要期望值相同或更高的赌局</strong>；风险中性的人只看期望值，对确定与不确定无差别；风险偏好的人反过来，宁可去赌也不要等期望值的确定金额。多数人在损失情境里偏风险厌恶，在赌一把小钱搏大奖时又偏风险偏好——态度随情境变化，这是后文要解释的关键。</p>
+<p><strong>阿莱悖论</strong>：人们在两组彩票之间的典型选择组合，系统性地违反期望效用理论的<strong>独立性公理</strong>。独立性公理说：如果两个选项有某个共同部分，那么这个共同部分的存在不应改变你对两个选项的偏好排序。阿莱用一组精妙的彩票让多数人的选择违背了它。</p>
+<p><strong>确定性效应</strong>：相比概率的一次普通变化，人们<strong>特别偏好把结果从「几乎确定」变成「确定」</strong>。从 99% 到 100% 的心理分量，远大于从 98% 到 99%。这与&quot;再确认一次就能拿满分&quot;的心情是同一个机制。</p>
+<p><strong>概率加权</strong>：人并不按真实概率做决策，而是对概率做了一层心理变换——<strong>高估小概率、低估中高概率</strong>。彩票之所以有吸引力，很大程度上是因为中奖这个极小概率被高估了。</p>
+<p>一个能把上面几条串起来的例子：同一个人，会为几千元的车险付保费（用一笔确定的小支出，消除一个低概率的大损失——风险厌恶加确定性效应），转身又去买彩票（为一个小概率的大收益下注——概率加权高估了那个小小概率）。按纯粹的期望值，两笔都不划算；按标准的期望效用，它们又似乎互相矛盾。概率加权给了这个组合一个统一的解释：<strong>人对小概率的态度不是单一方向，而是取决于这个概率背后是损失还是收益。</strong></p>
+<h2 id="sec-04">经济学视角</h2>
+<p>经济学在本讲里提供了三样东西：一把标尺、一套类型学、一批市场证据。</p>
+<p><strong>一把标尺：期望效用。</strong> 它把&quot;风险决策&quot;从&quot;赌不赌&quot;这种情绪化描述，变成一个可计算的最优化问题。经济学家用一条效用函数曲线概括一个人对风险的态度：曲线越&quot;弯&quot;（凹），风险厌恶越强。由此可以推出一系列可检验的预测，例如风险厌恶的人更愿意买保险、风险偏好的人更愿意买彩票。</p>
+<p><strong>一套类型学：风险溢价与风险池。</strong> 经济学关注的不只是个人态度，还有它如何被市场聚合。保险的核心技术是<strong>风险池</strong>：把许多互不相关的独立风险汇集起来，让&quot;某一个人出事&quot;的偶然性，变成&quot;总人口中固定比例出事&quot;的稳定性，从而以较低成本为每个人提供保障。而市场价格里隐含着一个<strong>风险溢价</strong>——为了让风险厌恶的投资者愿意持有风险资产，风险资产必须提供比无风险资产更高的预期回报。</p>
+<p><strong>一批市场证据：资产定价。</strong> 如果期望效用理论是对的，我们就可以用&quot;风险厌恶程度&quot;去解释股票与债券之间的回报差。这个思路很成功，但也撞上了硬钉子——本讲现实案例中的股权溢价之谜：历史上股票相对债券的超额回报长期偏高，用合理范围内的风险厌恶和贴现参数算不出来。这个谜题是本讲张力在宏观层面的投影：<strong>个体如何对待风险，会在市场价格里留下指纹；指纹能对上，说明基准有用；对不上，就说明还需要别的东西。</strong></p>
+<p>值得注意的是，经济学的措辞在这里是<strong>规范性</strong>的：期望效用说的是&quot;应该怎样在不确定性下做选择&quot;，它同时也是一个<strong>描述性</strong>假设——它赌的是人实际上就是这样做的。当实验证明人不是这样做的，期望效用理论并没有&quot;被推翻&quot;，而是<strong>它的适用范围被暴露了</strong>：它是一把好用的标尺，但不是对人的完整描述。</p>
+<h2 id="sec-05">心理学视角</h2>
+<p>心理学补上的是偏离的<strong>方向与形状</strong>——它不满足于说&quot;人不按期望效用算&quot;，而是把偏离拆成可预测的几条。</p>
+<p><strong>确定性效应</strong>：人对&quot;确定&quot;本身有额外的偏好。把一个小概率归零、把一个大概率拉满到 100%，这种&quot;质变&quot;的心理价值远超概率的线性变化。这解释了为什么&quot;保证到手&quot;的话术比&quot;大概率能得到&quot;更有说服力。</p>
+<p><strong>概率加权</strong>：人的决策权重函数不是 45° 直线，而是一条被&quot;拽&quot;过的曲线：小概率被高估（所以买保险、买彩票都有人买单），中高概率被低估（所以人对&quot;大概率会中&quot;并不特别兴奋）。有趣的是，同一层概率加权能同时解释投保与买彩票——因为两者的概率都落在被高估的小概率区间，只是一个对应损失、一个对应收益。</p>
+<p><strong>损失厌恶与参照点</strong>：判断得失，先要有个参照点。同样 1000 元，被判为&quot;损失&quot;时的心理重量，通常大于被判为&quot;收益&quot;时的重量。这让风险态度随情境翻转：面对确定的损失时人可能反而冒险（试图扳回），面对确定的收益时又可能变得保守（不愿失去已有）。</p>
+<p><strong>框架效应</strong>：同一件事的不同陈述方式会改变选择。&quot;这台手术的存活率是 90%&quot;与&quot;这台手术的死亡率是 10%&quot;，说的是一回事，却可能引来不同的决定。这说明&quot;偏好&quot;并不像基准模型假设的那样稳定外生，而是会被表述方式塑造。</p>
+<p>心理学的方法论纪律也要说明：它坚持随机分组、控制变量、报告效应量，这恰好补上经济学在&quot;某个心理因素究竟有多重要&quot;上的空白。但它<strong>不负责聚合</strong>——实验室里的效应量不能直接乘上人口规模变成社会成本，这是外部效度的问题。</p>
+<h2 id="sec-06">交叉洞察</h2>
+<p>这一节是本讲存在的理由，所以它不能写成&quot;经济学算期望、心理学看情绪&quot;这类并列句式。真正的结构是<strong>分工</strong>加<strong>张力</strong>。</p>
+<p><strong>分工。</strong> 经济学提供<strong>风险决策的基准与聚合机器</strong>，心理学提供<strong>实际偏离的形状</strong>。这是一条流水线的上下游：心理学说&quot;人会对小概率高估、对确定性额外偏好、随参照点翻转态度&quot;，经济学接着问&quot;把这些人的行为放进保险市场、资产市场里，会形成什么样的保费、什么样的风险溢价、什么样的资产价格&quot;。只做前半句是心理学，只做后半句是金融经济学，两半都做、并且互相校验，才是风险决策的交叉研究。</p>
+<p><strong>张力。</strong> 核心的一句话是：<strong>人对概率的偏离有方向，但它在市场里会被改造。</strong> 具体有三条通道：</p>
+<ol><li><strong>市场会给偏离定价，而不是消灭它。</strong> 如果很多人系统性高估小概率损失，保险公司就会对那些险种收取更高的保费——偏离没有消失，它变成了价格的一部分，也变成了保险公司利润的来源。这一点与 00-01 讲的&quot;套利只修正价格、不修正人&quot;是同一个道理：<strong>市场可以给偏差标价，但不会让投保的人变得不受偏差影响。</strong></li><li><strong>同一层心理机制可以同时解释相反的行为。</strong> 概率加权既制造了保险需求，也制造了彩票需求；损失厌恶既让人回避损失，也让人在亏损中冒险。所以&quot;发现一个偏离&quot;往往不足以预测市场结果——必须知道它具体作用在哪类人、哪类产品、哪个参照点上。</li><li><strong>偏离的强度随情境剧烈变化。</strong> 在反馈快、可重复、金额巨大的专业市场（如大宗商品交易），偏离会被经验和竞争压小，价格更像基准模型的预测；在一次性的、反馈极慢、涉及长期后果的决策里（养老、长期保险、复杂金融产品），偏离会沉淀下来。这与 00-01 给出的四项判据完全一致。</li></ol>
+<p><strong>所以本讲的位置是：</strong> 01-02 的边际思维让你能比较确定的结果；本讲把同一套取舍逻辑搬到不确定的世界，立起期望效用这把标尺，同时标出它在哪些地方会失准。接下来的 01-09（信息不对称）与 01-10（外部性）继续补充市场失灵的其他来源，共同构成&quot;市场有时靠不住&quot;的三条线：风险、信息、外部性。</p>
+<pre class="mermaid">flowchart LR
+  A[不确定的结果] --&gt; B[期望值: 只看金额]
+  A --&gt; C[期望效用: 按效用加权]
+  C --&gt; D[基准: 现实决策应最大化期望效用]
+  A --&gt; E[心理学: 确定性效应 / 概率加权 / 损失厌恶]
+  E --&gt; F[偏离: 系统且有方向]
+  D --&gt; G[市场: 保费 / 风险溢价给偏离定价]
+  F --&gt; G</pre>
+<h2 id="sec-07">现实案例</h2>
+<ol><li><strong>保险与延长保修：为&quot;确定性&quot;付费。</strong> 保险的定价逻辑是风险厌恶与确定性效应的直接产物：人们愿意支付一笔确定的小支出，来消除一个低概率但对个人不可承受的大损失。这在期望值上往往不合算——所付保费通常高于损失的真实期望，差额是保险公司的运营成本与利润，而这部分之所以能被接受，正是因为它买走的是&quot;不确定&quot;本身。延长保修是同一机制的零售版：消费者为一台家电或电子产品额外付费，把&quot;将来可能坏&quot;变成&quot;坏了有人管&quot;，越是价格高、越怕出问题的人越容易被这类产品吸引。这里要提醒的是<strong>方向与机制</strong>：延长保修对商家的利润率通常不低（相对于产品的实际故障期望成本），因此它常常是&quot;对卖方划算、对买方未必划算&quot;的典型。（具体加价比例各家不同，本课不给未经核实的具体数字。）</li></ol>
+<ol><li><strong>股权溢价之谜（Mehra &amp; Prescott, 1985，<em>Journal of Monetary Economics</em> 15(2)）。</strong> 沿美国长期历史看，股票的平均回报长期显著高于安全的政府债券，这个差距被称为股权溢价。按期望效用理论，风险厌恶的投资者持有股票需要额外补偿，所以存在一个风险溢价——这本身是理论的成功。但 Mehra 和 Prescott 发现，若要在一个标准的消费基础上、用<strong>合理范围的风险厌恶程度与贴现因子</strong>去解释历史观测到的溢价幅度，参数会被逼到不合常理的位置。于是这个&quot;差距太大、解释不了&quot;的现象被称为股权溢价之谜。它的价值恰好在方法论上：<strong>基准模型给了一个可以量化比较的参照，谜题不是&quot;模型全错&quot;，而是&quot;参照之外还有未纳入的因素&quot;</strong>——后文可能包括习惯形成、长期风险、罕见的灾难性事件，以及行为层面的解释（如损失厌恶、短视损失厌恶）。</li></ol>
+<h2 id="sec-08">常见误区</h2>
+<ol><li><strong>误区：风险厌恶 = 胆小、不敢冒险。</strong> 错在哪：把风险态度当成了性格或道德品质。风险厌恶是一个关于<strong>偏好排序</strong>的描述——宁要确定的钱也不要等期望值的赌局——它与勇气无关，而且同一个人可以在不同情境下既风险厌恶又风险偏好。 正确的说法：风险态度随情境、参照点与金额变化。面对可能的损失时人可能冒险扳回，面对确定的收益时又可能保守；赌一把小钱搏大奖则是概率加权的产物。风险厌恶是描述，不是贬低。</li></ol>
+<ol><li><strong>误区：实验里发现人违反期望效用，说明期望效用理论&quot;错了、没用了&quot;。</strong> 错在哪：混淆了描述与规范，也混淆了&quot;失准&quot;与&quot;失效&quot;。期望效用是<strong>基准</strong>，像一把标准尺；量出来有偏差，说明这把尺没把某些因素纳入，而不是尺子坏了。 正确的说法：期望效用理论在反馈快、竞争强的市场里预测良好，在一次性、反馈慢的决策里偏离显著。偏离的方向与幅度要分别检验，发现偏离恰恰是问题开始的地方，不是结论。</li></ol>
+<ol><li><strong>误区：理性的人应该选期望值最高的那个选项。</strong> 错在哪：把&quot;期望值最大&quot;等同于&quot;理性&quot;。期望值只是平均金额，它忽略了边际效用递减与个人的风险态度——多出来的 1 万元对富人比对穷人的意义小得多。 正确的说法：基准模型要求最大化的是<strong>期望效用</strong>，而效用因人、因处境而异。两个处境不同的人对同一赌局做出不同选择，都可能是理性的。</li></ol>
+<h2 id="sec-09">经典研究 5 分钟摘要</h2>
+<ul><li><strong>作者/年份</strong>：Allais, M. (1953), <em>&quot;Le comportement de l&#39;homme rationnel devant le risque: critique des postulats et axiomes de l&#39;école américaine&quot;</em>, <em>Econometrica</em> 21(4)。</li><li><strong>结论</strong>：在精心设计的两组彩票选择中，多数被试的选择组合<strong>系统性地违反期望效用理论的独立性公理</strong>。其结构可简述为：第一组里，多数人宁要&quot;确定到手的一笔中等金额&quot;，而不愿换成&quot;以极高概率得到同样金额、以小概率得到一个更大金额&quot;的赌局；可到了第二组相对平行的选择中，同一批人又反过来愿意为更大的金额赌一把。由于两组在结构上共享同一个组成部分，独立性公理要求对它的态度保持一致，而多数人做不到——这就是&quot;阿莱悖论&quot;。</li><li><strong>争议</strong>：对&quot;人们为何违反&quot;的解释仍有争论，主要候选包括<strong>概率加权</strong>（对确定性额外偏好、对小概率高估）、<strong>后悔理论</strong>（避免&quot;当初本可以拿到确定收益&quot;的后悔），以及其他修正方案，彼此并未收敛到同一答案。此外，<strong>实验设置本身会影响结果</strong>——彩票的呈现方式、金额量级、是否用真实支付、被试对题意的理解，都会改变违反的严重程度。因此，阿莱悖论是&quot;期望效用有边界&quot;的稳健证据，但把它的具体成因说成定论则是不严谨的。</li></ul>
+<h2 id="sec-10">自测题</h2>
+<ol><li>凭直觉判断：面对一个期望值明显更高、但有较大概率亏损的赌局，多数人通常会怎样选？</li><li>在风险决策里，「期望值」与「期望效用」的关键区别是什么？</li><li>「风险厌恶」的准确定义是什么？</li><li>阿莱悖论（Allais, 1953）说明了什么？</li><li>小李买了一台洗衣机，商家推销一份延长保修。按本讲的概念，他更可能购买的最合理解释是什么？</li><li>股权溢价之谜（Mehra &amp; Prescott, 1985）之所以被称为「谜」，核心原因是什么？</li></ol>
+<h2 id="sec-11">延伸关键词</h2>
+<p>风险、风险厌恶、期望效用理论、期望值、阿莱悖论、确定性效应、概率加权、风险偏好、损失厌恶</p></section><section class="quiz" data-lesson="01-08" aria-labelledby="quiz-h">
+<h2 id="quiz-h">自测</h2>
+<p class="notice">答案可见于页面数据，本站不做防作弊，请当作自测。</p>
+<form class="quiz-form" novalidate><fieldset class="quiz-q" data-index="0"><legend>1. 凭直觉判断：面对一个期望值明显更高、但有较大概率亏损的赌局，多数人通常会怎样选？</legend><label><input type="radio" name="q0" value="0"> 只看期望值，毫不犹豫地接受</label><label><input type="radio" name="q0" value="1"> 完全不看期望值，随机决定</label><label><input type="radio" name="q0" value="2"> 往往拒绝，不愿承担亏损的风险</label><label><input type="radio" name="q0" value="3"> 只有在金额极小时才接受</label></fieldset><fieldset class="quiz-q" data-index="1"><legend>2. 在风险决策里，「期望值」与「期望效用」的关键区别是什么？</legend><label><input type="radio" name="q1" value="0"> 两者完全等价，只是名称不同</label><label><input type="radio" name="q1" value="1"> 期望值按金额加权，期望效用按各人自己的效用加权</label><label><input type="radio" name="q1" value="2"> 期望值只在概率未知时才有意义</label><label><input type="radio" name="q1" value="3"> 期望效用只关心最大可能的那个结果</label></fieldset><fieldset class="quiz-q" data-index="2"><legend>3. 「风险厌恶」的准确定义是什么？</legend><label><input type="radio" name="q2" value="0"> 宁要一笔确定的钱，也不要期望值相同或更高的赌局</label><label><input type="radio" name="q2" value="1"> 完全拒绝任何带风险的选择</label><label><input type="radio" name="q2" value="2"> 只挑期望值最高的方案，不看概率</label><label><input type="radio" name="q2" value="3"> 对风险产生恐惧的临床心理问题</label></fieldset><fieldset class="quiz-q" data-index="3"><legend>4. 阿莱悖论（Allais, 1953）说明了什么？</legend><label><input type="radio" name="q3" value="0"> 人们根本无法理解概率的含义</label><label><input type="radio" name="q3" value="1"> 期望效用理论能完美预测所有风险选择</label><label><input type="radio" name="q3" value="2"> 所有人在风险面前都是风险偏好者</label><label><input type="radio" name="q3" value="3"> 人们在两组彩票间的选择会系统性违反独立性公理</label></fieldset><fieldset class="quiz-q" data-index="4"><legend>5. 小李买了一台洗衣机，商家推销一份延长保修。按本讲的概念，他更可能购买的最合理解释是什么？</legend><label><input type="radio" name="q4" value="0"> 他精算过，认为维修的期望成本高于保费</label><label><input type="radio" name="q4" value="1"> 延长保修从不值得买，所以他一定会拒绝</label><label><input type="radio" name="q4" value="2"> 保修把不确定的维修支出变成确定的小额支出，确定性效应使他更愿接受</label><label><input type="radio" name="q4" value="3"> 他的期望值计算能力比一般人更强</label></fieldset><fieldset class="quiz-q" data-index="5"><legend>6. 股权溢价之谜（Mehra &amp; Prescott, 1985）之所以被称为「谜」，核心原因是什么？</legend><label><input type="radio" name="q5" value="0"> 股票的历史回报从未高于债券</label><label><input type="radio" name="q5" value="1"> 股票相对债券的超额回报长期偏高，用合理风险厌恶的模型难以解释</label><label><input type="radio" name="q5" value="2"> 投资者完全不关心风险，所以不做任何补偿要求</label><label><input type="radio" name="q5" value="3"> 债券市场实际上不存在任何风险</label></fieldset><button type="submit">提交并查看解析</button></form><div class="quiz-result" hidden></div></section><section class="outputs"><h2>带走的东西</h2><div class="output"><h3>风险决策：期望效用与它的边界 <span class="badge">学习卡</span></h3><h1>学习卡 · 风险与期望效用</h1>
+<h2>一句话</h2>
+<p>期望效用是风险决策的<strong>标尺</strong>，不是对人的描述；人系统性地偏离它，而市场会给这种偏离<strong>定价</strong>。</p>
+<h2>三个可带走的概念</h2>
+<table><thead><tr><th>概念</th><th>一句话</th></tr></thead><tbody><tr><td>期望值</td><td>各结果金额乘概率求和，是&quot;平均金额&quot;，不带主观权重</td></tr><tr><td>期望效用</td><td>把金额换成效用再加权求和，是风险决策的基准</td></tr><tr><td>风险厌恶</td><td>宁要确定的钱，也不要期望值相同或更高的赌局</td></tr></tbody></table>
+<h2>两张&quot;偏离&quot;的脸</h2>
+<ul><li><strong>确定性效应</strong>：从&quot;几乎确定&quot;到&quot;确定&quot;的心理分量，远大于概率的一次普通变化。</li><li><strong>概率加权</strong>：小概率被高估、中高概率被低估——同一层机制同时解释<strong>买保险</strong>与<strong>买彩票</strong>。</li></ul>
+<h2>一条关键界线</h2>
+<blockquote><p>期望效用是<strong>基准</strong>，不是<strong>人的蓝图</strong>。</p><p>发现偏离，暴露的是它的<strong>适用范围</strong>，不是&quot;模型错了&quot;。</p><p>这与 00-01 的分工一致：经济学给标尺与聚合，心理学给偏离的形状。</p></blockquote>
+<h2>判据（回扣 00-01）</h2>
+<p>风险领域的偏离会不会改变总体结果，仍看四项判据：</p>
+<ul><li>反馈速度高、可重复、竞争强、有套利工具 → 偏离被压小（专业市场）。</li><li>反馈慢、一次性、竞争弱、难套利 → 偏离沉淀（养老、长期保险、复杂金融产品）。</li></ul>
+<h2>出处</h2>
+<ul><li>Allais, M. (1953), <em>Econometrica</em> 21(4) —— 违反独立性公理的经典反例；成因（概率加权 / 后悔理论等）与实验设置影响仍有争议。</li><li>Mehra, R. &amp; Prescott, E. C. (1985), <em>Journal of Monetary Economics</em> 15(2) —— 股权溢价之谜：历史超额回报长期偏高，用合理风险厌恶难以解释。</li></ul></div></section><nav class="lesson-nav" aria-label="讲次导航"><a href="../../../lessons/01-economics-basics/07-strategic-interaction/">← 01-07 策略互动：从囚徒困境到纳什均衡</a><a href="../../../lessons/01-economics-basics/09-information-asymmetry/">01-09 信息不对称：逆向选择与道德风险 →</a></nav></div>
+<nav class="rail rail-toc" aria-label="本讲段落">
+<p class="rail-title"><span>本讲段落</span><span>11 节</span></p>
+<ol class="toc-list"><li><a href="#sec-01"><span class="t-num">§ 01</span><span class="t-text">学习目标</span></a></li><li><a href="#sec-02"><span class="t-num">§ 02</span><span class="t-text">问题背景</span></a></li><li><a href="#sec-03"><span class="t-num">§ 03</span><span class="t-text">核心概念</span></a></li><li><a href="#sec-04"><span class="t-num">§ 04</span><span class="t-text">经济学视角</span></a></li><li><a href="#sec-05"><span class="t-num">§ 05</span><span class="t-text">心理学视角</span></a></li><li><a href="#sec-06"><span class="t-num">§ 06</span><span class="t-text">交叉洞察</span></a></li><li><a href="#sec-07"><span class="t-num">§ 07</span><span class="t-text">现实案例</span></a></li><li><a href="#sec-08"><span class="t-num">§ 08</span><span class="t-text">常见误区</span></a></li><li><a href="#sec-09"><span class="t-num">§ 09</span><span class="t-text">经典研究 5 分钟摘要</span></a></li><li><a href="#sec-10"><span class="t-num">§ 10</span><span class="t-text">自测题</span></a></li><li><a href="#sec-11"><span class="t-num">§ 11</span><span class="t-text">延伸关键词</span></a></li></ol>
+</nav>
+</div>
+</article>
+</main>
+<footer class="foot">
+  <p class="foot-line">纯静态站点 · 无后端、无账号</p>
+  <p class="foot-note">学习进度只存在本机浏览器（localStorage），不上传任何数据。</p>
+</footer>
+<script src="../../../progress.js"></script>
+<script src="../../../data.js"></script>
+<script src="../../../app.js"></script>
+</body>
+</html>
