@@ -144,15 +144,27 @@ a:hover { text-decoration-color: var(--accent); color: var(--accent); }
 .rail-list, .toc-list { list-style: none; margin: 0; padding: 0; }
 .rail-list li, .toc-list li { margin: 0; }
 .rail-list a, .toc-list a {
-  display: grid; grid-template-columns: 2.2rem 1fr; gap: .45rem; align-items: baseline;
-  padding: .34rem .4rem .34rem .55rem; border-left: 2px solid transparent;
+  display: grid; gap: .45rem; align-items: baseline;
   text-decoration: none; color: var(--ink-2);
 }
+/* 左栏：编号在前、内容齐左，贴屏幕左缘 */
+.rail-list a { grid-template-columns: 2.2rem 1fr; padding: .34rem .4rem .34rem .55rem; border-left: 2px solid transparent; }
+/* 右栏镜像左栏：编号在后、内容齐右，贴屏幕右缘。
+   两栏内容各自切齐所在侧的真边缘，合起来才是页面左右对称的「边框」；
+   若右栏仍沿左对齐，条目多半读不满一栏，右侧就会空出一条与左栏不对称的空白带。 */
+.toc-list a {
+  grid-template-columns: 1fr 2.2rem; text-align: right;
+  padding: .34rem .55rem .34rem .4rem; border-right: 2px solid transparent;
+}
+.toc-list a .t-num { order: 1; }
 .rail-list a:hover, .toc-list a:hover { color: var(--accent); background: var(--surface); text-decoration: none; }
 .r-num, .t-num { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+.t-num { text-align: right; }
 .rail-list a.is-current { color: var(--ink); font-weight: 600; border-left-color: var(--accent); background: var(--surface); }
 .rail-list a.is-current .r-num { color: var(--accent); }
-.toc-list a.is-active { color: var(--accent); border-left-color: var(--accent); font-weight: 600; }
+.toc-list a.is-active { color: var(--accent); border-right-color: var(--accent); font-weight: 600; background: var(--surface); }
+/* 右栏眉标同样镜像，与左栏眉标左右对称 */
+.rail-toc .rail-title { align-items: flex-end; text-align: right; }
 .rail-foot { margin: .9rem 0 0; padding-top: .5rem; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: .78rem; }
 .rail-foot a { color: var(--muted); text-decoration: none; }
 .rail-foot a:hover { color: var(--accent); }
@@ -293,10 +305,15 @@ fieldset.quiz-q:first-of-type { border-top: 0; }
 .output h3 { display: flex; align-items: baseline; gap: .6rem; }
 
 .term-table td:first-child { font-weight: 600; white-space: nowrap; }
-.term-table td:nth-child(2), .term-table td:nth-child(4) { font-family: var(--mono); font-size: .92rem; color: var(--ink-2); }
+/* 「学科」与「首见」是定长短字段，禁止折行——否则「经济学」被拆成两行、
+   「00-01」被拆成「00-」「01」，而宽度本该让给「一句话定义」列 */
+.term-table td:nth-child(2), .term-table td:nth-child(4) { font-family: var(--mono); font-size: .92rem; color: var(--ink-2); white-space: nowrap; }
 
 .route { border-top: 2px solid var(--ink); padding-top: .8rem; margin: 2rem 0; }
-.route ol { columns: 2; column-gap: 2.5rem; }
+/* 学习路径是「有先后」的清单：用两列网格逐行铺开（1、2 同一行），
+   而不是 CSS 多栏（先把第一列填满再开第二列）——后者会把读序拆断。 */
+.route ol { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 2.5rem; row-gap: .5rem; }
+.route ol li { margin: 0; }
 .route .gates { font-family: var(--mono); font-size: .92rem; color: var(--muted); }
 
 /* ---- 页脚 ---- */
@@ -327,7 +344,7 @@ fieldset.quiz-q:first-of-type { border-top: 0; }
 
 @media (max-width: 640px) {
   :root { --measure: 100%; }
-  .route ol { columns: 1; }
+  .route ol { grid-template-columns: 1fr; }
   .progress-mini { width: 100%; margin: .2rem 0 0; }
   .lesson-card { grid-template-columns: 3.6rem 1fr; }
 }

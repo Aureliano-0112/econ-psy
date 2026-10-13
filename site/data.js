@@ -4,7 +4,7 @@
   else root.ECONPSY = factory();
 })(typeof self !== "undefined" ? self : this, function () {
   return {
-  "generatedAt": "2026-10-13T10:37:37.317Z",
+  "generatedAt": "2026-10-13T11:37:31.701Z",
   "siteUrl": "https://aureliano-0112.github.io/econ-psy",
   "counts": {
     "planned": 72,
