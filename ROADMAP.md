@@ -59,6 +59,30 @@
 | `02-08` | `08-attitudes-persuasion` | 态度与说服：观点如何形成与改变 | Learn | 完成 |
 | `02-09` | `09-personality-differences` | 人格与个体差异：稳定的行为倾向 | Learn | 完成 |
 | `02-10` | `10-measurement-reliability` | 测量与信效度：心理学如何做到可靠 | Learn | 完成 |
+| `03-01` | `01-from-eu-to-behavioral` | 从期望效用到行为描述：理性人假设的边界 | Learn | 完成 |
+| `03-02` | `02-loss-aversion` | 损失厌恶：失去的痛重于得到的爽 | Learn | 完成 |
+| `03-03` | `03-reference-value-function` | 参照点与价值函数：收益与损失的编码 | Learn | 完成 |
+| `03-04` | `04-probability-weighting` | 概率加权：小概率被高估，确定性被偏爱 | Learn | 完成 |
+| `03-05` | `05-endowment-status-quo` | 禀赋效应与现状偏差：拥有即被高估 | Learn | 完成 |
+| `03-06` | `06-anchoring-adjustment` | 锚定与调整：任意数字如何拉动估计 | Learn | 完成 |
+| `03-07` | `07-availability-heuristic` | 可得性启发：容易想到的就以为常见 | Learn | 完成 |
+| `03-08` | `08-representativeness` | 代表性启发：用相似性代替概率 | Learn | 完成 |
+| `03-09` | `09-framing-effect` | 框架效应：表述方式如何反转选择 | Learn | 完成 |
+| `03-10` | `10-mental-accounting` | 心理账户：钱与钱并不完全可替代 | Learn | 完成 |
+| `03-11` | `11-sunk-cost-escalation` | 沉没成本与承诺升级：已经投入的为什么放不下 | Learn | 完成 |
+| `03-12` | `12-choice-architecture-nudge` | 选择架构与助推：不强制地引导选择 | Learn | 完成 |
+| `03-13` | `13-hyperbolic-discounting` | 双曲贴现与现时偏误：为什么总是拖延 | Learn | 完成 |
+| `03-14` | `14-self-control-procrastination` | 自我控制与拖延：两个自我的战争 | Apply | 完成 |
+| `03-15` | `15-social-preferences-fairness` | 社会偏好与公平：人不只关心自己的钱 | Learn | 完成 |
+| `03-16` | `16-trust-reciprocity` | 信任与互惠：合作如何在陌生人之间发生 | Learn | 完成 |
+| `03-17` | `17-overconfidence` | 过度自信：人为什么高估自己 | Learn | 完成 |
+| `03-18` | `18-planning-fallacy` | 规划谬误：为什么项目总超时超支 | Learn | 完成 |
+| `03-19` | `19-gamblers-hot-hand` | 赌徒谬误与热手：把连续当趋势 | Learn | 完成 |
+| `03-20` | `20-herd-information-cascade` | 从众与信息瀑布：跟着走还是跟着错 | Learn | 完成 |
+| `03-21` | `21-scarcity-bandwidth` | 稀缺与带宽：贫困如何占用心智 | Learn | 完成 |
+| `03-22` | `22-placebo-value-experience` | 安慰剂效应：价格与标签如何改变感受 | Learn | 完成 |
+| `03-23` | `23-gift-exchange-market-norms` | 礼物交换与市场规范：什么时候给钱反而坏事 | Apply | 完成 |
+| `03-24` | `24-bias-map-synthesis` | 行为偏差地图：一张图串起本模块 | Apply | 完成 |
 
 **解析规则**：只读本节表格的数据行，5 列固定顺序，不认列名改动。`讲次 ID` 取反引号内的 `NN-NN`；`目录 slug` 取反引号内文本。
 

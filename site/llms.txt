@@ -1,7 +1,7 @@
 # 经济学 × 心理学 · 学习网站
 
 > 交叉学科自学站：每讲四件套（讲义 / 测验 / 生成提示词 / 产物）。
-> 计划 72 讲，已登记 22 讲，已建 22 讲。
+> 计划 72 讲，已登记 46 讲，已建 46 讲。
 
 ## 讲次
 - 00-01 经济学与心理学为何交叉：经济学回答约束一变结果会怎样，心理学回答人为何偏离；交叉的价值是把心理规律放回市场与激励中检验。（https://aureliano-0112.github.io/econ-psy/lessons/00-orientation/01-why-intersect/）
@@ -26,6 +26,30 @@
 - 02-08 态度与说服：观点如何形成与改变：态度会随情境与行为改变，而最有效的说服取决于人是否有动机与能力去认真思考。（https://aureliano-0112.github.io/econ-psy/lessons/02-psychology-basics/08-attitudes-persuasion/）
 - 02-09 人格与个体差异：稳定的行为倾向：人在行为上确实存在稳定的个体差异，但情境的力量常被低估，二者共同决定一个人的行为。（https://aureliano-0112.github.io/econ-psy/lessons/02-psychology-basics/09-personality-differences/）
 - 02-10 测量与信效度：心理学如何做到可靠：心理属性无法直接观测，只能靠测量间接推断；因此「测得准不准」决定了心理学结论能不能当证据用。（https://aureliano-0112.github.io/econ-psy/lessons/02-psychology-basics/10-measurement-reliability/）
+- 03-01 从期望效用到行为描述：理性人假设的边界：理性人假设是分析市场的有力基准，但它描述的是"应该怎样选"，而非"实际怎样选"；二者的裂缝正是行为经济学的入口。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/01-from-eu-to-behavioral/）
+- 03-02 损失厌恶：失去的痛重于得到的爽：同样一笔钱，失去带来的痛明显大于得到带来的爽；这种心理不对称，如何改写风险下的选择与公平直觉。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/02-loss-aversion/）
+- 03-03 参照点与价值函数：收益与损失的编码：人不是从总财富、而是拿结果和某个参照点比；离参照点越远，同样一块钱带来的感受越淡——这就是价值函数的形状。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/03-reference-value-function/）
+- 03-04 概率加权：小概率被高估，确定性被偏爱：人在心里给概率加的那个权重，不是真实概率本身——小概率被放大，确定性被神化，这让保险与彩票同时说得通。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/04-probability-weighting/）
+- 03-05 禀赋效应与现状偏差：拥有即被高估：一旦拥有某样东西，放弃它就被编码成损失；于是你愿卖的价远高于愿买的价——偏好竟然依赖所有权。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/05-endowment-status-quo/）
+- 03-06 锚定与调整：任意数字如何拉动估计：估计一个未知数字前，先看到的任意数字会把答案拉向它，哪怕你明知它与问题无关——这就是锚定效应。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/06-anchoring-adjustment/）
+- 03-07 可得性启发：容易想到的就以为常见：判断一类事多常见时，人靠"能不能轻易想起例子"来估计；于是被媒体反复渲染的生动事件，被当成了高发事件。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/07-availability-heuristic/）
+- 03-08 代表性启发：用相似性代替概率：判断某人属于哪一类，人看他"像不像"那类人，却忘了问那一类人在总体里本来有多少——基础比率被整页忽略。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/08-representativeness/）
+- 03-09 框架效应：表述方式如何反转选择：同一个客观事实，用"救活多少人"还是"死多少人"来表述，人们的选择会整个反转——理性人假设在这里裂开了一道缝。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/09-framing-effect/）
+- 03-10 心理账户：钱与钱并不完全可替代：人在心里把钱分进"工资""意外之财""存起来的"不同抽屉区别对待，于是明明等价的钱，花起来的痛快程度完全不同。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/10-mental-accounting/）
+- 03-11 沉没成本与承诺升级：已经投入的为什么放不下：已经花出去、收不回的钱本不该影响未来决定，但人偏偏因为"都投了这么多了"而继续追加、不肯止损。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/11-sunk-cost-escalation/）
+- 03-12 选择架构与助推：不强制地引导选择：你怎么摆放、怎么默认这些选项，本身就在左右别人的决定；好的架构不强迫任何人，却能让人更容易做出对自己更好的选择。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/12-choice-architecture-nudge/）
+- 03-13 双曲贴现与现时偏误：为什么总是拖延：现在你为未来定的好计划，到了未来那一刻却反悔——人对眼前的诱惑毫无抵抗力，于是存不下钱、减不了肥、拖不完事。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/13-hyperbolic-discounting/）
+- 03-14 自我控制与拖延：两个自我的战争：长远的你想读书健身，当下的你想刷手机；两派天天打仗，而打赢的往往是更近的那一个——本讲给你几件武器。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/14-self-control-procrastination/）
+- 03-15 社会偏好与公平：人不只关心自己的钱：面对一个明显不公平的分配，很多人宁愿自己也少拿、甚至一分不要，也要让对方占不到便宜——这说明效用里除了钱，还有公平。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/15-social-preferences-fairness/）
+- 03-16 信任与互惠：合作如何在陌生人之间发生：没有合同、没有重复见面的机会，人为什么还敢先付出、还会回报别人的善意？答案是：互惠——以善意回报善意，已写进人的偏好。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/16-trust-reciprocity/）
+- 03-17 过度自信：人为什么高估自己：人不是偶尔看错，而是系统性地高估自己知道得多准、能力多高——九成司机都觉得自己开车高于平均。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/17-overconfidence/）
+- 03-18 规划谬误：为什么项目总超时超支：做一个类似的项目，别人平均要半年，你却觉得自己两个月就能搞定——结果每次都超时超支。这就是规划谬误。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/18-planning-fallacy/）
+- 03-19 赌徒谬误与热手：把连续当趋势：抛硬币连出五次正面，你是不是觉得"下次该反面了"？但硬币没有记忆——把连续当成趋势或反转，是同一种偏差的两面。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/19-gamblers-hot-hand/）
+- 03-20 从众与信息瀑布：跟着走还是跟着错：两家餐厅，一家空、一家排队，你进哪家？别人的选择是信息，但这条信息链一旦开始，可能全错。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/20-herd-information-cascade/）
+- 03-21 稀缺与带宽：贫困如何占用心智：穷人短视、不存钱，真是因为不理性吗？还是缺钱本身占满了心智带宽，让人没有余裕想长远？（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/21-scarcity-bandwidth/）
+- 03-22 安慰剂效应：价格与标签如何改变感受：同一片药，标价贵你觉得有效，打折你就觉得不管用——你的期望，真的在改变你身体的感受。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/22-placebo-value-experience/）
+- 03-23 礼物交换与市场规范：什么时候给钱反而坏事：日托所对迟到家长开了罚款，迟到反而变多——把道德义务变成便宜交易，挤出了内在动机。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/23-gift-exchange-market-norms/）
+- 03-24 行为偏差地图：一张图串起本模块：24 讲学下来，这么多偏差其实归三大家族：对概率的误判、对时间的短视、对他人的偏差——一张地图，把它们全部装进你脑子里。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/24-bias-map-synthesis/）
 
 ## 模块
 - 00 导论：计划 2 讲
