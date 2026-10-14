@@ -1,7 +1,7 @@
 # 经济学 × 心理学 · 学习网站
 
 > 交叉学科自学站：每讲四件套（讲义 / 测验 / 生成提示词 / 产物）。
-> 计划 72 讲，已登记 46 讲，已建 46 讲。
+> 计划 72 讲，已登记 72 讲，已建 72 讲。
 
 ## 讲次
 - 00-01 经济学与心理学为何交叉：经济学回答约束一变结果会怎样，心理学回答人为何偏离；交叉的价值是把心理规律放回市场与激励中检验。（https://aureliano-0112.github.io/econ-psy/lessons/00-orientation/01-why-intersect/）
@@ -50,6 +50,32 @@
 - 03-22 安慰剂效应：价格与标签如何改变感受：同一片药，标价贵你觉得有效，打折你就觉得不管用——你的期望，真的在改变你身体的感受。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/22-placebo-value-experience/）
 - 03-23 礼物交换与市场规范：什么时候给钱反而坏事：日托所对迟到家长开了罚款，迟到反而变多——把道德义务变成便宜交易，挤出了内在动机。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/23-gift-exchange-market-norms/）
 - 03-24 行为偏差地图：一张图串起本模块：24 讲学下来，这么多偏差其实归三大家族：对概率的误判、对时间的短视、对他人的偏差——一张地图，把它们全部装进你脑子里。（https://aureliano-0112.github.io/econ-psy/lessons/03-behavioral-core/24-bias-map-synthesis/）
+- 04-01 储蓄与退休：默认选项如何帮人存钱：为什么把"自愿参加养老金计划"改成"默认参加、可退出"，参与率就能从四成跳到九成？因为人懒，而默认项正好利用了这种懒。（https://aureliano-0112.github.io/econ-psy/lessons/04-applications/01-saving-retirement-nudge/）
+- 04-02 投资偏差：过度交易、处置效应与本土偏好：散户频繁交易，净收益却越炒越差；赚的股票急着落袋为安，亏的股票却死扛不卖——他们都觉得自己比市场聪明。（https://aureliano-0112.github.io/econ-psy/lessons/04-applications/02-investing-biases/）
+- 04-03 诱饵效应：第三个选项如何让你选更贵的：杂志订阅里那个同价却少内容的选项，自己几乎没人买，却让旁边的套餐显得特别划算——它就是诱饵。（https://aureliano-0112.github.io/econ-psy/lessons/04-applications/03-decoy-effect/）
+- 04-04 健康行为：助推如何帮人戒烟、减肥、按时服药：谁都知道吸烟有害、该按时吃药，但就是做不到——健康行为输给的不是无知，是「现在太舒服、明天再说」的拖延。（https://aureliano-0112.github.io/econ-psy/lessons/04-applications/04-health-nudge/）
+- 04-05 环保助推：邻里比较如何让人省电：在电费账单上写一句"你家比邻居多用两成电"，省下的电比换节能灯泡还多——因为人不想输给隔壁。（https://aureliano-0112.github.io/econ-psy/lessons/04-applications/05-env-energy-nudge/）
+- 04-06 定价心理：尾数、参考价与捆绑销售：标价总写 99 不写 100、原价 1999 现价 599——因为你的脑子拿参照点来比，不是算成本。（https://aureliano-0112.github.io/econ-psy/lessons/04-applications/06-pricing-consumer/）
+- 04-07 公平与谈判：人为什么宁可不要也不接受不公平：给你 100 块，你分 99、对方分 1——对方大概率拒绝，宁可一分不要也不接受「不公平」。人不是只认钱的机器。（https://aureliano-0112.github.io/econ-psy/lessons/04-applications/07-fairness-negotiation/）
+- 04-08 激励与动机挤出：为什么给钱反而坏事：日托中心治迟到罚钱，迟到反而更多——罚款把「对不起老师」的道德义务，变成了「我买了迟到权」的交易。（https://aureliano-0112.github.io/econ-psy/lessons/04-applications/08-incentive-motivation/）
+- 04-09 法律与威慑：人怕的是被抓，不是罚得重：把闯红灯罚款从 200 提到 2000，不如路口装个摄像头——因为人觉得「反正不会被抓」，罚再重也没用。（https://aureliano-0112.github.io/econ-psy/lessons/04-applications/09-law-deterrence/）
+- 04-10 教育与学习：拖延、间隔重复与考试设计：为什么临时抱佛脚考完就忘，而按间隔复习记得牢？因为记忆靠重复，而拖延把所有学习挤到了考前那几天。（https://aureliano-0112.github.io/econ-psy/lessons/04-applications/10-education-learning/）
+- 04-11 扶贫与公共政策：稀缺心态如何让人短视：穷人不是因为不自律才穷——是穷本身占满了他的心智带宽，让他没空想明天。给穷人补贴前，先别骂他们短视。（https://aureliano-0112.github.io/econ-psy/lessons/04-applications/11-welfare-public/）
+- 04-12 个人决策工具箱：把这门课用在自己身上：学了这么多偏差，不是为了骂别人不理性，而是给你自己的日常决策装一套护栏：知道自己会在哪摔倒，就提前把路铺平。（https://aureliano-0112.github.io/econ-psy/lessons/04-applications/12-personal-toolbox/）
+- 05-01 为什么要做实验：对照和因果：「喝红酒的人更长寿」不能证明红酒养生——喝红酒的人本来就更有钱、更有闲。没有对照，你看到的不是因果，是相关。（https://aureliano-0112.github.io/econ-psy/lessons/05-methods/01-why-experiment/）
+- 05-02 随机对照试验：现场实验的金标准：把人随机分两组，一组接受干预、一组不接受——因为是随机分的，两组本来就相似，结果差异就只能归因于干预本身。（https://aureliano-0112.github.io/econ-psy/lessons/05-methods/02-rct-field/）
+- 05-03 问卷设计：怎么问才不诱导：同一件事，问「你是否反对 X」和「你是否支持 X」，答案会不一样——问卷的措辞和顺序，本身就在塑造答案。（https://aureliano-0112.github.io/econ-psy/lessons/05-methods/03-questionnaire/）
+- 05-04 实验室实验 vs 现场实验：各有什么用：实验室里干净但不像真的，现场里真实但不干净——好研究要把两者结合，而不是二选一。（https://aureliano-0112.github.io/econ-psy/lessons/05-methods/04-lab-vs-field/）
+- 05-05 自然实验：当随机做不到时：你不能随机分配人上大学、抽烟、换城市——但政策变化、抽签、规则断点会「替你随机」，这就是自然实验。（https://aureliano-0112.github.io/econ-psy/lessons/05-methods/05-natural-experiment/）
+- 05-06 观察数据里找因果：断点、双重差分、工具变量：自然实验之外，还有三件统计扳手——断点回归、双重差分、工具变量——它们从观察数据里，尽量榨出因果。（https://aureliano-0112.github.io/econ-psy/lessons/05-methods/06-quasi-causal/）
+- 05-07 重复危机与效应量：别只看 p 值：心理学里很多经典实验复现不出来——看到一个「惊人发现」别太激动，先问：它被重复过吗？效应有多大？（https://aureliano-0112.github.io/econ-psy/lessons/05-methods/07-replication/）
+- 05-08 怎么读一篇行为研究：拿到一篇行为研究，从标题到结论怎么读、先看什么后看什么、哪几处最容易被作者忽悠——本讲给你一张地图。（https://aureliano-0112.github.io/econ-psy/lessons/05-methods/08-read-study/）
+- 06-01 综合案例：用课程框架分析一个公共政策：把整个课程拼起来——用一个真实政策（自动加入养老金），从行为机制到因果证据，从头到尾分析一遍。（https://aureliano-0112.github.io/econ-psy/lessons/06-capstone/01-case-policy/）
+- 06-02 综合案例：用课程框架分析自己的日常决策：把框架用到自己身上——你为什么拖延、为什么超支、为什么健身坚持不下来？不是你懒，是你的决策环境在跟你作对。（https://aureliano-0112.github.io/econ-psy/lessons/06-capstone/02-case-personal/）
+- 06-03 做一个自己的小助推实验：不是读完就完——挑一个行为，改它一周，记数据，看效果。这是把课程变成你自己东西的唯一办法。（https://aureliano-0112.github.io/econ-psy/lessons/06-capstone/03-self-nudge/）
+- 06-04 设计你的个人决策清单：把整门课浓缩成一张你以后做重要决策时真会用的清单——不是理论，是你以后能贴在桌前的几行字。（https://aureliano-0112.github.io/econ-psy/lessons/06-capstone/04-decision-checklist/）
+- 06-05 课程总结：你到底学到了什么：72 讲学完了，你真正带走的不是 72 个知识点，是一个看世界的新角度——人不是完全理性的，但这不意味着人不可救药。（https://aureliano-0112.github.io/econ-psy/lessons/06-capstone/05-wrap-up/）
+- 06-06 下一步：继续读什么、继续做什么：课程结束了，但学习没结束——这一讲给你一个书单和一份下一步行动清单，让你自己走下去。（https://aureliano-0112.github.io/econ-psy/lessons/06-capstone/06-next-read/）
 
 ## 模块
 - 00 导论：计划 2 讲

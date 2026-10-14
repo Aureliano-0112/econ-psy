@@ -83,6 +83,32 @@
 | `03-22` | `22-placebo-value-experience` | 安慰剂效应：价格与标签如何改变感受 | Learn | 完成 |
 | `03-23` | `23-gift-exchange-market-norms` | 礼物交换与市场规范：什么时候给钱反而坏事 | Apply | 完成 |
 | `03-24` | `24-bias-map-synthesis` | 行为偏差地图：一张图串起本模块 | Apply | 完成 |
+| `04-01` | `01-saving-retirement-nudge` | 储蓄与退休：默认选项如何帮人存钱 | Learn | 完成 |
+| `04-02` | `02-investing-biases` | 投资偏差：过度交易、处置效应与本土偏好 | Learn | 完成 |
+| `04-03` | `03-decoy-effect` | 诱饵效应：第三个选项如何让你选更贵的 | Learn | 完成 |
+| `04-04` | `04-health-nudge` | 健康行为：助推如何帮人戒烟、减肥、按时服药 | Learn | 完成 |
+| `04-05` | `05-env-energy-nudge` | 环保助推：邻里比较如何让人省电 | Learn | 完成 |
+| `04-06` | `06-pricing-consumer` | 定价心理：尾数、参考价与捆绑销售 | Learn | 完成 |
+| `04-07` | `07-fairness-negotiation` | 公平与谈判：人为什么宁可不要也不接受不公平 | Learn | 完成 |
+| `04-08` | `08-incentive-motivation` | 激励与动机挤出：为什么给钱反而坏事 | Learn | 完成 |
+| `04-09` | `09-law-deterrence` | 法律与威慑：人怕的是被抓，不是罚得重 | Learn | 完成 |
+| `04-10` | `10-education-learning` | 教育与学习：拖延、间隔重复与考试设计 | Learn | 完成 |
+| `04-11` | `11-welfare-public` | 扶贫与公共政策：稀缺心态如何让人短视 | Learn | 完成 |
+| `04-12` | `12-personal-toolbox` | 个人决策工具箱：把这门课用在自己身上 | Apply | 完成 |
+| `05-01` | `01-why-experiment` | 为什么要做实验：对照和因果 | Learn | 完成 |
+| `05-02` | `02-rct-field` | 随机对照试验：现场实验的金标准 | Learn | 完成 |
+| `05-03` | `03-questionnaire` | 问卷设计：怎么问才不诱导 | Learn | 完成 |
+| `05-04` | `04-lab-vs-field` | 实验室实验 vs 现场实验：各有什么用 | Learn | 完成 |
+| `05-05` | `05-natural-experiment` | 自然实验：当随机做不到时 | Learn | 完成 |
+| `05-06` | `06-quasi-causal` | 观察数据里找因果：断点、双重差分、工具变量 | Learn | 完成 |
+| `05-07` | `07-replication` | 重复危机与效应量：别只看 p 值 | Learn | 完成 |
+| `05-08` | `08-read-study` | 怎么读一篇行为研究 | Apply | 完成 |
+| `06-01` | `01-case-policy` | 综合案例：用课程框架分析一个公共政策 | Apply | 完成 |
+| `06-02` | `02-case-personal` | 综合案例：用课程框架分析自己的日常决策 | Apply | 完成 |
+| `06-03` | `03-self-nudge` | 做一个自己的小助推实验 | Build | 完成 |
+| `06-04` | `04-decision-checklist` | 设计你的个人决策清单 | Build | 完成 |
+| `06-05` | `05-wrap-up` | 课程总结：你到底学到了什么 | Learn | 完成 |
+| `06-06` | `06-next-read` | 下一步：继续读什么、继续做什么 | Apply | 完成 |
 
 **解析规则**：只读本节表格的数据行，5 列固定顺序，不认列名改动。`讲次 ID` 取反引号内的 `NN-NN`；`目录 slug` 取反引号内文本。
 

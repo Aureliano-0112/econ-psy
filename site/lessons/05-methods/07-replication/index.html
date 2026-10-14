@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>重复危机与效应量：别只看 p 值 · 经济学 × 心理学</title>
+<meta name="description" content="心理学里很多经典实验复现不出来——看到一个「惊人发现」别太激动，先问：它被重复过吗？效应有多大？">
+<meta name="color-scheme" content="light">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<link rel="alternate icon" href="../../../favicon.svg">
+<meta name="theme-color" content="#11151A">
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳到正文</a>
+<div class="readbar" aria-hidden="true"><span class="readbar-fill" id="tickBar"></span></div>
+<header class="topbar">
+  <a class="brand" href="../../../index.html"><span class="brand-mark" aria-hidden="true">E×P</span><span class="brand-name">经济学 × 心理学</span></a>
+  <nav class="nav" aria-label="站点导航">
+    <a href="../../../index.html">目录</a>
+    <a href="../../../glossary/index.html">术语表</a>
+    <a href="../../../paths/index.html">学习路径</a>
+  </nav>
+  <div class="readout" id="progressMini" aria-live="polite"></div>
+</header>
+<main id="main" class="wrap wrap-lesson" tabindex="-1">
+<article class="lesson" data-lesson="05-07">
+<div class="lesson-layout">
+<nav class="rail rail-module" aria-label="本模块讲次">
+<p class="rail-title"><span>模块 05</span><span>方法</span></p>
+<ol class="rail-list"><li><a href="../../../lessons/05-methods/01-why-experiment/"><span class="r-num">01</span><span class="r-text">为什么要做实验：对照和因果</span></a></li><li><a href="../../../lessons/05-methods/02-rct-field/"><span class="r-num">02</span><span class="r-text">随机对照试验：现场实验的金标准</span></a></li><li><a href="../../../lessons/05-methods/03-questionnaire/"><span class="r-num">03</span><span class="r-text">问卷设计：怎么问才不诱导</span></a></li><li><a href="../../../lessons/05-methods/04-lab-vs-field/"><span class="r-num">04</span><span class="r-text">实验室实验 vs 现场实验：各有什么用</span></a></li><li><a href="../../../lessons/05-methods/05-natural-experiment/"><span class="r-num">05</span><span class="r-text">自然实验：当随机做不到时</span></a></li><li><a href="../../../lessons/05-methods/06-quasi-causal/"><span class="r-num">06</span><span class="r-text">观察数据里找因果：断点、双重差分、工具变量</span></a></li><li><a href="../../../lessons/05-methods/07-replication/" class="is-current" aria-current="page"><span class="r-num">07</span><span class="r-text">重复危机与效应量：别只看 p 值</span></a></li><li><a href="../../../lessons/05-methods/08-read-study/"><span class="r-num">08</span><span class="r-text">怎么读一篇行为研究</span></a></li></ol>
+<p class="rail-foot"><a href="../../../index.html">全部讲次目录</a></p>
+</nav>
+<div class="lesson-main">
+<header class="masthead">
+<div class="masthead-top"><span class="kicker">模块 05 · 方法</span><span class="masthead-code">第 07 讲 / 共 8 讲</span></div>
+<p class="catalog-no" aria-hidden="true">05–07</p>
+<h1>重复危机与效应量：别只看 p 值</h1>
+<p class="standfirst">心理学里很多经典实验复现不出来——看到一个「惊人发现」别太激动，先问：它被重复过吗？效应有多大？</p>
+<dl class="data-strip specimen">
+<div><dt>讲次</dt><dd>05-07</dd></div>
+<div><dt>前置</dt><dd><a href="../../../lessons/05-methods/06-quasi-causal/">05-06</a></dd></div>
+<div><dt>预计</dt><dd>45–60 分钟</dd></div>
+<div><dt>类型</dt><dd>Learn</dd></div>
+</dl>
+<p class="lesson-status" id="lessonStatus" aria-live="polite"></p>
+</header>
+<section class="lesson-body"><h2 id="sec-01">学习目标</h2>
+<ol><li>能说清楚什么是重复危机，为什么会发生</li><li>能区分&quot;统计显著&quot;和&quot;效应显著大&quot;</li><li>能说出 p 值的常见误用</li><li>能对一个新研究结论保持健康的怀疑</li></ol>
+<h2 id="sec-02">问题背景</h2>
+<p>2010 年代，心理学发生了一场地震。</p>
+<p>一群研究者挑了 100 个经典心理学实验，用更大样本、更严格的流程重做。结果：<strong>不到 40% 的实验成功复现</strong>。</p>
+<p>那些曾经写进教材、被引用上万次的&quot;经典发现&quot;——比如&quot;启动效应&quot;（看到老年词让人走得慢）、&quot;身体清洁能减轻道德愧疚&quot;——在严格复现下要么消失、要么效应小得可怜。</p>
+<p>这就是心理学的&quot;重复危机&quot;。它不只是心理学的事：医学、经济学、神经科学都有同样的问题。</p>
+<p>为什么会这样？因为研究者和期刊都在筛&quot;显著&quot;的结果，而 p 值本身很容易被操纵。本讲要讲清：为什么你看到一个&quot;惊人发现&quot;时，第一反应应该是&quot;等等，它复现过吗&quot;。</p>
+<h2 id="sec-03">核心概念</h2>
+<p>先给直觉。你做了一个实验，p = 0.06，不显著。怎么办？</p>
+<p>很多研究者会：删掉几个&quot;异常值&quot;、换个分析方法、再测 10 个人、换个因变量……直到 p &lt; 0.05。这叫&quot;p 值操纵&quot;（p-hacking）。</p>
+<p>问题是：如果你试了足够多方法，总有一个会偶然显著——这不是真效应，是你挖出来的假阳性。</p>
+<ul><li><strong>重复（replication）</strong>：用同样的方法、同样的人群、同样的流程，重做一遍实验。看结果还在不在。</li><li><strong>重复危机（replication crisis）</strong>：大量经典心理学/医学/经济学研究在严格复现下消失或大幅缩水，暴露了发表偏倚和 p 值操纵。</li><li><strong>效应量（effect size）</strong>：干预产生的实际大小，比如&quot;省了 2% 电&quot;&quot;收入高 10%&quot;。比起 p 值，效应量告诉你&quot;这东西有没有用&quot;。</li><li><strong>p 值操纵</strong>：研究者在数据上试各种方法，直到得到 p &lt; 0.05。这会让假阳性率远高于 5%。</li></ul>
+<p>关键：显著 ≠ 重要；发表 ≠ 真。</p>
+<h2 id="sec-04">经济学视角</h2>
+<p>经济学过去也有类似问题：很多&quot;明星效应&quot;在大样本复现下变小甚至消失。</p>
+<p>但经济学因为有现场数据、行政数据，复现相对容易——你能拿到政府税收、企业工资这种硬数据，不像心理学靠实验室问卷。</p>
+<p>过去十年经济学也开始要求：公开数据、公开代码、预注册假设。这是对重复危机的回应。</p>
+<h2 id="sec-05">心理学视角</h2>
+<p>心理学要回答：<strong>为什么我们这么容易相信&quot;惊人发现&quot;？</strong></p>
+<p>首先，<strong>大脑爱故事</strong>。&quot;看到老年词让人走得慢&quot;这种有画面感的发现，比&quot;p 值边缘、效应小&quot;更让人记住。媒体喜欢报前者，你也记得前者。</p>
+<p>其次，<strong>&quot;显著&quot;这个词有欺骗性</strong>。日常语言里&quot;显著&quot;就是&quot;重要、明显&quot;。统计里 p &lt; 0.05 只是说&quot;不太可能是巧合&quot;，完全不代表效应大。大样本下，一个 effect size = 0.01 的破效应也能 p &lt; 0.05。</p>
+<p>第三，<strong>发表偏倚</strong>。期刊只喜欢发&quot;新发现、显著、惊人&quot;。阴性结果发不出来，于是你看到的文献是一个被筛选过的、只显示阳性的版本。这叫&quot;文件抽屉问题&quot;——无数没显著的研究躺在抽屉里。</p>
+<h2 id="sec-06">交叉洞察</h2>
+<p>本讲是 05-06 讲统计方法的反思——它问：这些方法本身可靠吗？</p>
+<p><strong>心理学提供证据</strong>：大量经典发现复现不出来。<strong>经济学提供改革</strong>：预注册、公开数据、重复发表。</p>
+<p><strong>两者对接后，一个读研究就有用的结论浮现</strong>：<strong>看到一个新研究，按这几条过滤——</strong></p>
+<ol><li><strong>样本多大？</strong> 小样本研究结果不稳定。</li><li><strong>效应有多大？</strong> 不是 p &lt; 0.05 就完了，看实际效应量。</li><li><strong>被重复过吗？</strong> 单次研究，再显著，也只是一次观察。</li><li><strong>是预注册的吗？</strong> 如果假设和分析方法是先注册的，p 值操纵空间小很多。</li><li><strong>是单一研究，还是元分析结论？</strong> 把几十个研究合起来看，才稳。</li></ol>
+<p><strong>还要给一个边界</strong>：不是说所有小样本研究都错。而是说：单次、小样本、惊人发现，应该被当成&quot;提假设&quot;而不是&quot;结论&quot;。</p>
+<p><strong>一句话收束</strong>：一个研究的可信度，不取决于它多惊人，而取决于它被多少独立研究者、用多大样本、重复出过多少次。</p>
+<h2 id="sec-07">现实案例</h2>
+<ol><li><strong>启动效应的崩塌。</strong> &quot;看到老年相关的词，人走路会变慢&quot;——这是 Bargh 1996 年的经典实验，曾被引上万次。2010 年代多个大样本严格复现，要么效应消失、要么小到没有实际意义。Bargh 自己写过一篇很情绪化的辩护文章，但后续证据不支持原始发现。用本讲框架：这就是重复危机的标志性案例——一个小样本、p 值刚过线的发现，被当成经典写进教材，直到大样本复现才露馅。</li></ol>
+<ol><li><strong>Opower 为什么可信。</strong> 前面讲过的电费邻里比较效应，之所以可信，是因为它不是一次实验室发现——它在几百个 utilities、几百万户、不同州、不同年份被重复了无数次，每次效应都在 1–3% 这个稳定范围。用本讲框架：这就是重复过、效应量明确、现场证据充分的研究。</li></ol>
+<h2 id="sec-08">常见误区</h2>
+<ol><li><strong>误区：p &lt; 0.05 就是真效应。</strong> 错在哪：p 值只是说&quot;如果没效应，出现这种数据的概率很小&quot;。它没告诉你效应多大、也没告诉你这个结果能不能重复。 正确的说法：p 值是开始，不是结论。看效应量、看置信区间、看复现。</li></ol>
+<ol><li><strong>误区：发表在好期刊的研究就是真的。</strong> 错在哪：期刊也在筛&quot;显著、新、惊人&quot;，它们的激励和真相对不上。好期刊上重复不出来的研究有的是。 正确的说法：期刊 prestige 不替代独立复现。</li></ol>
+<ol><li><strong>误区：重复危机说明心理学/经济学全错了。</strong> 错在哪：重复危机是好事——它让科学更严谨。大部分核心结论（损失厌恶、框架、社会偏好）在严格复现下依然成立。 正确的说法：重复危机是科学在自我纠正。</li></ol>
+<h2 id="sec-09">经典研究 5 分钟摘要</h2>
+<ul><li><strong>作者/年份</strong>：Open Science Collaboration (2015)，&quot;Estimating the reproducibility of psychological science&quot;，<em>Science</em> 349(6251), aac4716。</li><li><strong>结论</strong>：研究者挑了 100 个经典心理学实验，用更大样本、预注册、严格流程重做，结果成功率不到 40%；即使复现成功的，效应量也比原始研究小得多。这暴露了：发表偏倚、p 值操纵、小样本、以及&quot;惊人发现优先发表&quot;的系统性问题。这一发现推动了预注册、开放数据、复现研究的发表。</li><li><strong>争议</strong>：有人说复现研究本身方法不对、有人说复现的样本和原研究人群不同。但&quot;心理学和医学文献里有大量阳性结果不可靠&quot;这一核心结论，已被广泛接受，并导致了研究方法的系统性改革。</li></ul>
+<h2 id="sec-10">自测题</h2>
+<ol><li>什么是重复危机？它是怎么被发现的？</li><li>什么是 p 值操纵？为什么它会让假阳性率升高？</li><li>p &lt; 0.05 和&quot;效应大&quot;有什么区别？</li><li>什么是发表偏倚？它怎么让文献&quot;看起来比实际更真&quot;？</li><li>看到一个新研究，你会怎么评估它的可信度？</li><li>重复危机是科学的失败，还是科学的自我纠正？</li></ol>
+<h2 id="sec-11">延伸关键词</h2>
+<p>重复危机、效应量、p 值、自然实验、外部效度</p></section><section class="quiz" data-lesson="05-07" aria-labelledby="quiz-h">
+<h2 id="quiz-h">自测<span class="h2-meta">6 题 · 前测 1 / 检核 3 / 后测 2</span></h2>
+<p class="notice">答案可见于页面数据，本站不做防作弊，请当作自测。</p>
+<form class="quiz-form" novalidate><fieldset class="quiz-q" data-index="0"><legend>1. 重复危机是怎么回事？</legend><label><input type="radio" name="q0" value="0"> 大量经典心理学/医学研究在严格大样本复现下消失或大幅缩水</label><label><input type="radio" name="q0" value="1"> 论文写得太长</label><label><input type="radio" name="q0" value="2"> 期刊印错了</label><label><input type="radio" name="q0" value="3"> 被试太少</label></fieldset><fieldset class="quiz-q" data-index="1"><legend>2. 什么是 p 值操纵？</legend><label><input type="radio" name="q1" value="0"> 作者改数据</label><label><input type="radio" name="q1" value="1"> 在数据上试各种方法（删异常值、换因变量、加样本）直到 p 小于 0.05，导致假阳性率升高</label><label><input type="radio" name="q1" value="2"> 用错 p 值公式</label><label><input type="radio" name="q1" value="3"> 把 p 值改小</label></fieldset><fieldset class="quiz-q" data-index="2"><legend>3. p 小于 0.05 和「效应大」有什么区别？</legend><label><input type="radio" name="q2" value="0"> 没区别</label><label><input type="radio" name="q2" value="1"> p 小就是效应大</label><label><input type="radio" name="q2" value="2"> p 小更可信</label><label><input type="radio" name="q2" value="3"> p 小只说不太可能是巧合，效应可能小到没实际意义——要看效应量和置信区间</label></fieldset><fieldset class="quiz-q" data-index="3"><legend>4. 什么是发表偏倚？</legend><label><input type="radio" name="q3" value="0"> 编辑部选稿看关系</label><label><input type="radio" name="q3" value="1"> 编辑部排版错误</label><label><input type="radio" name="q3" value="2"> 期刊更喜欢发阳性、显著、惊人的结果，阴性结果躺在抽屉里</label><label><input type="radio" name="q3" value="3"> 作者只发表自己喜欢的研究</label></fieldset><fieldset class="quiz-q" data-index="4"><legend>5. 看到一个新研究，你怎么评估它的可信度？</legend><label><input type="radio" name="q4" value="0"> 看它发在哪个期刊</label><label><input type="radio" name="q4" value="1"> 看样本多大、效应多大、被复现过吗、是预注册的吗</label><label><input type="radio" name="q4" value="2"> 看作者名气</label><label><input type="radio" name="q4" value="3"> 看 p 值多小</label></fieldset><fieldset class="quiz-q" data-index="5"><legend>6. 重复危机说明什么？</legend><label><input type="radio" name="q5" value="0"> 心理学全错了</label><label><input type="radio" name="q5" value="1"> 统计学家不行</label><label><input type="radio" name="q5" value="2"> 以后不要做研究</label><label><input type="radio" name="q5" value="3"> 科学在自我纠正——但单次、小样本、惊人发现要当成提假设，不是结论</label></fieldset><button type="submit">提交并查看解析</button></form><div class="quiz-result" hidden></div></section><section class="outputs"><h2>带走的东西<span class="h2-meta">1 件</span></h2><div class="output"><h3>读研究防骗速查卡 <span class="badge">学习卡</span></h3><h1>学习卡 · 重复危机与效应量</h1>
+<h2>一句话地基</h2>
+<p>一个研究的可信度，不取决于它多惊人，而取决于它被多少独立研究者、用多大样本、重复出过多少次。</p>
+<h2>三个&quot;别被唬住&quot;</h2>
+<ol><li><strong>别被 p &lt; 0.05 唬住</strong>：显著 ≠ 重要，样本一大什么都能显著。</li><li><strong>别被好期刊唬住</strong>：期刊也在筛&quot;惊人&quot;，不筛&quot;真&quot;。</li><li><strong>别被单次小样本唬住</strong>：那只是提假设，不是结论。</li></ol>
+<h2>评估新研究的五问</h2>
+<ol><li>样本多大？</li><li>效应有多大？（看效应量和置信区间）</li><li>被独立复现过吗？</li><li>假设和分析是预注册的吗？</li><li>是单一研究，还是元分析结论？</li></ol>
+<h2>两个机制</h2>
+<ul><li><strong>p 值操纵</strong>：试各种分析方法直到 p &lt; 0.05。</li><li><strong>发表偏倚</strong>：阴性结果躺在抽屉里，你看到的文献是被筛过的。</li></ul>
+<h2>记住</h2>
+<p>重复危机是科学在自我纠正，不是科学的失败。</p>
+<h2>出处</h2>
+<ul><li>Open Science Collaboration (2015) <em>Science</em>。</li></ul></div></section><nav class="lesson-nav" aria-label="讲次导航"><a class="nav-prev" href="../../../lessons/05-methods/06-quasi-causal/"><span class="nav-dir">上一讲</span><span class="nav-ttl">05-06 观察数据里找因果：断点、双重差分、工具变量</span></a><a class="nav-next" href="../../../lessons/05-methods/08-read-study/"><span class="nav-dir">下一讲</span><span class="nav-ttl">05-08 怎么读一篇行为研究</span></a></nav></div>
+<nav class="rail rail-toc" aria-label="本讲段落">
+<p class="rail-title"><span>本讲段落</span><span>11 节</span></p>
+<ol class="toc-list"><li><a href="#sec-01"><span class="t-num">§ 01</span><span class="t-text">学习目标</span></a></li><li><a href="#sec-02"><span class="t-num">§ 02</span><span class="t-text">问题背景</span></a></li><li><a href="#sec-03"><span class="t-num">§ 03</span><span class="t-text">核心概念</span></a></li><li><a href="#sec-04"><span class="t-num">§ 04</span><span class="t-text">经济学视角</span></a></li><li><a href="#sec-05"><span class="t-num">§ 05</span><span class="t-text">心理学视角</span></a></li><li><a href="#sec-06"><span class="t-num">§ 06</span><span class="t-text">交叉洞察</span></a></li><li><a href="#sec-07"><span class="t-num">§ 07</span><span class="t-text">现实案例</span></a></li><li><a href="#sec-08"><span class="t-num">§ 08</span><span class="t-text">常见误区</span></a></li><li><a href="#sec-09"><span class="t-num">§ 09</span><span class="t-text">经典研究 5 分钟摘要</span></a></li><li><a href="#sec-10"><span class="t-num">§ 10</span><span class="t-text">自测题</span></a></li><li><a href="#sec-11"><span class="t-num">§ 11</span><span class="t-text">延伸关键词</span></a></li></ol>
+</nav>
+</div>
+</article>
+</main>
+<footer class="foot">
+  <div class="foot-row">
+    <p class="foot-colophon">经济学 × 心理学 · 交叉学科自学课程</p>
+    <dl class="foot-stats"><div><dt>模块</dt><dd>7</dd></div><div><dt>计划讲次</dt><dd>72</dd></div><div><dt>已建讲次</dt><dd>72</dd></div><div><dt>术语</dt><dd>216</dd></div><div><dt>学习路线</dt><dd>3</dd></div></dl>
+  </div>
+  <p class="foot-note">纯静态站点 · 无后端、无账号 · 学习进度只存在本机浏览器（localStorage），不上传任何数据。</p>
+  <p class="foot-log">派生自 phases/** · 由 site/build.js 生成 · 构建于 2026-10-14</p>
+</footer>
+<script src="../../../progress.js"></script>
+<script src="../../../data.js"></script>
+<script src="../../../app.js"></script>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>实验室实验 vs 现场实验：各有什么用 · 经济学 × 心理学</title>
+<meta name="description" content="实验室里干净但不像真的，现场里真实但不干净——好研究要把两者结合，而不是二选一。">
+<meta name="color-scheme" content="light">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<link rel="alternate icon" href="../../../favicon.svg">
+<meta name="theme-color" content="#11151A">
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳到正文</a>
+<div class="readbar" aria-hidden="true"><span class="readbar-fill" id="tickBar"></span></div>
+<header class="topbar">
+  <a class="brand" href="../../../index.html"><span class="brand-mark" aria-hidden="true">E×P</span><span class="brand-name">经济学 × 心理学</span></a>
+  <nav class="nav" aria-label="站点导航">
+    <a href="../../../index.html">目录</a>
+    <a href="../../../glossary/index.html">术语表</a>
+    <a href="../../../paths/index.html">学习路径</a>
+  </nav>
+  <div class="readout" id="progressMini" aria-live="polite"></div>
+</header>
+<main id="main" class="wrap wrap-lesson" tabindex="-1">
+<article class="lesson" data-lesson="05-04">
+<div class="lesson-layout">
+<nav class="rail rail-module" aria-label="本模块讲次">
+<p class="rail-title"><span>模块 05</span><span>方法</span></p>
+<ol class="rail-list"><li><a href="../../../lessons/05-methods/01-why-experiment/"><span class="r-num">01</span><span class="r-text">为什么要做实验：对照和因果</span></a></li><li><a href="../../../lessons/05-methods/02-rct-field/"><span class="r-num">02</span><span class="r-text">随机对照试验：现场实验的金标准</span></a></li><li><a href="../../../lessons/05-methods/03-questionnaire/"><span class="r-num">03</span><span class="r-text">问卷设计：怎么问才不诱导</span></a></li><li><a href="../../../lessons/05-methods/04-lab-vs-field/" class="is-current" aria-current="page"><span class="r-num">04</span><span class="r-text">实验室实验 vs 现场实验：各有什么用</span></a></li><li><a href="../../../lessons/05-methods/05-natural-experiment/"><span class="r-num">05</span><span class="r-text">自然实验：当随机做不到时</span></a></li><li><a href="../../../lessons/05-methods/06-quasi-causal/"><span class="r-num">06</span><span class="r-text">观察数据里找因果：断点、双重差分、工具变量</span></a></li><li><a href="../../../lessons/05-methods/07-replication/"><span class="r-num">07</span><span class="r-text">重复危机与效应量：别只看 p 值</span></a></li><li><a href="../../../lessons/05-methods/08-read-study/"><span class="r-num">08</span><span class="r-text">怎么读一篇行为研究</span></a></li></ol>
+<p class="rail-foot"><a href="../../../index.html">全部讲次目录</a></p>
+</nav>
+<div class="lesson-main">
+<header class="masthead">
+<div class="masthead-top"><span class="kicker">模块 05 · 方法</span><span class="masthead-code">第 04 讲 / 共 8 讲</span></div>
+<p class="catalog-no" aria-hidden="true">05–04</p>
+<h1>实验室实验 vs 现场实验：各有什么用</h1>
+<p class="standfirst">实验室里干净但不像真的，现场里真实但不干净——好研究要把两者结合，而不是二选一。</p>
+<dl class="data-strip specimen">
+<div><dt>讲次</dt><dd>05-04</dd></div>
+<div><dt>前置</dt><dd><a href="../../../lessons/05-methods/02-rct-field/">05-02</a></dd></div>
+<div><dt>预计</dt><dd>45–60 分钟</dd></div>
+<div><dt>类型</dt><dd>Learn</dd></div>
+</dl>
+<p class="lesson-status" id="lessonStatus" aria-live="polite"></p>
+</header>
+<section class="lesson-body"><h2 id="sec-01">学习目标</h2>
+<ol><li>能说出实验室实验和现场实验各自的优势和代价</li><li>能区分内部效度和外部效度</li><li>能解释为什么行为经济学大量依赖实验室，但最终要回到现场</li><li>能判断一个结论该信实验室证据还是现场证据</li></ol>
+<h2 id="sec-02">问题背景</h2>
+<p>前面讲过的所有经典实验——最后通牒博弈、礼物交换、锚定、框架效应——大多是在实验室里做的：找大学生进实验室，给他们一笔小钱，让他们在电脑前做一系列决策。</p>
+<p>这些实验很干净：研究者能精确控制一切，看清楚一个变量怎么影响结果。但它们也被批评：大学生不是全人类，10 块钱赌注不是你下个月房租，实验室里的人知道自己在被研究，行为会变。</p>
+<p>于是有了另一类研究：现场实验——在真实世界里做。前面讲的 Opower 账单、日托罚款、401(k) 自动加入，都是现场实验。它们在真实场景里、对真实的人、用真实的钱做。</p>
+<p>这两类研究不是谁好谁坏，而是各有分工。本讲要讲清：什么时候该去实验室，什么时候必须回现场。</p>
+<h2 id="sec-03">核心概念</h2>
+<p>先给直觉。你想知道&quot;压力下人是不是更短视&quot;。</p>
+<p>实验室做法：找两组人，一组在&quot;5 分钟内答 20 道难题&quot;的压力下做决策，另一组慢慢来。你能精确控制压力大小、看清楚压力怎么改变选择。但这是实验室的压力，不是&quot;明天要交房租&quot;的压力。</p>
+<p>现场做法：找甘蔗农，在收获前（缺钱、压力大）和收获后（有钱、松快）各做一次同样的认知测试。这是真压力，但你没法精确控制&quot;压力有多大&quot;，还有一堆别的变量在同时变。</p>
+<ul><li><strong>实验室实验（lab experiment）</strong>：在受控环境里做，研究者能精确操纵变量、控制其他因素。内部效度高（你能确定是这个变量导致了结果），但外部效度弱（能不能推广到真实世界存疑）。</li><li><strong>现场实验（field experiment）</strong>：在真实场景里做，被试不知道自己在被研究，用真实的钱和后果。外部效度高（贴近真实），但内部效度可能弱（有其他变量在同时变）。</li><li><strong>内部效度</strong>：你能多确定&quot;结果真的是这个干预导致的&quot;，而不是别的混淆。</li><li><strong>外部效度</strong>：这个结果能推广到实验室之外、其他人群、其他场景吗？</li></ul>
+<p>关键：这是两种研究风格的权衡，不是谁对谁错。</p>
+<h2 id="sec-04">经济学视角</h2>
+<p>传统经济学的理论模型很抽象，很难直接在现场检验。实验室实验的兴起，就是因为它能把模型里的假设（人是理性的、人会贝叶斯更新）放到可控环境里直接测。</p>
+<p>最后通牒博弈就是典型：在实验室里，你能干净地看到&quot;人会拒绝不公平的分钱&quot;，这和纯自利模型预测的不一样。这个发现在现场很难做——你不能在大街上随机找人分钱、看他拒不拒绝。</p>
+<p>但实验室做出来的发现，不能直接当政策建议。你得回现场验证：在实验室里观察到的偏差，在真实的工资谈判、真实的消费决策里，是不是也真的出现？</p>
+<p>这就是行为经济学的标准路径：<strong>实验室发现现象 → 现场验证规模 → 政策设计干预</strong>。</p>
+<h2 id="sec-05">心理学视角</h2>
+<p>心理学要回答：<strong>为什么实验室和现场的结果有时会不一样？</strong></p>
+<p>首先，<strong>被试不一样</strong>。实验室里大多是大学生——年轻、受过教育、对实验流程熟悉。现场里是普通人——年龄、教育、收入跨度大。你在大学生身上看到的偏差，在老人、蓝领身上可能强度不同。</p>
+<p>其次，<strong>赌注不一样</strong>。实验室里赌的是 10 块钱，现场里赌的是真金白银。有人担心&quot;实验室里的偏差到了大钱面前就消失了&quot;——研究发现，大部分偏差在更大赌注下依然存在，但强度会变。</p>
+<p>第三，<strong>被试知道自己在被观察</strong>。实验室里人知道&quot;我在参加实验&quot;，会更小心、更配合。现场实验（比如 Opower）里人不知道自己是研究对象，行为更自然。</p>
+<h2 id="sec-06">交叉洞察</h2>
+<p>本讲是 05-02 讲随机对照试验的延伸——它回答&quot;实验该在哪儿做&quot;。</p>
+<p><strong>经济学提供逻辑</strong>：实验室用来干净地测一个机制，现场用来验证它在真实世界有多大、能不能推广。<strong>心理学提供解释</strong>：为什么两者会不一样——被试、赌注、是否知道被观察。</p>
+<p><strong>两者对接后，一个对读研究、做研究都有用的结论浮现</strong>：<strong>一个可信的结论，通常既有实验室证据、又有现场证据。</strong></p>
+<p>具体怎么判断：</p>
+<ol><li><strong>纯实验室的发现</strong>：机制可能对，但别急着当政策建议。它在真实世界多大？还得现场验证。</li><li><strong>纯现场的发现</strong>：相关性可能强，但机制可能不清。为什么有效？还得实验室拆解。</li><li><strong>最好的研究</strong>：实验室先发现现象 → 现场验证规模 → 多次重复看稳健性。</li></ol>
+<p><strong>还要给一个边界</strong>：不是所有问题都能在实验室做。你不能在实验室里随机让人抽烟、结婚、失业——这些只能靠现场或自然实验。</p>
+<p><strong>一句话收束</strong>：实验室告诉你&quot;这个效应存在&quot;，现场告诉你&quot;它在真实世界有多大&quot;；两者缺一个，结论都不完整。</p>
+<h2 id="sec-07">现实案例</h2>
+<ol><li><strong>最后通牒博弈：从实验室到现场。</strong> 最早在实验室里，大学生分钱，发现人会拒绝 99/1。后来研究者在世界各地、不同文化、不同赌注下重复——从肯尼亚的牧民到美国的商人，结论都成立：人会拒绝过于不公平的方案，只是&quot;多不公平算太不公平&quot;因文化而异。用本讲框架：实验室发现现象，跨文化、跨人群的现场重复告诉我们它有多稳健。这是行为经济学为什么可信的原因——不是只在实验室里成立。</li></ol>
+<ol><li><strong>Opower 现场实验。</strong> 前面讲过的电费账单加邻里比较，是典型现场实验：被试不知道自己是研究对象，用的是真金白银的电费。但这个效应最早在实验室里就看到了——社会规范会改变人的判断。现场实验只是把它放大到真实规模，告诉你&quot;这一行账单小字真的能省 2% 的电&quot;。这是实验室 → 现场的标准路径。</li></ol>
+<h2 id="sec-08">常见误区</h2>
+<ol><li><strong>误区：实验室实验不真实，所以不可信。</strong> 错在哪：实验室的价值是干净——它让你看清楚一个机制。不可信的是&quot;从实验室直接跳到政策&quot;，不是实验室本身。 正确的说法：实验室回答&quot;机制存不存在&quot;，现场回答&quot;在真实世界多大&quot;。</li></ol>
+<ol><li><strong>误区：现场实验就是真实世界，所以结论直接能推广。</strong> 错在哪：现场实验在 A 城市、A 时间、A 人群上的结果，搬到 B 地方可能不一样。外部效度需要多次重复。 正确的说法：现场比实验室贴近真实，但不是&quot;做一次就永远成立&quot;。</li></ol>
+<ol><li><strong>误区：大学生被试的研究一文不值。</strong> 错在哪：大学生被试确实不代表全人类，但很多基本偏差（损失厌恶、锚定）在跨人群研究里都被重复出来了。大学生研究是起点，不是终点。 正确的说法：对大学生发现的效应，要看后续有没有跨人群、跨文化的现场重复。</li></ol>
+<h2 id="sec-09">经典研究 5 分钟摘要</h2>
+<ul><li><strong>作者/年份</strong>：Levitt, S. D. &amp; List, J. A. (2009)，&quot;Field Experiments in Economics: The Past, the Present, and the Future&quot;，<em>Journal of Economic Perspectives</em> 23(2), 1–26。</li><li><strong>结论</strong>：实验室实验内部效度高（能干净识别因果），但外部效度受限于被试、赌注、情境。现场实验外部效度高（贴近真实决策），但内部效度受限于不可控变量。成熟的行为研究是两者结合：实验室发现现象、现场验证规模、跨人群重复看稳健性。Levitt 与 List 指出：好的现场实验应该尽量保留实验室的随机和对照，同时在真实场景里进行。</li><li><strong>争议</strong>：现场实验和实验室实验哪个更&quot;重要&quot;，在经济学和心理学里有持续争论。实验室派认为现场不干净、机制不清；现场派认为实验室不真实、赌注太小。但&quot;两者互补、不可偏废&quot;这一共识，已被广泛接受。</li></ul>
+<h2 id="sec-10">自测题</h2>
+<ol><li>实验室实验和现场实验各有什么优势和代价？</li><li>什么是内部效度？什么是外部效度？</li><li>为什么行为经济学的标准路径是&quot;实验室发现 → 现场验证&quot;？</li><li>大学生被试的研究，为什么不能直接当普适结论？</li><li>看到一个纯实验室发现，你会怎么判断它能不能用于政策？</li><li>为什么说&quot;实验室告诉你效应存不存在，现场告诉你它在真实世界多大&quot;？</li></ol>
+<h2 id="sec-11">延伸关键词</h2>
+<p>现场实验、随机对照试验、外部效度、对照组、因果</p></section><section class="quiz" data-lesson="05-04" aria-labelledby="quiz-h">
+<h2 id="quiz-h">自测<span class="h2-meta">6 题 · 前测 1 / 检核 3 / 后测 2</span></h2>
+<p class="notice">答案可见于页面数据，本站不做防作弊，请当作自测。</p>
+<form class="quiz-form" novalidate><fieldset class="quiz-q" data-index="0"><legend>1. 实验室实验和现场实验，本质区别是什么？</legend><label><input type="radio" name="q0" value="0"> 实验室干净但不真实，现场真实但不干净——各有分工，不是二选一</label><label><input type="radio" name="q0" value="1"> 实验室好，现场差</label><label><input type="radio" name="q0" value="2"> 现场好，实验室差</label><label><input type="radio" name="q0" value="3"> 没区别</label></fieldset><fieldset class="quiz-q" data-index="1"><legend>2. 什么是内部效度？</legend><label><input type="radio" name="q1" value="0"> 你能多确定结果真的是这个干预导致的，而不是别的混淆</label><label><input type="radio" name="q1" value="1"> 研究发表在哪个期刊</label><label><input type="radio" name="q1" value="2"> 样本有多大</label><label><input type="radio" name="q1" value="3"> 实验做了多久</label></fieldset><fieldset class="quiz-q" data-index="2"><legend>3. 为什么行为经济学要「实验室发现 → 现场验证」？</legend><label><input type="radio" name="q2" value="0"> 因为实验室便宜</label><label><input type="radio" name="q2" value="1"> 因为现场好做</label><label><input type="radio" name="q2" value="2"> 因为论文要求</label><label><input type="radio" name="q2" value="3"> 因为实验室发现现象，现场告诉你它在真实世界多大、能不能推广</label></fieldset><fieldset class="quiz-q" data-index="3"><legend>4. 为什么大学生被试的研究，不能直接当普适结论？</legend><label><input type="radio" name="q3" value="0"> 大学生不配合</label><label><input type="radio" name="q3" value="1"> 大学生被试不代表全人类——年龄、教育、赌注都不同，需要跨人群现场重复</label><label><input type="radio" name="q3" value="2"> 大学生太聪明</label><label><input type="radio" name="q3" value="3"> 大学生没钱</label></fieldset><fieldset class="quiz-q" data-index="4"><legend>5. 看到一个纯实验室发现，你怎么判断它能不能用于政策？</legend><label><input type="radio" name="q4" value="0"> 直接用</label><label><input type="radio" name="q4" value="1"> 看它有没有跨人群、跨场景的现场证据；没有就先别急着推政策</label><label><input type="radio" name="q4" value="2"> 看作者名气</label><label><input type="radio" name="q4" value="3"> 看样本量</label></fieldset><fieldset class="quiz-q" data-index="5"><legend>6. 「实验室告诉你效应存不存在，现场告诉你它在真实世界多大」——这句话的意思是？</legend><label><input type="radio" name="q5" value="0"> 实验室没用</label><label><input type="radio" name="q5" value="1"> 现场没用</label><label><input type="radio" name="q5" value="2"> 两者缺一不可：机制靠实验室干净识别，规模靠现场真实验证</label><label><input type="radio" name="q5" value="3"> 以后只做现场</label></fieldset><button type="submit">提交并查看解析</button></form><div class="quiz-result" hidden></div></section><section class="outputs"><h2>带走的东西<span class="h2-meta">1 件</span></h2><div class="output"><h3>实验室 vs 现场速查卡 <span class="badge">学习卡</span></h3><h1>学习卡 · 实验室 vs 现场</h1>
+<h2>一句话地基</h2>
+<p>实验室告诉你&quot;这个效应存在&quot;，现场告诉你&quot;它在真实世界有多大&quot;；两者缺一个，结论都不完整。</p>
+<h2>两种效度</h2>
+<ul><li><strong>内部效度</strong>：你能多确定是这个干预导致了结果。</li><li><strong>外部效度</strong>：这个结果能推广到实验室之外、其他人群吗？</li></ul>
+<h2>两种实验</h2>
+<table><thead><tr><th></th><th>实验室</th><th>现场</th></tr></thead><tbody><tr><td>环境</td><td>受控、干净</td><td>真实世界</td></tr><tr><td>被试</td><td>大学生为主</td><td>真实人群</td></tr><tr><td>赌注</td><td>小钱</td><td>真金白银</td></tr><tr><td>内部效度</td><td>高</td><td>可能弱</td></tr><tr><td>外部效度</td><td>弱</td><td>高</td></tr></tbody></table>
+<h2>标准路径</h2>
+<p><strong>实验室发现现象 → 现场验证规模 → 跨人群重复看稳健性。</strong></p>
+<h2>读研究时</h2>
+<ul><li>纯实验室发现 → 机制可能对，别急着推政策。</li><li>纯现场发现 → 相关性强，但机制要靠实验室拆解。</li><li>最好的研究：两者都有，且多次重复。</li></ul>
+<h2>出处</h2>
+<ul><li>Levitt &amp; List (2009) —— 现场实验的过去、现在、未来。</li></ul></div></section><nav class="lesson-nav" aria-label="讲次导航"><a class="nav-prev" href="../../../lessons/05-methods/03-questionnaire/"><span class="nav-dir">上一讲</span><span class="nav-ttl">05-03 问卷设计：怎么问才不诱导</span></a><a class="nav-next" href="../../../lessons/05-methods/05-natural-experiment/"><span class="nav-dir">下一讲</span><span class="nav-ttl">05-05 自然实验：当随机做不到时</span></a></nav></div>
+<nav class="rail rail-toc" aria-label="本讲段落">
+<p class="rail-title"><span>本讲段落</span><span>11 节</span></p>
+<ol class="toc-list"><li><a href="#sec-01"><span class="t-num">§ 01</span><span class="t-text">学习目标</span></a></li><li><a href="#sec-02"><span class="t-num">§ 02</span><span class="t-text">问题背景</span></a></li><li><a href="#sec-03"><span class="t-num">§ 03</span><span class="t-text">核心概念</span></a></li><li><a href="#sec-04"><span class="t-num">§ 04</span><span class="t-text">经济学视角</span></a></li><li><a href="#sec-05"><span class="t-num">§ 05</span><span class="t-text">心理学视角</span></a></li><li><a href="#sec-06"><span class="t-num">§ 06</span><span class="t-text">交叉洞察</span></a></li><li><a href="#sec-07"><span class="t-num">§ 07</span><span class="t-text">现实案例</span></a></li><li><a href="#sec-08"><span class="t-num">§ 08</span><span class="t-text">常见误区</span></a></li><li><a href="#sec-09"><span class="t-num">§ 09</span><span class="t-text">经典研究 5 分钟摘要</span></a></li><li><a href="#sec-10"><span class="t-num">§ 10</span><span class="t-text">自测题</span></a></li><li><a href="#sec-11"><span class="t-num">§ 11</span><span class="t-text">延伸关键词</span></a></li></ol>
+</nav>
+</div>
+</article>
+</main>
+<footer class="foot">
+  <div class="foot-row">
+    <p class="foot-colophon">经济学 × 心理学 · 交叉学科自学课程</p>
+    <dl class="foot-stats"><div><dt>模块</dt><dd>7</dd></div><div><dt>计划讲次</dt><dd>72</dd></div><div><dt>已建讲次</dt><dd>72</dd></div><div><dt>术语</dt><dd>216</dd></div><div><dt>学习路线</dt><dd>3</dd></div></dl>
+  </div>
+  <p class="foot-note">纯静态站点 · 无后端、无账号 · 学习进度只存在本机浏览器（localStorage），不上传任何数据。</p>
+  <p class="foot-log">派生自 phases/** · 由 site/build.js 生成 · 构建于 2026-10-14</p>
+</footer>
+<script src="../../../progress.js"></script>
+<script src="../../../data.js"></script>
+<script src="../../../app.js"></script>
+</body>
+</html>

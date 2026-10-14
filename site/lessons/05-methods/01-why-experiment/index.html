@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>为什么要做实验：对照和因果 · 经济学 × 心理学</title>
+<meta name="description" content="「喝红酒的人更长寿」不能证明红酒养生——喝红酒的人本来就更有钱、更有闲。没有对照，你看到的不是因果，是相关。">
+<meta name="color-scheme" content="light">
+<link rel="icon" type="image/svg+xml" href="../../../favicon.svg">
+<link rel="alternate icon" href="../../../favicon.svg">
+<meta name="theme-color" content="#11151A">
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">跳到正文</a>
+<div class="readbar" aria-hidden="true"><span class="readbar-fill" id="tickBar"></span></div>
+<header class="topbar">
+  <a class="brand" href="../../../index.html"><span class="brand-mark" aria-hidden="true">E×P</span><span class="brand-name">经济学 × 心理学</span></a>
+  <nav class="nav" aria-label="站点导航">
+    <a href="../../../index.html">目录</a>
+    <a href="../../../glossary/index.html">术语表</a>
+    <a href="../../../paths/index.html">学习路径</a>
+  </nav>
+  <div class="readout" id="progressMini" aria-live="polite"></div>
+</header>
+<main id="main" class="wrap wrap-lesson" tabindex="-1">
+<article class="lesson" data-lesson="05-01">
+<div class="lesson-layout">
+<nav class="rail rail-module" aria-label="本模块讲次">
+<p class="rail-title"><span>模块 05</span><span>方法</span></p>
+<ol class="rail-list"><li><a href="../../../lessons/05-methods/01-why-experiment/" class="is-current" aria-current="page"><span class="r-num">01</span><span class="r-text">为什么要做实验：对照和因果</span></a></li><li><a href="../../../lessons/05-methods/02-rct-field/"><span class="r-num">02</span><span class="r-text">随机对照试验：现场实验的金标准</span></a></li><li><a href="../../../lessons/05-methods/03-questionnaire/"><span class="r-num">03</span><span class="r-text">问卷设计：怎么问才不诱导</span></a></li><li><a href="../../../lessons/05-methods/04-lab-vs-field/"><span class="r-num">04</span><span class="r-text">实验室实验 vs 现场实验：各有什么用</span></a></li><li><a href="../../../lessons/05-methods/05-natural-experiment/"><span class="r-num">05</span><span class="r-text">自然实验：当随机做不到时</span></a></li><li><a href="../../../lessons/05-methods/06-quasi-causal/"><span class="r-num">06</span><span class="r-text">观察数据里找因果：断点、双重差分、工具变量</span></a></li><li><a href="../../../lessons/05-methods/07-replication/"><span class="r-num">07</span><span class="r-text">重复危机与效应量：别只看 p 值</span></a></li><li><a href="../../../lessons/05-methods/08-read-study/"><span class="r-num">08</span><span class="r-text">怎么读一篇行为研究</span></a></li></ol>
+<p class="rail-foot"><a href="../../../index.html">全部讲次目录</a></p>
+</nav>
+<div class="lesson-main">
+<header class="masthead">
+<div class="masthead-top"><span class="kicker">模块 05 · 方法</span><span class="masthead-code">第 01 讲 / 共 8 讲</span></div>
+<p class="catalog-no" aria-hidden="true">05–01</p>
+<h1>为什么要做实验：对照和因果</h1>
+<p class="standfirst">「喝红酒的人更长寿」不能证明红酒养生——喝红酒的人本来就更有钱、更有闲。没有对照，你看到的不是因果，是相关。</p>
+<dl class="data-strip specimen">
+<div><dt>讲次</dt><dd>05-01</dd></div>
+<div><dt>前置</dt><dd><a href="../../../lessons/03-behavioral-core/09-framing-effect/">03-09</a></dd></div>
+<div><dt>预计</dt><dd>45–60 分钟</dd></div>
+<div><dt>类型</dt><dd>Learn</dd></div>
+</dl>
+<p class="lesson-status" id="lessonStatus" aria-live="polite"></p>
+</header>
+<section class="lesson-body"><h2 id="sec-01">学习目标</h2>
+<ol><li>能区分相关和因果：两件事一起变，不代表一个导致另一个</li><li>能说出为什么需要对照组：没有它，你不知道干预有没有用</li><li>能识别&quot;第三变量&quot;：两个相关的事，可能都是第三个原因造成的</li><li>能判断一个研究结论是&quot;观察到相关&quot;还是&quot;证明了因果&quot;</li></ol>
+<h2 id="sec-02">问题背景</h2>
+<p>你在新闻里看到：&quot;常喝红酒的人，心血管病更少、寿命更长。&quot;于是你每天睡前喝一杯。</p>
+<p>等等。喝红酒的人，通常是什么人？大概率是收入较高、有闲钱、有闲工夫慢慢品的人。他们本来就吃得更健康、更常运动、更定期体检。是红酒让他们长寿，还是&quot;有钱有闲&quot;让他们既喝红酒又长寿？</p>
+<p>这就是因果推断最核心的难题：<strong>两件事一起出现，不等于一个导致另一个。</strong> 这叫&quot;相关不等于因果&quot;。</p>
+<p>那怎么才能证明？唯一干净的办法是：随机找两组相似的人，让一组喝红酒、另一组不喝，其他条件完全一样。这就是实验。本讲要讲清：为什么没有对照和随机，你看到的一切都可能只是巧合。</p>
+<h2 id="sec-03">核心概念</h2>
+<p>先给直觉。你想知道一种新药有没有用。你找了 100 个病人，给他们都吃药，三个月后 70% 好了。这药有用吗？</p>
+<p>不知道。因为这 70% 可能本来就会好——很多感冒、轻症是自己痊愈的。你需要一组&quot;没吃药的相似病人&quot;做对照，如果对照组只有 40% 好了，那药才真的有 30% 的效果。</p>
+<ul><li><strong>相关（correlation）</strong>：A 和 B 一起变化。可能 A 导致 B，可能 B 导致 A，可能 C 同时导致 A 和 B，也可能纯巧合。</li><li><strong>因果（causation）</strong>：A 真的改变了 B。需要排除其他所有解释。</li><li><strong>对照组（control group）</strong>：实验里不接受干预的那组。它回答的是&quot;如果什么都不做，会怎样&quot;。没有它，你不知道干预有没有用。</li><li><strong>第三变量（confounder）</strong>：同时影响 A 和 B 的隐藏因素，让你误以为 A 和 B 有因果。&quot;有钱有闲&quot;就是&quot;喝红酒&quot;和&quot;长寿&quot;之间的第三变量。</li></ul>
+<p>关键：这是后面所有方法讲的基础——没有对照和随机，就没有因果。</p>
+<h2 id="sec-04">经济学视角</h2>
+<p>经济学传统上靠观察数据：看人们过去的行为，回归出一个关系。但问题是：观察数据里，人不是被随机分配到&quot;喝红酒&quot;或&quot;不喝红酒&quot;的——是他们自己选的。</p>
+<p>自选择就麻烦了。选择喝红酒的人，和不喝的人，在无数方面都不同（收入、健康、习惯）。你回归出的&quot;红酒和长寿正相关&quot;，很可能只是因为这些第三变量。</p>
+<p>所以过去几十年经济学发生了一场&quot;实验转向&quot;：能做实验就做实验，不能做实验就找自然实验（政策变化、随机抽签）。本课程前面讲的所有助推故事——401(k) 自动加入、Opower 账单、日托罚款——都是实验，不是观察到的相关。</p>
+<h2 id="sec-05">心理学视角</h2>
+<p>心理学要回答：<strong>为什么我们这么容易把相关当因果？</strong></p>
+<p>首先，<strong>人天生爱编故事</strong>。看到两件事一起出现，大脑自动给它编一个因果——&quot;喝红酒 → 长寿&quot;。这是认知吝啬鬼（02-05 讲）的本能：能编个故事解释，就不去想&quot;还有别的可能&quot;。</p>
+<p>其次，<strong>生动的案例比干巴巴的对照更有说服力</strong>。你爷爷每天一杯酒活到 90，比 1000 人的统计更让你印象深（可得性启发，03-07 讲）。但一个个案证明不了任何东西。</p>
+<p>第三，<strong>我们对&quot;反事实&quot;不敏感</strong>。要判断红酒有没有用，你需要想象&quot;同一个人，如果不喝红酒会怎样&quot;——但这个反事实你永远观察不到。对照实验就是人为造出这个反事实。</p>
+<h2 id="sec-06">交叉洞察</h2>
+<p>本讲是经济学（因果推断）和心理学（认知偏差）在&quot;怎么做研究&quot;上的汇合。</p>
+<p><strong>经济学提供标准</strong>：要证明因果，必须有一个&quot;反事实&quot;——如果没有这个干预，会怎样。<strong>心理学提供解释</strong>：为什么人本能地相信相关就是因果，以及为什么我们需要实验来纠正这种直觉。</p>
+<p><strong>两者对接后，一个对你读新闻、看广告、做判断都有用的结论浮现</strong>：<strong>下次看到一个&quot;研究发现 X 和 Y 有关&quot;，先问三个问题——</strong></p>
+<ol><li><strong>有对照组吗？</strong> 如果没有，那只是观察到相关。</li><li><strong>是随机分配的吗？</strong> 如果不是，人自己选的组，第三变量一大堆。</li><li><strong>有没有第三变量？</strong> 两个一起变的事，可能都是第三个原因造成的。</li></ol>
+<p>这不是让你怀疑一切，而是让你在听到&quot;研究表明&quot;时，多问一句&quot;这个研究是怎么做的&quot;。</p>
+<p><strong>一句话收束</strong>：两件事一起出现，只是给了你一个故事；要证明一个导致另一个，你需要对照、随机，和一个干净的反事实。</p>
+<h2 id="sec-07">现实案例</h2>
+<ol><li><strong>红酒与长寿的&quot;法国悖论&quot;。</strong> 几十年前有人观察到：法国人喝红酒多、吃高脂多，但心血管病率比美国人低。这被解读为&quot;红酒保护心脏&quot;。但后续严格研究发现：喝红酒的法国人本来就更富有、饮食更均衡、运动更多；控制了这些变量后，红酒的所谓&quot;保护效应&quot;大幅缩水。用本讲框架：最初的相关里藏着&quot;有钱有闲&quot;这个第三变量。这是&quot;相关不等于因果&quot;最著名的例子。（引用方向：法国悖论的后续再分析；本课不复述精确倍数。）</li></ol>
+<ol><li><strong>一种新药 vs 不吃药。</strong> 假设一种降压药，你找了 100 个病人吃，三个月后血压降了。没有对照组，你不知道这药是真降压，还是病人自己因为&quot;知道在吃药&quot;就放松了（安慰剂效应），还是本来就该降。只有找另一组相似的、吃安慰剂的病人对比，才能分离出药的真实效果。这是医学为什么坚持双盲随机对照试验的原因。</li></ol>
+<h2 id="sec-08">常见误区</h2>
+<ol><li><strong>误区：两件事相关，就说明一个导致另一个。</strong> 错在哪：可能反向因果、可能第三变量、可能巧合。相关只是线索，不是证据。 正确的说法：相关是研究的起点，不是结论；要因果，需要对照和随机。</li></ol>
+<ol><li><strong>误区：我身边就有个例子，说明 X 导致 Y。</strong> 错在哪：一个个案可能是无数种原因之一。你爷爷喝红酒长寿，不证明红酒好——他也可能本来就基因好。 正确的说法：个案用来提假设，不用来证明。</li></ol>
+<ol><li><strong>误区：只要样本大，结论就可信。</strong> 错在哪：大样本观察研究同样有第三变量问题。样本再大，只要不是随机分配，相关就不等于因果。 正确的说法：关键不是样本大小，是设计——有没有对照组、是不是随机。</li></ol>
+<h2 id="sec-09">经典研究 5 分钟摘要</h2>
+<ul><li><strong>作者/年份</strong>：Fisher, R. A. (1925) <em>Statistical Methods for Research Workers</em> 奠定实验设计；因果推断与&quot;相关不等于因果&quot;的普及见 Freedman (1991)、以及医学领域的随机对照试验传统。</li><li><strong>结论</strong>：Fisher 等人系统化了实验设计：要有对照组、要随机分配、要控制混淆。其核心思想是：只有当两组在所有其他方面都可比时，两组结果的差异才能归因于干预本身。否则，观察到的差异可能来自第三变量。这一标准后来成为医学、农业、社会科学研究因果的金标准。</li><li><strong>争议</strong>：实验方法在道德、成本、伦理上有局限——你不能随机分配人抽烟、结婚、移民。于是发展出&quot;自然实验&quot;、断点回归、工具变量等方法。但&quot;没有对照就没有因果&quot;这一核心，已被广泛接受。</li></ul>
+<h2 id="sec-10">自测题</h2>
+<ol><li>为什么&quot;喝红酒的人更长寿&quot;不能证明红酒养生？</li><li>相关和因果有什么区别？</li><li>什么是对照组？为什么没有它就看不出因果？</li><li>什么是第三变量？举一个你生活里的例子。</li><li>为什么大样本观察研究，也不能轻易说&quot;证明了因果&quot;？</li><li>下次看到&quot;研究表明 X 和 Y 有关&quot;，你会先问哪三个问题？</li></ol>
+<h2 id="sec-11">延伸关键词</h2>
+<p>相关、因果、对照组、第三变量、选择架构</p></section><section class="quiz" data-lesson="05-01" aria-labelledby="quiz-h">
+<h2 id="quiz-h">自测<span class="h2-meta">6 题 · 前测 1 / 检核 3 / 后测 2</span></h2>
+<p class="notice">答案可见于页面数据，本站不做防作弊，请当作自测。</p>
+<form class="quiz-form" novalidate><fieldset class="quiz-q" data-index="0"><legend>1. 为什么「喝红酒的人更长寿」不能证明红酒养生？</legend><label><input type="radio" name="q0" value="0"> 喝红酒的人本来就更有钱有闲，这些第三变量才是长寿的原因——没有对照就看不出因果</label><label><input type="radio" name="q0" value="1"> 红酒太贵</label><label><input type="radio" name="q0" value="2"> 喝红酒的人少</label><label><input type="radio" name="q0" value="3"> 爷爷那辈不喝红酒</label></fieldset><fieldset class="quiz-q" data-index="1"><legend>2. 相关和因果的区别是什么？</legend><label><input type="radio" name="q1" value="0"> 没区别</label><label><input type="radio" name="q1" value="1"> 相关是两件事一起变；因果是一个真的导致另一个，需要排除其他解释</label><label><input type="radio" name="q1" value="2"> 相关更可信</label><label><input type="radio" name="q1" value="3"> 因果是观察到的</label></fieldset><fieldset class="quiz-q" data-index="2"><legend>3. 什么是对照组？</legend><label><input type="radio" name="q2" value="0"> 实验里不接受干预、用来对比的那组，回答「如果什么都不做会怎样」</label><label><input type="radio" name="q2" value="1"> 实验里最配合的那组</label><label><input type="radio" name="q2" value="2"> 实验的发起人</label><label><input type="radio" name="q2" value="3"> 实验的失败组</label></fieldset><fieldset class="quiz-q" data-index="3"><legend>4. 什么是第三变量？</legend><label><input type="radio" name="q3" value="0"> 第三个被试</label><label><input type="radio" name="q3" value="1"> 实验里出错的那组</label><label><input type="radio" name="q3" value="2"> 同时影响 A 和 B 的隐藏因素，让你误以为 A 和 B 有因果</label><label><input type="radio" name="q3" value="3"> 第三个研究者</label></fieldset><fieldset class="quiz-q" data-index="4"><legend>5. 为什么大样本观察研究，也不能轻易说「证明了因果」？</legend><label><input type="radio" name="q4" value="0"> 因为样本大就贵</label><label><input type="radio" name="q4" value="1"> 因为人多意见杂</label><label><input type="radio" name="q4" value="2"> 因为统计学家不可信</label><label><input type="radio" name="q4" value="3"> 样本再大，只要不是随机分配，第三变量就还在——关键是设计，不是样本大小</label></fieldset><fieldset class="quiz-q" data-index="5"><legend>6. 下次看到「研究表明 X 和 Y 有关」，你会先问什么？</legend><label><input type="radio" name="q5" value="0"> 这个研究发在哪个期刊</label><label><input type="radio" name="q5" value="1"> 作者有名吗</label><label><input type="radio" name="q5" value="2"> 样本有多大</label><label><input type="radio" name="q5" value="3"> 有对照组吗？是随机分配的吗？有没有第三变量？</label></fieldset><button type="submit">提交并查看解析</button></form><div class="quiz-result" hidden></div></section><section class="outputs"><h2>带走的东西<span class="h2-meta">1 件</span></h2><div class="output"><h3>对照与因果速查卡 <span class="badge">学习卡</span></h3><h1>学习卡 · 为什么要做实验</h1>
+<h2>一句话地基</h2>
+<p>两件事一起出现，只是给了你一个故事；要证明一个导致另一个，你需要对照、随机，和一个干净的反事实。</p>
+<h2>核心区别</h2>
+<ul><li><strong>相关</strong>：A 和 B 一起变。可能 A→B，可能 B→A，可能 C 同时导致 A 和 B。</li><li><strong>因果</strong>：A 真的改变了 B。需要排除其他所有解释。</li></ul>
+<h2>为什么需要对照</h2>
+<p>没有对照组，你不知道&quot;干预组变好了&quot;是干预的作用，还是本来就会变好。</p>
+<p>→ 对照组回答的是：<strong>如果什么都不做，会怎样？</strong></p>
+<h2>三问（看到&quot;研究表明&quot;时）</h2>
+<ol><li>有对照组吗？</li><li>是随机分配的吗？</li><li>有没有第三变量？</li></ol>
+<h2>记住</h2>
+<ul><li>相关是起点，不是结论。</li><li>个案用来提假设，不用来证明。</li><li>关键不是样本大小，是设计。</li></ul>
+<h2>出处</h2>
+<ul><li>Fisher (1925) <em>Statistical Methods</em> —— 实验设计奠基。</li><li>&quot;法国悖论&quot;的再分析 —— 红酒与长寿的第三变量。</li></ul></div></section><nav class="lesson-nav" aria-label="讲次导航"><a class="nav-prev" href="../../../lessons/04-applications/12-personal-toolbox/"><span class="nav-dir">上一讲</span><span class="nav-ttl">04-12 个人决策工具箱：把这门课用在自己身上</span></a><a class="nav-next" href="../../../lessons/05-methods/02-rct-field/"><span class="nav-dir">下一讲</span><span class="nav-ttl">05-02 随机对照试验：现场实验的金标准</span></a></nav></div>
+<nav class="rail rail-toc" aria-label="本讲段落">
+<p class="rail-title"><span>本讲段落</span><span>11 节</span></p>
+<ol class="toc-list"><li><a href="#sec-01"><span class="t-num">§ 01</span><span class="t-text">学习目标</span></a></li><li><a href="#sec-02"><span class="t-num">§ 02</span><span class="t-text">问题背景</span></a></li><li><a href="#sec-03"><span class="t-num">§ 03</span><span class="t-text">核心概念</span></a></li><li><a href="#sec-04"><span class="t-num">§ 04</span><span class="t-text">经济学视角</span></a></li><li><a href="#sec-05"><span class="t-num">§ 05</span><span class="t-text">心理学视角</span></a></li><li><a href="#sec-06"><span class="t-num">§ 06</span><span class="t-text">交叉洞察</span></a></li><li><a href="#sec-07"><span class="t-num">§ 07</span><span class="t-text">现实案例</span></a></li><li><a href="#sec-08"><span class="t-num">§ 08</span><span class="t-text">常见误区</span></a></li><li><a href="#sec-09"><span class="t-num">§ 09</span><span class="t-text">经典研究 5 分钟摘要</span></a></li><li><a href="#sec-10"><span class="t-num">§ 10</span><span class="t-text">自测题</span></a></li><li><a href="#sec-11"><span class="t-num">§ 11</span><span class="t-text">延伸关键词</span></a></li></ol>
+</nav>
+</div>
+</article>
+</main>
+<footer class="foot">
+  <div class="foot-row">
+    <p class="foot-colophon">经济学 × 心理学 · 交叉学科自学课程</p>
+    <dl class="foot-stats"><div><dt>模块</dt><dd>7</dd></div><div><dt>计划讲次</dt><dd>72</dd></div><div><dt>已建讲次</dt><dd>72</dd></div><div><dt>术语</dt><dd>216</dd></div><div><dt>学习路线</dt><dd>3</dd></div></dl>
+  </div>
+  <p class="foot-note">纯静态站点 · 无后端、无账号 · 学习进度只存在本机浏览器（localStorage），不上传任何数据。</p>
+  <p class="foot-log">派生自 phases/** · 由 site/build.js 生成 · 构建于 2026-10-14</p>
+</footer>
+<script src="../../../progress.js"></script>
+<script src="../../../data.js"></script>
+<script src="../../../app.js"></script>
+</body>
+</html>
